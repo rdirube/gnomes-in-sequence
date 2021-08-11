@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "gnomes-in-sequence"
+  "defaultProject": "gnomes-in-sequence",
+  "cli": {
+    "analytics": false
+  }
 }
