@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GnomeInfo} from '../../models/types';
+import {GnomesChallengeService} from '../../../shared/services/gnomes-challenge.service';
 
 @Component({
   selector: 'app-game-body',
@@ -10,9 +11,9 @@ export class GameBodyComponent implements OnInit {
 
   public gnomes: GnomeInfo[];
 
-  constructor() {
-    this.gnomes = ['Amarillo', 'Celeste', 'Azul', 'Naranja'].map(color => {
-      return {color};
+  constructor(private challengeService: GnomesChallengeService) {
+    this.gnomes = this.challengeService.info.gnomes.map(gnome => {
+      return {color: gnome.color};
     });
   }
 

@@ -15,15 +15,22 @@ export interface GnomesNivelation {
   gnomeMaxCount: number;
 
   timeBetweenSounds: number;
+  percentageTimeBetweenSounds: number;
+
   secondsToStartAnswer: number;
+
   maxSecondsBetweenAnswers: number;
 
   startSoundCount: number; // how much sounds are set at the beggining
   stepCount: number; // number of sounds added when a challenge is completed.
+  // gnomePositionStrategy: 'random' | 'symetric' | 'asymetric';
+  // gnomeSimilarColorDifficulty?: {case: 'different' | 'similar' | 'very-similar', count: number}[];
+  // gnomeSimilarSoundDifficulty?: {case: 'different' | 'similar' | 'very-similar', count: number}[];
+  forcedGnomes?: {possibleGnomes: string}[];
+  // sameGnomeInDifferentLocationCount: number;
+  soundDuration: number;
+  percentageReduction: number;
 
-  gnomePositionStrategy: 'random' | 'symetric' | 'asymetric';
-  gnomeSimilarColorDifficulty: 'different' | 'similar' | 'very-similar';
-  gnomeSimilarSoundDifficulty: 'different' | 'similar' | 'very-similar';
-
-  sameGnomeInDifferentLocationCount: number;
+  possibleScenes: string[];
+  invertedGnomes: boolean;
 }

@@ -1,0 +1,19 @@
+{
+  "gnomes": [
+    {"color": "amarillo"},
+    {"color": "azul"},
+    {"color": "celeste"},
+    {"color": "naranja"},
+    {"color": "rojo"},
+    {"color": "verde"},
+    {"color": "violeta"}
+  ],
+  "scenes": [
+    {"name": "alacena"},
+    {"name": "baño"},
+    {"name": "biblioteca"},
+    {"name": "chimenea"},
+    {"name": "escaleras"},
+    {"name": "establo"}
+  ]
+}
