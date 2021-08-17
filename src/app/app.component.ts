@@ -1,44 +1,82 @@
-import {Component} from '@angular/core';
-import {PreloaderOxService, ResourceOx, ResourceType} from 'ox-core';
-import {ScreenTypeOx} from 'ox-types';
+import {Component, ElementRef} from '@angular/core';
+import {CommunicationOxService, I18nService, PreloaderOxService, ResourceOx, ResourceType} from 'ox-core';
+import {ResourceFinalStateOxBridge, ScreenTypeOx} from 'ox-types';
 import {environment} from '../environments/environment';
 import {GnomesChallengeService} from './shared/services/gnomes-challenge.service';
+import {
+  AppInfoOxService, BaseMicroLessonApp,
+  ChallengeService,
+  EndGameService,
+  GameActionsService,
+  InWumboxService,
+  LevelService,
+  MicroLessonCommunicationService, MicroLessonMetricsService,
+  ProgressService, ResourceStateService, SoundOxService
+} from 'micro-lesson-core';
+import {TranslocoService} from '@ngneat/transloco';
+import {HttpClient} from '@angular/common/http';
+import {PostMessageBridgeFactory} from 'ngox-post-message';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent extends  BaseMicroLessonApp {
   title = 'gnomes-in-sequence';
-  loadded: boolean;
 
-  constructor(private preloaderService: PreloaderOxService,
-              private challengeService: GnomesChallengeService) {
-    this.preloaderService.basePath = environment.basePath;
-    this.preloaderService.addResourceToLoad(
-      new ResourceOx('gnome-game/jsons/gnomes-and-scenes-info.json', ResourceType.Json,
-        [ScreenTypeOx.Game], true));
-    ['blueshortFinal.mp3',
-      'greenshortFinal.mp3',
-      'lightblueshortFinal.mp3',
-      'redshortFinal.mp3',
-      'violetshortFinal.mp3',
-      'yellowshortFinal.mp3'].forEach(z => {
-      this.preloaderService.addResourceToLoad(new ResourceOx('gnome-game/sounds/' + z, ResourceType.Audio, [ScreenTypeOx.Game], true));
+  constructor(preloader: PreloaderOxService, translocoService: TranslocoService, wumboxService: InWumboxService,
+              communicationOxService: CommunicationOxService, microLessonCommunicationService: MicroLessonCommunicationService<any>,
+              progressService: ProgressService, elementRef: ElementRef, gameActions: GameActionsService<any>,
+              endGame: EndGameService, i18nService: I18nService, levelService: LevelService, http: HttpClient,
+              challenge: GnomesChallengeService, appInfo: AppInfoOxService,
+              microLessonMetrics: MicroLessonMetricsService<any>, // Todo
+              resourceStateService: ResourceStateService,
+              sound: SoundOxService, bridgeFactory: PostMessageBridgeFactory) {
+    super(preloader, translocoService, wumboxService, communicationOxService, microLessonCommunicationService,
+      progressService, elementRef, gameActions, endGame,
+      i18nService, levelService, http, challenge, appInfo, microLessonMetrics, sound, bridgeFactory);
+    gameActions.microLessonCompleted.subscribe(__ => {
+      if (resourceStateService.currentState?.value) {
+        microLessonCommunicationService.sendMessageMLToManager(ResourceFinalStateOxBridge, resourceStateService.currentState.value);
+      }
     });
-    this.preloaderService.addResourceToLoad(new ResourceOx('gnome-game/svg/Fondos/establo.svg', ResourceType.Svg, [ScreenTypeOx.Game], true));
+  }
+
+
+  protected getGameResourcesToLoad(): ResourceOx[] {
+    const svg = ['gnome-game/svg/Fondos/establo.svg'];
     ['amarillo', 'celeste', 'azul', 'naranja', 'rojo'].forEach(z => {
       ['_cantando.svg', '_festejo.svg', '_normal.svg'].forEach(x => {
-        this.preloaderService.addResourceToLoad(
-          new ResourceOx('gnome-game/svg/gnomes/' + z + '/' + z + x, ResourceType.Svg,
-            [ScreenTypeOx.Game], true));
+        svg.push('gnome-game/svg/gnomes/' + z + '/' + z + x);
       });
     });
-    this.preloaderService.loadAll().subscribe(x => {
-      this.challengeService.assignInfoValues();
-      this.loadded = true;
-    });
-
+    return svg.map(x => new ResourceOx(x, ResourceType.Svg,
+      [ScreenTypeOx.Game], true)).concat(
+      ['bubble01.mp3', 'bubble02.mp3'].map(x => new ResourceOx('sounds/' + x, ResourceType.Audio,
+        [ScreenTypeOx.Game], false))).concat(
+      ['gnome-game/sounds/blueshortFinal.mp3',
+        'gnome-game/sounds/greenshortFinal.mp3',
+        'gnome-game/sounds/lightblueshortFinal.mp3',
+        'gnome-game/sounds/redshortFinal.mp3',
+        'gnome-game/sounds/violetshortFinal.mp3',
+        'gnome-game/sounds/yellowshortFinal.mp3'].map(x => new ResourceOx(x, ResourceType.Audio,
+        [ScreenTypeOx.Game], true)))
+      .concat(new ResourceOx('gnome-game/jsons/gnomes-and-scenes-info.json', ResourceType.Json,
+        [ScreenTypeOx.Game], true));
   }
+
+  protected getBasePath(): string {
+    return environment.basePath;
+  }
+
+//   sdasdasa() {
+//     this.preloaderService.addResourceToLoad(new ResourceOx(, ResourceType.Svg, [ScreenTypeOx.Game], true));
+// ;
+//     this.preloaderService.loadAll().subscribe(x => {
+//       this.challengeService.assignInfoValues();
+//       this.loadded = true;
+//     });
+//
+//   }
 }

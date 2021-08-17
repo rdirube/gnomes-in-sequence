@@ -1,19 +1,58 @@
 {
   "gnomes": [
-    {"color": "amarillo"},
-    {"color": "azul"},
-    {"color": "celeste"},
-    {"color": "naranja"},
-    {"color": "rojo"},
-    {"color": "verde"},
-    {"color": "violeta"}
+    {
+      "color": "amarillo",
+      "sound": "yellowshortFinal.mp3"
+    },
+    {
+      "color": "azul",
+      "sound": "blueshortFinal.mp3"
+    },
+    {
+      "color": "celeste",
+      "sound": "lightblueshortFinal.mp3"
+    },
+    {
+      "color": "naranja",
+      "sound": "lightblueshortFinal.mp3"
+    },
+    {
+      "color": "rojo",
+      "sound": "redshortFinal.mp3"
+    },
+    {
+      "color": "verde",
+      "sound": "greenshortFinal.mp3"
+    },
+    {
+      "color": "violeta",
+      "sound": "violetshortFinal.mp3"
+    }
   ],
   "scenes": [
-    {"name": "alacena"},
-    {"name": "baño"},
-    {"name": "biblioteca"},
-    {"name": "chimenea"},
-    {"name": "escaleras"},
-    {"name": "establo"}
+    {
+      "name": "alacena",
+      "maxGnomes": 4
+    },
+    {
+      "name": "baño",
+      "maxGnomes": 4
+    },
+    {
+      "name": "biblioteca",
+      "maxGnomes": 4
+    },
+    {
+      "name": "chimenea",
+      "maxGnomes": 4
+    },
+    {
+      "name": "escaleras",
+      "maxGnomes": 4
+    },
+    {
+      "name": "establo",
+      "maxGnomes": 4
+    }
   ]
 }

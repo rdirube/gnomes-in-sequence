@@ -5,6 +5,7 @@ import { SceneComponent } from './components/scene/scene.component';
 import {MicroLessonComponentsModule} from 'micro-lesson-components';
 import {FlexModule} from '@angular/flex-layout';
 import { GnomeComponent } from './components/gnome/gnome.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 
@@ -15,9 +16,7 @@ import { GnomeComponent } from './components/gnome/gnome.component';
     GameBodyComponent
   ],
   imports: [
-    CommonModule,
-    MicroLessonComponentsModule,
-    FlexModule
+    SharedModule
   ]
 })
 export class GnomesGameModule { }

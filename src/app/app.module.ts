@@ -5,6 +5,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import {GnomesGameModule} from './gnomes-game/gnomes-game.module';
 import {HttpClientModule} from '@angular/common/http';
+import { TranslocoRootModule } from './transloco/transloco-root.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AnswerService, ChallengeService} from 'micro-lesson-core';
+import {GnomesChallengeService} from './shared/services/gnomes-challenge.service';
 
 @NgModule({
   declarations: [
@@ -14,9 +18,20 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserModule,
     HttpClientModule,
     FlexLayoutModule,
-    GnomesGameModule
+    GnomesGameModule,
+    TranslocoRootModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ChallengeService,
+      useExisting: GnomesChallengeService
+    },
+    // {
+    //   provide: AnswerService,
+    //   useExisting: TitleHypothesisAnswerService
+    // },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

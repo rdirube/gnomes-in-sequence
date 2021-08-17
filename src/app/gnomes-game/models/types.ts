@@ -1,5 +1,6 @@
 export interface GnomeInfo {
   color: string;
+  sound: string;
 }
 
 export interface GnomesExercise {
@@ -31,6 +32,11 @@ export interface GnomesNivelation {
   soundDuration: number;
   percentageReduction: number;
 
-  possibleScenes: string[];
+  possibleScenes: GnomeScene[];
   invertedGnomes: boolean;
+}
+
+export interface GnomeScene {
+  name: string;
+  maxGnomes: number;
 }
