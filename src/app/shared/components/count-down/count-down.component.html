@@ -1,0 +1,12 @@
+<div class="background-counter" fxFlex="grow" fxLayout="column" fxLayoutGap="5%" fxLayoutAlign="center center">
+  <div fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="5vh">
+    <ox-text
+    [originalText]="remainingTime+ ''"
+    color="white" fontSize="17vh" font="dinnMedium"
+    ></ox-text>
+    <mlc-loaded-svg mlcClickeableOx style="width: 9vh; height: 9vh;"
+                    [realClick]="onClickStart.bind(this)"
+    path="gnome-game/svg/saltear.svg"
+    ></mlc-loaded-svg>
+  </div>
+</div>

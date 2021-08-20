@@ -44,7 +44,7 @@ export class AppComponent extends  BaseMicroLessonApp {
 
 
   protected getGameResourcesToLoad(): ResourceOx[] {
-    const svg = ['gnome-game/svg/Fondos/establo.svg'];
+    const svg = ['gnome-game/svg/Fondos/establo.svg', 'gnome-game/svg/saltear.svg'];
     ['amarillo', 'celeste', 'azul', 'naranja', 'rojo', 'verde', 'violeta'].forEach(z => {
       ['_cantando.svg', '_festejo.svg', '_normal.svg'].forEach(x => {
         svg.push('gnome-game/svg/gnomes/' + z + '/' + z + x);

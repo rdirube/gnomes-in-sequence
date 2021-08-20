@@ -26,11 +26,12 @@ export class GnomeComponent implements OnInit {
     this.currentSvg = 'gnome-game/svg/gnomes/' + this.gnomeInfo.color + '/' + this.gnomeInfo.color + '_' + svg + '.svg';
   }
 
-  playAudio(): void {
+  playAudio(extraCallBak = () => {}): void {
     this.setSvg('cantando');
     this.soundService.playSoundEffect('gnome-game/sounds/' + this.gnomeInfo.sound, ScreenTypeOx.Game, false,
       true, () => {
         this.setSvg('normal');
+        extraCallBak();
       });
     console.log('playAudio');
   }

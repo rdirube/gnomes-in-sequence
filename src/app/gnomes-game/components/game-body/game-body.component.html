@@ -6,6 +6,7 @@
       <app-gnome *ngFor="let gnome of gnomes; index as i"
                  [gnomeInfo]="gnome"
                  class="myAbsolute"
+                 (click)="onClickGnome(i)"
                  [ngStyle]="{'top': currentPositionsPerScene[i].y, 'left': currentPositionsPerScene[i].x}"
                  style="width: 20vh; height: 20vh;"></app-gnome>
 <!--      <div class="full-width"-->
@@ -23,4 +24,6 @@
     </div>
   </mlc-ratio-container>
 </div>
-
+<app-count-down *ngIf="showCountDown"
+  (started)="startGame()"
+  class="myAbsolute" fxFlex="grow" style="z-index: 123"></app-count-down>

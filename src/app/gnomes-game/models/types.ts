@@ -4,6 +4,7 @@ export interface GnomeInfo {
 }
 
 export interface GnomesExercise {
+  sequenceGnomeIds: number[];
   gnomes: GnomeInfo[];
   timeBetweenSounds: number;
   secondsToStartAnswer: number;
@@ -40,3 +41,5 @@ export interface GnomeScene {
   name: string;
   maxGnomes: number;
 }
+
+export type GnomeAnswer = number[];

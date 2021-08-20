@@ -31,7 +31,12 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   }
 
   protected equalsExerciseData(a: GnomesExercise, b: GnomesExercise): boolean {
-    return equalArrays(a.gnomes, b.gnomes) && a.soundDuration === b.soundDuration;
+    console.log(equalArrays(a.gnomes, b.gnomes, (one, two) => one.color === two.color)
+      && equalArrays(a.sequenceGnomeIds, b.sequenceGnomeIds)
+      && a.soundDuration === b.soundDuration)
+    return equalArrays(a.gnomes, b.gnomes, (one, two) => one.color === two.color)
+      && equalArrays(a.sequenceGnomeIds, b.sequenceGnomeIds)
+      && a.soundDuration === b.soundDuration;
   }
 
   private getSublevelConfig(sublevel: number): any {
@@ -40,9 +45,10 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   }
 
   protected generateNextChallenge(subLevel: number): ExerciseOx<GnomesExercise> {
+    // console.log('generateNextChallenge', this.exercise);
+    // console.log('generateNextChallenge', this.exercise);
     console.log('generateNextChallenge', this.exercise);
-    console.log('generateNextChallenge', this.exercise);
-    console.log('generateNextChallenge', this.exercise);
+    this.exercise.sequenceGnomeIds.push(randomBetween(0, this.exercise.gnomes.length - 1));
     // const exercise1: GnomesExercise = {
     //   gnomes: [{color: 'red'}, {color: 'yellow'}],
     //   soundDuration: randomBetween(95, 100) / 100
@@ -55,7 +61,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
     //   this.exerciseIndex = 0;
     // }
     // const exercise: GnomesExercise = JSON.parse(JSON.stringify(this.allExercises[this.exerciseIndex]));
-    return new ExerciseOx(this.exercise, 1, {maxTimeToBonus: 0, freeTime: 0}, []);
+    return new ExerciseOx(JSON.parse(JSON.stringify(this.exercise)), 1, {maxTimeToBonus: 0, freeTime: 0}, []);
     // }
   }
 
@@ -72,7 +78,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
         this.feedback.endFeedback.subscribe(x => {
           this.exerciseIndex++;
         });
-        this.scene = this.info.scenes.find( z => z.name === 'alacena'); // anyElement(this.exerciseConfig.possibleScenes));
+        this.scene = this.info.scenes.find(z => z.name === 'alacena'); // anyElement(this.exerciseConfig.possibleScenes));
         this.setInitialExercise();
         break;
       default:
@@ -106,9 +112,14 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
       gnomes.push(this.allGnomes.find(g => g.color === z.possibleGnomes));
     });
     for (let i = 0; i < gnomeCount - this.exerciseConfig.forcedGnomes.length; i++) {
-      gnomes.push(anyElement(this.allGnomes.filter( z => !gnomes.includes(z))));
+      gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
+    }
+    const sequenceGnomeIds = [];
+    for (let i = 0; i < this.exerciseConfig.startSoundCount; i++) {
+      sequenceGnomeIds.push(randomBetween(0, gnomes.length - 1));
     }
     this.exercise = {
+      sequenceGnomeIds,
       soundDuration: this.exerciseConfig.soundDuration,
       gnomes,
       maxSecondsBetweenAnswers: this.exerciseConfig.maxSecondsBetweenAnswers,
