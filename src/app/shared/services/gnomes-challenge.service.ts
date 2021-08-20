@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {equalArrays, ExerciseOx, PreloaderOxService} from 'ox-core';
+import {anyElement, equalArrays, ExerciseOx, PreloaderOxService, randomBetween} from 'ox-core';
 import {ExpandableInfo, Showable} from 'ox-types';
-import {GnomeInfo, GnomesExercise, GnomesNivelation} from '../../gnomes-game/models/types';
+import {GnomeInfo, GnomeScene, GnomesExercise, GnomesNivelation} from '../../gnomes-game/models/types';
 import {AppInfoOxService, ChallengeService, FeedbackOxService, GameActionsService, LevelService, SubLevelService} from 'micro-lesson-core';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   private exerciseIndex: number;
   public resources = new Map<string, string>();
   private exerciseConfig: GnomesNivelation;
+  public scene: GnomeScene;
   public exercise: GnomesExercise;
   private allGnomes: GnomeInfo[];
 
@@ -39,7 +40,9 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   }
 
   protected generateNextChallenge(subLevel: number): ExerciseOx<GnomesExercise> {
-    console.log('generateNextChallenge', this.exerciseIndex);
+    console.log('generateNextChallenge', this.exercise);
+    console.log('generateNextChallenge', this.exercise);
+    console.log('generateNextChallenge', this.exercise);
     // const exercise1: GnomesExercise = {
     //   gnomes: [{color: 'red'}, {color: 'yellow'}],
     //   soundDuration: randomBetween(95, 100) / 100
@@ -69,6 +72,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
         this.feedback.endFeedback.subscribe(x => {
           this.exerciseIndex++;
         });
+        this.scene = this.info.scenes.find( z => z.name === 'alacena'); // anyElement(this.exerciseConfig.possibleScenes));
         this.setInitialExercise();
         break;
       default:
@@ -97,9 +101,13 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
 
   private setInitialExercise(): void {
     const gnomes = [];
+    const gnomeCount = randomBetween(this.exerciseConfig.gnomeMinCount, this.exerciseConfig.gnomeMaxCount);
     this.exerciseConfig.forcedGnomes.forEach(z => {
-      gnomes.push(this.allGnomes.find( g => g.color === z.possibleGnomes));
+      gnomes.push(this.allGnomes.find(g => g.color === z.possibleGnomes));
     });
+    for (let i = 0; i < gnomeCount - this.exerciseConfig.forcedGnomes.length; i++) {
+      gnomes.push(anyElement(this.allGnomes.filter( z => !gnomes.includes(z))));
+    }
     this.exercise = {
       soundDuration: this.exerciseConfig.soundDuration,
       gnomes,
