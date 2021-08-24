@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AnswerService, GameActionsService, MicroLessonMetricsService} from 'micro-lesson-core';
 import {TimeToLoseService} from './time-to-lose.service';
 import {GnomesChallengeService} from './gnomes-challenge.service';
-import {UserAnswer} from 'ox-types';
+import {CorrectablePart, PartCorrectness, UserAnswer} from 'ox-types';
+import {GnomeInfo} from '../../gnomes-game/models/types';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,30 +18,38 @@ export class GnomeAnswerService extends AnswerService {
       this.currentAnswer = {parts: []};
     });
     this.gameActionsService.finishedTimeOfExercise.subscribe(() => {
+      console.log('finishedTimeOfExercise');
       this.onTryAnswer();
     });
   }
 
-  // public addPartialAnswer(gnomeIndex: number) {
-  //   this.timeToLose.restart();
-  //   this.currentAnswer.sequence.push(gnomeIndex);
-  //   // todo ver como accedo al ejercicio actual
-  //   const answerGnomes = this.challenge.currentExercise.value.exerciseData.gnomes;
-  //   if (answerGnomes.length === this.currentAnswer.sequence.length) {
-  //     this.onTryAnswer();
-  //   } else if (answerGnomes[this.currentAnswer.sequence.length - 1] !== gnomeIndex) {
-  //     this.onTryAnswer();
-  //   }
-  //
-  //   /*
-  //       if (answerGnomes.length === this.currentAnswer.sequence.length) {
-  //         this.gameActions.tryAnswer.emit(this.currentAnswer);
-  //         // todo hago 'answerGnomes.length - 1 ' en caso de inversos, eso lo tengo que scar en caso de comun
-  //       } else if (answerGnomes[answerGnomes.length - this.currentAnswer.sequence.length] !== gnomeIndex) {
-  //         this.gameActions.tryAnswer.emit(this.currentAnswer);
-  //       }
-  //   */
-  // }
+  public addPartialAnswer(clickedGnomeId: number): void {
+    // this.timeToLose.restart();
+    const correctAnswerGnomes = this.challenge.currentExercise.value.exerciseData.sequenceGnomeIds;
+    const correctness: PartCorrectness = correctAnswerGnomes[this.currentAnswer.parts.length] === clickedGnomeId ? 'correct' : 'wrong';
+    this.currentAnswer.parts.push({correctness, parts: [{value: clickedGnomeId, format: 'number'}]});
+    // todo ver como accedo al ejercicio actual
+    if (correctAnswerGnomes.length === this.currentAnswer.parts.length) {
+      console.log('trying answer');
+      this.onTryAnswer();
+    } else if (correctness !== 'correct') {
+      console.log('trying wrong answer');
+      this.onTryAnswer();
+    }
+    /*
+        if (answerGnomes.length === this.currentAnswer.sequence.length) {
+          this.gameActions.tryAnswer.emit(this.currentAnswer);
+          // todo hago 'answerGnomes.length - 1 ' en caso de inversos, eso lo tengo que scar en caso de comun
+        } else if (answerGnomes[answerGnomes.length - this.currentAnswer.sequence.length] !== gnomeIndex) {
+          this.gameActions.tryAnswer.emit(this.currentAnswer);
+        }
+    */
+  }
+
+  protected checkAnswer(answer: UserAnswer): Observable<PartCorrectness> {
+    console.log('hehe');
+    return super.checkAnswer(answer);
+  }
 
 //   protected checkAnswer(answer: UserAnswer): Observable<boolean> {
 //     /*  // todo chequear segun sea el id del juego

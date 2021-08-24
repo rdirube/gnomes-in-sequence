@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {GnomeInfo} from '../../models/types';
 import {SoundOxService} from 'micro-lesson-core';
 import {ScreenTypeOx} from 'ox-types';
+import {getGnomeAudio, getGnomeImage} from '../../../shared/functions/gnomes-functions';
 
 @Component({
   selector: 'app-gnome',
@@ -22,13 +23,14 @@ export class GnomeComponent implements OnInit {
     this.setSvg('normal');
   }
 
-  setSvg(svg: string): void {
-    this.currentSvg = 'gnome-game/svg/gnomes/' + this.gnomeInfo.color + '/' + this.gnomeInfo.color + '_' + svg + '.svg';
+  setSvg(svg: 'normal' | 'festejo' | 'cantando'): void {
+    this.currentSvg = getGnomeImage(this.gnomeInfo.color, svg);
+    // this.currentSvg = 'gnome-game/svg/gnomes/' + this.gnomeInfo.color + '/' + this.gnomeInfo.color + '_' + svg + '.svg';
   }
 
   playAudio(extraCallBak = () => {}): void {
     this.setSvg('cantando');
-    this.soundService.playSoundEffect('gnome-game/sounds/' + this.gnomeInfo.sound, ScreenTypeOx.Game, false,
+    this.soundService.playSoundEffect(getGnomeAudio(this.gnomeInfo.sound), ScreenTypeOx.Game, false,
       true, () => {
         this.setSvg('normal');
         extraCallBak();

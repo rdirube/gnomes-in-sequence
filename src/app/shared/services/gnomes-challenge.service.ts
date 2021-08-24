@@ -23,17 +23,15 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
               private feedback: FeedbackOxService,
               private appInfo: AppInfoOxService) {
     super(gameActionsService, subLevelService, preloaderService);
-    try {
-      this.preloaderService.getResourceData('');
-    } catch (e) {
-
-    }
+    gameActionsService.restartGame.subscribe(z => {
+      this.setInitialExercise();
+    });
   }
 
   protected equalsExerciseData(a: GnomesExercise, b: GnomesExercise): boolean {
     console.log(equalArrays(a.gnomes, b.gnomes, (one, two) => one.color === two.color)
       && equalArrays(a.sequenceGnomeIds, b.sequenceGnomeIds)
-      && a.soundDuration === b.soundDuration)
+      && a.soundDuration === b.soundDuration);
     return equalArrays(a.gnomes, b.gnomes, (one, two) => one.color === two.color)
       && equalArrays(a.sequenceGnomeIds, b.sequenceGnomeIds)
       && a.soundDuration === b.soundDuration;
@@ -47,6 +45,9 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   protected generateNextChallenge(subLevel: number): ExerciseOx<GnomesExercise> {
     // console.log('generateNextChallenge', this.exercise);
     // console.log('generateNextChallenge', this.exercise);
+    console.log('generateNextChallenge');
+    console.log('generateNextChallenge');
+    console.log('generateNextChallenge');
     console.log('generateNextChallenge', this.exercise);
     this.exercise.sequenceGnomeIds.push(randomBetween(0, this.exercise.gnomes.length - 1));
     // const exercise1: GnomesExercise = {
