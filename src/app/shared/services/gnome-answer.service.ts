@@ -3,7 +3,6 @@ import {AnswerService, GameActionsService, MicroLessonMetricsService} from 'micr
 import {TimeToLoseService} from './time-to-lose.service';
 import {GnomesChallengeService} from './gnomes-challenge.service';
 import {CorrectablePart, PartCorrectness, UserAnswer} from 'ox-types';
-import {GnomeInfo} from '../../gnomes-game/models/types';
 import {Observable} from 'rxjs';
 
 @Injectable({

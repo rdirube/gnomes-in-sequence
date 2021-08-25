@@ -5,6 +5,7 @@ export interface GnomeInfo {
 
 export interface GnomesExercise {
   sequenceGnomeIds: number[];
+  scene: GnomeScene;
   gnomes: GnomeInfo[];
   timeBetweenSounds: number;
   secondsToStartAnswer: number;
@@ -28,18 +29,18 @@ export interface GnomesNivelation {
   // gnomePositionStrategy: 'random' | 'symetric' | 'asymetric';
   // gnomeSimilarColorDifficulty?: {case: 'different' | 'similar' | 'very-similar', count: number}[];
   // gnomeSimilarSoundDifficulty?: {case: 'different' | 'similar' | 'very-similar', count: number}[];
-  forcedGnomes?: {possibleGnomes: string}[];
+  forcedGnomes?: string[];
   // sameGnomeInDifferentLocationCount: number;
   soundDuration: number;
   percentageReduction: number;
 
-  possibleScenes: GnomeScene[];
+  possibleScenes: string[];
   invertedGnomes: boolean;
 }
 
 export interface GnomeScene {
   name: string;
-  maxGnomes: number;
+  positions: {x: string, y: string}[];
 }
 
 export type GnomeAnswer = number[];

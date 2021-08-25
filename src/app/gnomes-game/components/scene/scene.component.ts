@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {GnomeScene} from '../../models/types';
 
 @Component({
   selector: 'app-scene',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./scene.component.scss']
 })
 export class SceneComponent implements OnInit {
+
+  // @Input() sceneInfo: GnomeScene;
+  @Input() sceneSvg: string;
 
   constructor() { }
 

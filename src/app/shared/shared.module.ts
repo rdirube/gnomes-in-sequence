@@ -5,11 +5,12 @@ import {FlexModule} from '@angular/flex-layout';
 import {MicroLessonComponentsModule} from 'micro-lesson-components';
 import {TypographyOxModule} from 'typography-ox';
 import { CountDownComponent } from './components/count-down/count-down.component';
+import { TimeLeftComponent } from './components/time-left/time-left.component';
 
 
 
 @NgModule({
-  declarations: [CountDownComponent],
+  declarations: [CountDownComponent, TimeLeftComponent],
   imports: [
     CommonModule,
     NgoxPostMessageModule,
@@ -24,6 +25,7 @@ import { CountDownComponent } from './components/count-down/count-down.component
     MicroLessonComponentsModule,
     TypographyOxModule,
     CountDownComponent,
+    TimeLeftComponent,
   ]
 })
 export class SharedModule { }

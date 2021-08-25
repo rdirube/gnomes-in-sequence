@@ -3,6 +3,7 @@ import {anyElement, equalArrays, ExerciseOx, PreloaderOxService, randomBetween} 
 import {ExpandableInfo, Showable} from 'ox-types';
 import {GnomeInfo, GnomeScene, GnomesExercise, GnomesNivelation} from '../../gnomes-game/models/types';
 import {AppInfoOxService, ChallengeService, FeedbackOxService, GameActionsService, LevelService, SubLevelService} from 'micro-lesson-core';
+import {filter} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,20 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
               private appInfo: AppInfoOxService) {
     super(gameActionsService, subLevelService, preloaderService);
     gameActionsService.restartGame.subscribe(z => {
+      this.cachedExercises = [];
+      this.exercise = undefined;
       this.setInitialExercise();
     });
+    gameActionsService.showNextChallenge.subscribe(z => {
+      console.log('showNextChallenge');
+    });
+    this.currentExercise.pipe(filter(z => z === undefined)).subscribe(z => {
+
+    });
+  }
+
+  nextChallenge(): void {
+    this.cachedExercises.push(this.generateNextChallenge(0));
   }
 
   protected equalsExerciseData(a: GnomesExercise, b: GnomesExercise): boolean {
@@ -110,7 +123,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
     const gnomes = [];
     const gnomeCount = randomBetween(this.exerciseConfig.gnomeMinCount, this.exerciseConfig.gnomeMaxCount);
     this.exerciseConfig.forcedGnomes.forEach(z => {
-      gnomes.push(this.allGnomes.find(g => g.color === z.possibleGnomes));
+      gnomes.push(this.allGnomes.find(g => g.color === z));
     });
     for (let i = 0; i < gnomeCount - this.exerciseConfig.forcedGnomes.length; i++) {
       gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
@@ -119,8 +132,10 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
     for (let i = 0; i < this.exerciseConfig.startSoundCount; i++) {
       sequenceGnomeIds.push(randomBetween(0, gnomes.length - 1));
     }
+    const auxScene = anyElement(this.exerciseConfig.possibleScenes);
     this.exercise = {
       sequenceGnomeIds,
+      scene: this.info.scenes.find(z => auxScene.includes(z.name)),
       soundDuration: this.exerciseConfig.soundDuration,
       gnomes,
       maxSecondsBetweenAnswers: this.exerciseConfig.maxSecondsBetweenAnswers,

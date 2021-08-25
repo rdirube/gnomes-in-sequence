@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {GameActionsService} from 'micro-lesson-core';
 import {Subscription, timer} from 'rxjs';
 
@@ -6,6 +6,7 @@ import {Subscription, timer} from 'rxjs';
   providedIn: 'root'
 })
 export class TimeToLoseService {
+  public timerStart = new EventEmitter<number>();
   private timerToLoseSubscription: Subscription;
   public timeToAnswer: number;
 
@@ -19,9 +20,9 @@ export class TimeToLoseService {
 
   }
 
-  public restart(): void {
+  public restart(totalSeconds: number): void {
     this.stop();
-    this.start();
+    this.start(totalSeconds);
   }
 
   public stop(): void {
@@ -31,16 +32,18 @@ export class TimeToLoseService {
     }
   }
 
-  public start(): void {
+  public start(totalSeconds: number): void {
+    this.timerStart.emit(totalSeconds);
     this.timerToLoseSubscription = timer(0, 100).subscribe(value => {
       if (!this.timeToAnswer) {
         this.timeToAnswer = 0.00001;
       }
-      this.timeToAnswer += 0.1 / 6;
+      this.timeToAnswer += 0.1 / totalSeconds;
       if (this.timeToAnswer >= 1) {
         this.timerToLoseSubscription.unsubscribe();
         this.gameActions.finishedTimeOfExercise.emit();
       }
+      console.log('this.timeToAnswer', this.timeToAnswer);
     });
   }
 }

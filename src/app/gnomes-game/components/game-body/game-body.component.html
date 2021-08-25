@@ -1,5 +1,11 @@
 <div fxFlex="grow" fxLayoutAlign="center center" style="position: relative">
-  <app-scene class="myAbsolute" fxFlex="grow"></app-scene>
+  <div class="myAbsolute full-width" style="height: 13vh; z-index: 10" fxLayoutAlign="start start">
+    <mlc-to-in-game-menu-button style="width: 13vh;"
+                                svgPath="executive-functions/svg/buttons/Home.svg"></mlc-to-in-game-menu-button>
+  </div>
+  <app-scene
+    [sceneSvg]="sceneSvg"
+    class="myAbsolute" fxFlex="grow"></app-scene>
   <mlc-ratio-container ratio="4:3" style="position: relative">
     <div insideRatio style="width: 100%; height: 100%; z-index: 1"
          fxLayoutAlign="center center">
@@ -7,21 +13,11 @@
                  [gnomeInfo]="gnome"
                  class="myAbsolute"
                  (click)="onClickGnome(i)"
-                 [ngStyle]="{'top': currentPositionsPerScene[i].y, 'left': currentPositionsPerScene[i].x}"
-                 style="width: 20vh; height: 20vh;"></app-gnome>
-<!--      <div class="full-width"-->
-<!--           style="transform: translateY(2.5vh)"-->
-<!--           fxLayoutAlign="center center" fxLayoutGap="70vh">-->
-<!--        <app-gnome *ngFor="let i of gnomes.slice(0, 2)"-->
-<!--                   [gnomeInfo]="i"-->
-<!--                   style="width: 20vh; height: 20vh;"></app-gnome>-->
-<!--      </div>-->
-<!--      <div class="full-width" fxLayoutAlign="center center" fxLayoutGap="70vh">-->
-<!--        <app-gnome *ngFor="let i of gnomes.slice(2, 4)"-->
-<!--                   [gnomeInfo]="i"-->
-<!--                   style="width: 20vh; height: 20vh;"></app-gnome>-->
-<!--      </div>-->
+                 [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}"
+                 style="width: 30vh; height: 30vh;"></app-gnome>
     </div>
+    <app-time-left insideRatio class="myAbsolute" style="width: 12vh; height: 12vh;
+top: 3vh; left: 119vh;"></app-time-left>
   </mlc-ratio-container>
 </div>
 <app-count-down *ngIf="showCountDown"

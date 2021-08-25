@@ -1,0 +1,11 @@
+<div *ngIf="currentTime !== undefined" class="timer" fxFlex="grow" fxLayoutAlign="center center">
+<div  style="background: green; transition: background-color 10s linear"
+      #movingBackground class="myAbsolute"
+      fxFlex="grow" >
+</div>
+  <ox-text style="z-index: 1"
+    [originalText]="currentTime + ''"
+    fontSize="7vh"
+    color="black"
+  font="dinnMedium"></ox-text>
+</div>

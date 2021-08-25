@@ -31,28 +31,32 @@
   ],
   "scenes": [
     {
-      "name": "alacena",
-      "maxGnomes": 4
+      "name": "alacena-5",
+      "positions": [{"x":"25.5vh","y":"17.5vh"},{"x":"84vh","y":"17.5vh"},{"x":"25.5vh","y":"60.5vh"},{"x":"54.5vh","y":"60.5vh"},{"x":"84vh","y":"60.5vh"}]
     },
     {
-      "name": "baño",
-      "maxGnomes": 4
+      "name": "baño-5",
+      "positions": [{"x":"-0.5vh","y":"33vh"},{"x":"52.5vh","y":"10.5vh"},{"x":"33.5vh","y":"51.5vh"},{"x":"70.5vh","y":"51.5vh"},{"x":"102.5vh","y":"33vh"}]
     },
     {
-      "name": "biblioteca",
-      "maxGnomes": 4
+      "name": "biblioteca-6",
+      "positions": [{"x":"17.5vh","y":"4.5vh"},{"x":"17.5vh","y":"36vh"},{"x":"17.5vh","y":"68vh"},{"x":"85.5vh","y":"4.5vh"},{"x":"85.5vh","y":"36vh"},{"x":"85.5vh","y":"68vh"}]
     },
     {
-      "name": "chimenea",
-      "maxGnomes": 4
+      "name": "chimenea-2",
+      "positions": [{"x":"4.5vh","y":"32.5vh"},{"x":"99vh","y":"32.5vh"}]
     },
     {
-      "name": "escaleras",
-      "maxGnomes": 4
+      "name": "chimenea-4",
+      "positions": [{"x":"4.5vh","y":"13.5vh"},{"x":"99.5vh","y":"13.5vh"},{"x":"11vh","y":"57vh"},{"x":"92vh","y":"57vh"}]
     },
     {
-      "name": "establo",
-      "maxGnomes": 4
+      "name": "escaleras-6",
+      "positions": [{"x":"13vh","y":"17.5vh"},{"x":"2vh","y":"54vh"},{"x":"52vh","y":"17vh"},{"x":"89.5vh","y":"17vh"},{"x":"52vh","y":"54vh"},{"x":"102.5vh","y":"54vh"}]
+    },
+    {
+      "name": "establo-4",
+      "positions": [{"x":"8.5vh","y":"11vh"},{"x":"8vh","y":"53vh"},{"x":"98vh","y":"11vh"},{"x":"98vh","y":"53vh"}]
     }
   ]
 }
