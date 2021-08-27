@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "ml-creators"
+  },
+  "targets": {
+    "ml-creators": {
+      "hosting": {
+        "gnomes-in-sequence-2": [
+          "gnomes-in-sequence"
+        ],
+        "gnomes-in-sequence": [
+          "gnomes-in-sequence-2"
+        ]
+      }
+    }
+  }
+}

@@ -43,7 +43,6 @@ export class TimeToLoseService {
         this.timerToLoseSubscription.unsubscribe();
         this.gameActions.finishedTimeOfExercise.emit();
       }
-      console.log('this.timeToAnswer', this.timeToAnswer);
     });
   }
 }

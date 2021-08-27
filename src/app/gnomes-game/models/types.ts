@@ -32,10 +32,15 @@ export interface GnomesNivelation {
   forcedGnomes?: string[];
   // sameGnomeInDifferentLocationCount: number;
   soundDuration: number;
-  percentageReduction: number;
+  soundDurationMultiplierPerExercise: number;
 
   possibleScenes: string[];
   invertedGnomes: boolean;
+
+  minCorrectExercisesTo6000: number;
+  minCorrectExercisesTo10000: number;
+  maxHintsPerExercise: number;
+
 }
 
 export interface GnomeScene {

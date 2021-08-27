@@ -1,0 +1,13 @@
+{
+  "hosting": [
+    {
+      "target": "gnomes-in-sequence",
+      "public": "dist/gnomes-in-sequence",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  ]
+}

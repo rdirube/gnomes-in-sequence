@@ -27,11 +27,6 @@ export class TimeLeftComponent extends SubscriberOxDirective implements OnInit {
   ngOnInit(): void {
   }
 
-  @HostListener('document:keydown', ['$event'])
-  asdsada($event): void {
-    this.playAnimation(10);
-  }
-
   private playAnimation(seconds: number): void {
     anime.remove(this.movingBackground);
     this.removeSecondsIntervalSubs();
@@ -39,10 +34,10 @@ export class TimeLeftComponent extends SubscriberOxDirective implements OnInit {
     this.secondsIntervalSubs = interval(1000).subscribe(x => {
       this.currentTime = Math.max(0, this.currentTime - 1);
     });
-    this.movingBackground.nativeElement.style.backgroundColor = 'red';
+    // this.movingBackground.nativeElement.style.backgroundColor = 'red';
     anime({
       targets: this.movingBackground.nativeElement,
-      backgroundColor: ['#06af23db', 'red'],
+      backgroundColor: ['#00ff00', '#ff0000'],
       translateY: [0, '100%'],
       easing: 'linear',
       duration: seconds * 1000

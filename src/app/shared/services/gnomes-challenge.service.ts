@@ -62,7 +62,13 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
     console.log('generateNextChallenge');
     console.log('generateNextChallenge');
     console.log('generateNextChallenge', this.exercise);
-    this.exercise.sequenceGnomeIds.push(randomBetween(0, this.exercise.gnomes.length - 1));
+    for (let i = 0; i < this.exerciseConfig.stepCount; i++) {
+      this.exercise.sequenceGnomeIds.push(randomBetween(0, this.exercise.gnomes.length - 1));
+    }
+    this.exercise.soundDuration = Math.max(0.35,
+      this.exerciseConfig.soundDurationMultiplierPerExercise * this.exercise.soundDuration);
+    this.exercise.timeBetweenSounds = Math.max(0.35,
+      this.exerciseConfig.timeBetweenSounds * this.exercise.timeBetweenSounds);
     // const exercise1: GnomesExercise = {
     //   gnomes: [{color: 'red'}, {color: 'yellow'}],
     //   soundDuration: randomBetween(95, 100) / 100
@@ -92,7 +98,6 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
         this.feedback.endFeedback.subscribe(x => {
           this.exerciseIndex++;
         });
-        this.scene = this.info.scenes.find(z => z.name === 'alacena'); // anyElement(this.exerciseConfig.possibleScenes));
         this.setInitialExercise();
         break;
       default:
@@ -129,7 +134,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
       gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
     }
     const sequenceGnomeIds = [];
-    for (let i = 0; i < this.exerciseConfig.startSoundCount; i++) {
+    for (let i = 0; i < this.exerciseConfig.startSoundCount - 1; i++) {
       sequenceGnomeIds.push(randomBetween(0, gnomes.length - 1));
     }
     const auxScene = anyElement(this.exerciseConfig.possibleScenes);

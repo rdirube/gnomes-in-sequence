@@ -108,7 +108,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     this.playingSequence = true;
     // this.currentScene.gnomes.toArray().forEach(gnome => {
     this.interactableGnomes = false;
-    this.sequenceSubscription = timer(duration === 1 ? 500 : 1500, 1000 * duration)
+    // this.sequenceSubscription = timer(duration === 1 ? 500 : 1500, 1000 * duration)
+    this.sequenceSubscription = timer(1000, 1000 * (duration + this.challengeService.exercise.timeBetweenSounds))
       .pipe(take(this.sequence.length + 1)).subscribe(value => {
         if (value < this.sequence.length) {
           this.gnomeComponents.toArray()[this.sequence[value]].playAudio();
