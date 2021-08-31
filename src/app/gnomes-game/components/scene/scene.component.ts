@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GnomeScene} from '../../models/types';
+import {GnomeScene, GnomeSceneStatus} from '../../models/types';
 
 @Component({
   selector: 'app-scene',
@@ -10,6 +10,7 @@ export class SceneComponent implements OnInit {
 
   // @Input() sceneInfo: GnomeScene;
   @Input() sceneSvg: string;
+  @Input() status: GnomeSceneStatus;
 
   constructor() { }
 

@@ -6,11 +6,12 @@ import {MicroLessonComponentsModule} from 'micro-lesson-components';
 import {TypographyOxModule} from 'typography-ox';
 import { CountDownComponent } from './components/count-down/count-down.component';
 import { TimeLeftComponent } from './components/time-left/time-left.component';
+import { StatusBannerComponent } from './components/status-banner/status-banner.component';
 
 
 
 @NgModule({
-  declarations: [CountDownComponent, TimeLeftComponent],
+  declarations: [CountDownComponent, TimeLeftComponent, StatusBannerComponent],
   imports: [
     CommonModule,
     NgoxPostMessageModule,
@@ -26,6 +27,7 @@ import { TimeLeftComponent } from './components/time-left/time-left.component';
     TypographyOxModule,
     CountDownComponent,
     TimeLeftComponent,
+    StatusBannerComponent,
   ]
 })
 export class SharedModule { }

@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {GnomeInfo, GnomesExercise} from '../../models/types';
+import {GnomeInfo, GnomeSceneStatus, GnomesExercise} from '../../models/types';
 import {GnomesChallengeService} from '../../../shared/services/gnomes-challenge.service';
 import {SubscriberOxDirective} from 'micro-lesson-components';
 import {filter, take} from 'rxjs/operators';
@@ -8,7 +8,7 @@ import {TimeToLoseService} from '../../../shared/services/time-to-lose.service';
 import {GnomeComponent} from '../gnome/gnome.component';
 import {
   FeedbackOxService,
-  GameActionsService,
+  GameActionsService, HintService,
   MicroLessonCommunicationService,
   MicroLessonMetricsService
 } from 'micro-lesson-core';
@@ -29,18 +29,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   public playingSequence: boolean;
   public sequence: number[];
   public sequenceSubscription: Subscription;
+  currentStatus: GnomeSceneStatus = 'ver';
 
-  // public readonly positionsPerScene = [
-  //   {
-  //     scene: 'alacena-5',
-  //     positions: [
-  //       {x: '13vh', y: '20.5vh'},
-  //       {x: '102vh', y: '20.5vh'},
-  //       {x: '13vh', y: '62.5vh'},
-  //       {x: '102vh', y: '62.5vh'},
-  //     ]
-  //   }
-  // ];
   public currentScenePositions = [];
   showCountDown: boolean;
   private interactableGnomes: boolean;
@@ -48,18 +38,24 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
 
   constructor(private challengeService: GnomesChallengeService,
               private metricsService: MicroLessonMetricsService<GnomesExercise>,
+              private hintService: HintService,
               private timeToLose: TimeToLoseService,
               private gameActions: GameActionsService<GnomesExercise>,
               private feedback: FeedbackOxService,
               private microLessonCommunication: MicroLessonCommunicationService<any>,
               private answerService: GnomeAnswerService) {
     super();
+    this.hintService.checkValueOnShowNextChallenge = false;
     // this.addSubscription(this.gameActions.microLessonCompleted, z => {
     //   this.showCountDown = undefined;
     // });
     // this.addSubscription(this.gameActions.goToResults, z => {
     //   this.showCountDown = undefined;
     // });
+    this.addSubscription(this.gameActions.showHint, z => {
+      this.answerService.cleanAnswer();
+      this.playSequence();
+    });
     this.addSubscription(this.gameActions.checkedAnswer, z => {
       this.interactableGnomes = false;
       this.timeToLose.stop();
@@ -68,7 +64,6 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
           this.feedback.endFeedback.emit();
           this.gameActions.showNextChallenge.emit();
         });
-        console.log('this.feedback.endFeedback correctcorrectcorrect');
       } else {
         timer(1000).subscribe(sadas => {
           this.feedback.endFeedback.emit();
@@ -82,6 +77,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     this.addSubscription(this.challengeService.currentExercise.pipe(filter(x => x !== undefined)), z => {
       const exercise = challengeService.exercise;
       this.addMetric();
+      this.hintService.usesPerChallenge = 1;
+      this.hintService.hintAvailable.next(false);
       this.sceneSvg = 'gnome-game/svg/Fondos/' + exercise.scene.name + '.svg';
       this.currentScenePositions = exercise.scene.positions;
       this.gnomes = exercise.gnomes.map(gnome => {
@@ -101,8 +98,9 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   ngOnInit(): void {
   }
 
-
   public playSequence(): void {
+    this.currentStatus = 'ver';
+    this.hintService.hintAvailable.next(false);
     const duration = this.challengeService.exercise.soundDuration;
     this.timeToLose.stop();
     this.playingSequence = true;
@@ -120,6 +118,9 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
         this.playingSequence = false;
         this.gnomeComponents.toArray()[this.sequence[this.sequence.length - 1]].stopAudio();
         this.interactableGnomes = true;
+        this.currentStatus = 'jugar';
+        console.log('Complete');
+        this.hintService.checkHintAvailable();
         this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
       });
   }
@@ -210,7 +211,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
       const temp = this.auxList[this.auxIndex++];
       this.sceneSvg = 'gnome-game/svg/Fondos/' + temp + '.svg';
       this.currentScenePositions = this.challengeService.info.scenes.find(z => z.name === temp).positions;
-      this.gnomes = this.currentScenePositions.map( (a, i) => this.challengeService.info.gnomes[i]);
+      this.gnomes = this.currentScenePositions.map((a, i) => this.challengeService.info.gnomes[i]);
     }
 
 

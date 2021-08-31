@@ -14,12 +14,16 @@ export class GnomeAnswerService extends AnswerService {
               private timeToLose: TimeToLoseService, private challenge: GnomesChallengeService) {
     super(gameActionsService, m);
     this.gameActionsService.showNextChallenge.subscribe(value => {
-      this.currentAnswer = {parts: []};
+      this.cleanAnswer();
     });
     this.gameActionsService.finishedTimeOfExercise.subscribe(() => {
       console.log('finishedTimeOfExercise');
       this.onTryAnswer();
     });
+  }
+
+  public cleanAnswer(): void {
+    this.currentAnswer = {parts: []};
   }
 
   public addPartialAnswer(clickedGnomeId: number): void {

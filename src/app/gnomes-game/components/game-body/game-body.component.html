@@ -1,9 +1,12 @@
 <div fxFlex="grow" fxLayoutAlign="center center" style="position: relative">
-  <div class="myAbsolute full-width" style="height: 13vh; z-index: 10" fxLayoutAlign="start start">
+  <div class="myAbsolute full-width" style="height: 13vh; z-index: 10" fxLayoutAlign="space-between">
     <mlc-to-in-game-menu-button style="width: 13vh;"
                                 svgPath="executive-functions/svg/buttons/Home.svg"></mlc-to-in-game-menu-button>
+  <mlc-hint-button style="width: 13vh;"
+                                svgPath="executive-functions/svg/buttons/Hint.svg"></mlc-hint-button>
   </div>
   <app-scene
+    [status]="currentStatus"
     [sceneSvg]="sceneSvg"
     class="myAbsolute" fxFlex="grow"></app-scene>
   <mlc-ratio-container ratio="4:3" style="position: relative">
@@ -16,8 +19,8 @@
                  [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}"
                  style="width: 30vh; height: 30vh;"></app-gnome>
     </div>
-    <app-time-left insideRatio class="myAbsolute" style="width: 7vh; height: 7vh;
-top: 2vh; left: 123vh;"></app-time-left>
+<!--    <app-time-left insideRatio class="myAbsolute" style="width: 7vh; height: 7vh;-->
+<!--top: 2vh; left: 123vh;"></app-time-left>-->
   </mlc-ratio-container>
 </div>
 <app-count-down *ngIf="showCountDown"

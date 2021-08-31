@@ -1,3 +1,8 @@
-<mlc-loaded-svg fxFlex="grow" fxFlexFill
-  forceViewBoxTo="''"
-  [path]="sceneSvg"></mlc-loaded-svg>
+<div fxFlex="grow" fxFlexFill style="position: relative" fxLayoutAlign="center start">
+  <mlc-loaded-svg fxFlex="grow" fxFlexFill class="myAbsolute"
+                  forceViewBoxTo="''"
+                  [path]="sceneSvg"></mlc-loaded-svg>
+  <app-status-banner
+    [currentStatus]="status"
+    style="width: 19vh; height: 21vh; margin: 1vh"></app-status-banner>
+</div>

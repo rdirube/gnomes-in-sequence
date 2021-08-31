@@ -1,3 +1,4 @@
+export type GnomeSceneStatus = 'ver' | 'jugar';
 export interface GnomeInfo {
   color: string;
   sound: string;
