@@ -2,11 +2,13 @@
   <mlc-loaded-svg class="myAbsolute" fxFlex="grow"
                   [path]="currentBannerSvg"
   ></mlc-loaded-svg>
-  <ox-text
-    style="z-index: 1; margin-bottom: 1vh"
-    font="dinnMedium"
-    [originalText]="currentBannerText"
-    fontSize="5vh"
-    color="white"
-  ></ox-text>
+  <ng-container *transloco="let t">
+    <ox-text
+      style="z-index: 1; margin-bottom: 1vh"
+      font="dinnMedium"
+      [originalText]="t('watch')"
+      fontSize="5vh"
+      color="white"
+    ></ox-text>
+  </ng-container>
 </div>

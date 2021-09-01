@@ -1,0 +1,16 @@
+{
+  "name": {
+    "text": "Gnomos en secuencia",
+    "soundPath": ""
+  },
+  "description": {
+    "text": "",
+    "soundPath": "playing-doctor/sounds/juguemos-al-doctor.mp3"
+  },
+  "previewData": {
+    "type": "image/jpeg",
+    "path": "https://storage.googleapis.com/common-ox-assets/mini-lesson-prints/papoi/playing-doctor.jpg"
+  },
+  "watch": "Ver!",
+  "play": "Jugar!"
+}

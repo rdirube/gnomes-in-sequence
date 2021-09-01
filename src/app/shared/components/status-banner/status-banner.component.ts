@@ -1,6 +1,7 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import anime from 'animejs';
 import {GnomeSceneStatus} from '../../../gnomes-game/models/types';
+import {TranslocoService} from '@ngneat/transloco';
 
 @Component({
   selector: 'app-status-banner',
@@ -18,12 +19,15 @@ export class StatusBannerComponent implements OnInit {
 
   private _currentStatus: GnomeSceneStatus;
 
-  constructor() {
+  constructor(private transloco: TranslocoService) {
   }
 
   ngOnInit(): void {
     this.currentBannerSvg = 'gnome-game/svg/jugar.svg';
     this.currentBannerText = 'Jugar';
+    console.log('this.transloco', this.transloco);
+    console.log('this.transloco', this.transloco.translate('watch'));
+    console.log(this.transloco.getTranslation().get('watch'));
   }
 
   changeStatus(newStatus: GnomeSceneStatus): void {

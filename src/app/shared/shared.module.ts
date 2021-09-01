@@ -7,6 +7,7 @@ import {TypographyOxModule} from 'typography-ox';
 import { CountDownComponent } from './components/count-down/count-down.component';
 import { TimeLeftComponent } from './components/time-left/time-left.component';
 import { StatusBannerComponent } from './components/status-banner/status-banner.component';
+import {TranslocoModule} from '@ngneat/transloco';
 
 
 
@@ -18,6 +19,7 @@ import { StatusBannerComponent } from './components/status-banner/status-banner.
     FlexModule,
     MicroLessonComponentsModule,
     TypographyOxModule,
+    TranslocoModule,
   ],
   exports: [
     CommonModule,
