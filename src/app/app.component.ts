@@ -52,14 +52,16 @@ export class AppComponent extends BaseMicroLessonApp {
       'executive-functions/svg/buttons/Hint.svg',
       'gnome-game/svg/saltear.svg',
       'gnome-game/svg/jugar.svg', 'gnome-game/svg/ver.svg'];
-    ['amarillo', 'celeste', 'azul', 'naranja', 'rojo', 'verde', 'violeta'].forEach(z => {
+    ['jardin-amarillo', 'jardin-azul', 'jardin-celeste', 'jardin-naranja', 'jardin-rojo', 'jardin-verde', 'jardin-violeta',
+      'mina-amarillo', 'mina-azul', 'mina-rojo', 'mina-verde', 'mina-violeta'].forEach(z => {
       ['_cantando.svg', '_festejo.svg', '_normal.svg'].forEach(x => {
-        svg.push('gnome-game/svg/gnomes/' + z + '/' + z + x);
+        svg.push('gnome-game/svg/gnomes/' + z + x);
       });
     });
-    ['alacena-5.svg', 'biblioteca-6.svg', 'baño-5.svg', 'chimenea-4.svg',
-      'chimenea-2.svg',
-      'escaleras-6.svg', 'establo-4.svg'].forEach(z => {
+    ['jardin-alacena-5.svg', 'jardin-biblioteca-6.svg', 'jardin-baño-5.svg', 'jardin-chimenea-4.svg',
+      'jardin-chimenea-2.svg', 'jardin-escaleras-6.svg', 'jardin-establo-4.svg']
+      .concat(['mina-dragon-4.svg', 'mina-escalera-3.svg', 'mina-herramientas-2.svg', 'mina-laboratorio-4.svg', 'mina-momia-4.svg'])
+      .forEach(z => {
       svg.push('gnome-game/svg/Fondos/' + z);
     });
     return svg.map(x => new ResourceOx(x, ResourceType.Svg,

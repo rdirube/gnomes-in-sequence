@@ -1,5 +1,7 @@
 export type GnomeSceneStatus = 'ver' | 'jugar';
+
 export interface GnomeInfo {
+  reference: string;
   color: string;
   sound: string;
 }
@@ -37,6 +39,8 @@ export interface GnomesNivelation {
 
   possibleScenes: string[];
   invertedGnomes: boolean;
+  shuffleAfterSequencePresentation: boolean;
+  shuffleAfterUserAnswer: boolean;
 
   minCorrectExercisesTo6000: number;
   minCorrectExercisesTo10000: number;
@@ -46,7 +50,7 @@ export interface GnomesNivelation {
 
 export interface GnomeScene {
   name: string;
-  positions: {x: string, y: string}[];
+  positions: { x: string, y: string }[];
 }
 
 export type GnomeAnswer = number[];

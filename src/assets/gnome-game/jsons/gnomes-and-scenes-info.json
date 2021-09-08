@@ -1,62 +1,114 @@
 {
   "gnomes": [
     {
+      "reference": "jardin-amarillo",
       "color": "amarillo",
       "sound": "yellowshortFinal.mp3"
     },
     {
+      "reference": "jardin-azul",
       "color": "azul",
       "sound": "blueshortFinal.mp3"
     },
     {
+      "reference": "jardin-celeste",
       "color": "celeste",
       "sound": "lightblueshortFinal.mp3"
     },
     {
+      "reference": "jardin-naranja",
       "color": "naranja",
       "sound": "lightblueshortFinal.mp3"
     },
     {
+      "reference": "jardin-rojo",
       "color": "rojo",
       "sound": "redshortFinal.mp3"
     },
     {
+      "reference": "jardin-verde",
       "color": "verde",
       "sound": "greenshortFinal.mp3"
     },
     {
+      "reference": "jardin-violeta",
+      "color": "violeta",
+      "sound": "violetshortFinal.mp3"
+    },
+    {
+      "reference": "mina-amarillo",
+      "color": "amarillo",
+      "sound": "yellowshortFinal.mp3"
+    },
+    {
+      "reference": "mina-azul",
+      "color": "azul",
+      "sound": "blueshortFinal.mp3"
+    },
+    {
+      "reference": "mina-rojo",
+      "color": "rojo",
+      "sound": "redshortFinal.mp3"
+    },
+    {
+      "reference": "mina-verde",
+      "color": "verde",
+      "sound": "greenshortFinal.mp3"
+    },
+    {
+      "reference": "mina-violeta",
       "color": "violeta",
       "sound": "violetshortFinal.mp3"
     }
   ],
   "scenes": [
     {
-      "name": "alacena-5",
+      "name": "jardin-alacena-5",
       "positions": [{"x":"25.5vh","y":"17.5vh"},{"x":"84vh","y":"17.5vh"},{"x":"25.5vh","y":"60.5vh"},{"x":"54.5vh","y":"60.5vh"},{"x":"84vh","y":"60.5vh"}]
     },
     {
-      "name": "baño-5",
+      "name": "jardin-baño-5",
       "positions": [{"x":"-0.5vh","y":"33vh"},{"x":"76vh","y":"10.5vh"},{"x":"33.5vh","y":"51.5vh"},{"x":"70.5vh","y":"51.5vh"},{"x":"102.5vh","y":"33vh"}]
     },
     {
-      "name": "biblioteca-6",
+      "name": "jardin-biblioteca-6",
       "positions": [{"x":"17.5vh","y":"4.5vh"},{"x":"17.5vh","y":"36vh"},{"x":"17.5vh","y":"68vh"},{"x":"85.5vh","y":"4.5vh"},{"x":"85.5vh","y":"36vh"},{"x":"85.5vh","y":"68vh"}]
     },
     {
-      "name": "chimenea-2",
+      "name": "jardin-chimenea-2",
       "positions": [{"x":"4.5vh","y":"32.5vh"},{"x":"99vh","y":"32.5vh"}]
     },
     {
-      "name": "chimenea-4",
+      "name": "jardin-chimenea-4",
       "positions": [{"x":"4.5vh","y":"13.5vh"},{"x":"99.5vh","y":"13.5vh"},{"x":"11vh","y":"57vh"},{"x":"92vh","y":"57vh"}]
     },
     {
-      "name": "escaleras-6",
+      "name": "jardin-escaleras-6",
       "positions": [{"x":"13vh","y":"17.5vh"},{"x":"2vh","y":"54vh"},{"x":"52vh","y":"17vh"},{"x":"89.5vh","y":"17vh"},{"x":"52vh","y":"54vh"},{"x":"102.5vh","y":"54vh"}]
     },
     {
-      "name": "establo-4",
+      "name": "jardin-establo-4",
       "positions": [{"x":"8.5vh","y":"11vh"},{"x":"8vh","y":"53vh"},{"x":"98vh","y":"11vh"},{"x":"98vh","y":"53vh"}]
+    },
+    {
+      "name": "mina-dragon-4",
+      "positions": [{"x":"52.5vh","y":"67vh"},{"x":"70.5vh","y":"12vh"},{"x":"6.5vh","y":"14.5vh"}]
+    },
+    {
+      "name": "mina-escalera-3",
+      "positions": [{"x":"20vh","y":"34.5vh"},{"x":"78.5vh","y":"34vh"},{"x":"78.5vh","y":"70vh"}]
+    },
+    {
+      "name": "mina-herramientas-2",
+      "positions": [{"x":"11vh","y":"49vh"},{"x":"92vh","y":"48.5vh"}]
+    },
+    {
+      "name": "mina-laboratorio-4",
+      "positions": [{"x":"16vh","y":"64vh"},{"x":"75vh","y":"63.5vh"},{"x":"30.5vh","y":"18.5vh"},{"x":"82.5vh","y":"18.5vh"}]
+    },
+    {
+      "name": "mina-momia-4",
+      "positions": [{"x":"0.5vh","y":"51vh"},{"x":"24.5vh","y":"17vh"},{"x":"77vh","y":"17vh"},{"x":"103.5vh","y":"51vh"}]
     }
   ]
 }

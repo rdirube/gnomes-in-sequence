@@ -50,8 +50,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     // this.addSubscription(this.gameActions.microLessonCompleted, z => {
     //   this.showCountDown = undefined;
     // });
-    // this.addSubscription(this.gameActions.goToResults, z => {
-    //   this.showCountDown = undefined;
+    // this.addSubscription(this.gameActions.restartGame, z => {
     // });
     this.addSubscription(this.gameActions.showHint, z => {
       this.answerService.cleanAnswer();
@@ -81,22 +80,28 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
       this.hintService.usesPerChallenge = 1;
       this.hintService.hintAvailable.next(false);
       this.sceneSvg = 'gnome-game/svg/Fondos/' + exercise.scene.name + '.svg';
-      this.currentScenePositions = exercise.scene.positions;
       this.gnomes = exercise.gnomes.map(gnome => {
-        return {color: gnome.color, sound: gnome.sound};
+        return {color: gnome.color, sound: gnome.sound, reference: gnome.reference};
       });
       this.sequence = exercise.sequenceGnomeIds;
       if (this.metricsService.currentMetrics.expandableInfo.exercisesData.length === 1) {
+        this.currentScenePositions = exercise.scene.positions;
         this.showCountDown = true;
       } else {
-        timer(1000).subscribe(hhh => {
-          this.playSequence();
-        });
+        if (this.challengeService.exerciseConfig.shuffleAfterUserAnswer) {
+          this.shuffleGnomes(() => this.playSequence());
+        } else {
+          this.currentScenePositions = exercise.scene.positions;
+          timer(1000).subscribe(hhh => {
+            this.playSequence();
+          });
+        }
       }
     });
   }
 
-  shuffleGnomes(): void {
+  shuffleGnomes(completeFunc: () => void = () => {
+  }): void {
     anime({
       targets: '.gnome',
       duration: 750,
@@ -113,6 +118,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
           easing: 'easeOutInQuad',
           filter: 'brightness(1)',
           complete: () => {
+            completeFunc();
           }
         });
       }
@@ -137,15 +143,12 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
           this.gnomeComponents.toArray()[this.sequence[value]].playAudio();
         }
       }, () => {
-
       }, () => {
-        this.playingSequence = false;
-        this.gnomeComponents.toArray()[this.sequence[this.sequence.length - 1]].stopAudio();
-        this.interactableGnomes = true;
-        this.currentStatus = 'jugar';
-        console.log('Complete');
-        this.hintService.checkHintAvailable();
-        this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
+        if (this.challengeService.exerciseConfig.shuffleAfterSequencePresentation) {
+          this.shuffleGnomes(() => this.finishSequence());
+        } else {
+          this.finishSequence();
+        }
       });
   }
 
@@ -203,9 +206,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   }
 
   private auxIndex = 0;
-  private auxList = ['alacena-5', 'biblioteca-6', 'baño-5', 'chimenea-4',
-    'chimenea-2',
-    'escaleras-6', 'establo-4'];
+  // private auxList = ['alacena-5', 'biblioteca-6', 'baño-5', 'chimenea-4', 'chimenea-2', 'escaleras-6', 'establo-4'];
+  private auxList = ['mina-dragon-4', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
 
   @HostListener('document:keydown', ['$event'])
   asdsada($event): void {
@@ -232,10 +234,11 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
       console.log(JSON.stringify(this.currentScenePositions));
     }
     if ($event.key === 't') {
+      const auxGnomes: GnomeInfo[] = shuffle(this.challengeService.info.gnomes);
       const temp = this.auxList[this.auxIndex++];
       this.sceneSvg = 'gnome-game/svg/Fondos/' + temp + '.svg';
       this.currentScenePositions = this.challengeService.info.scenes.find(z => z.name === temp).positions;
-      this.gnomes = this.currentScenePositions.map((a, i) => this.challengeService.info.gnomes[i]);
+      this.gnomes = this.currentScenePositions.map((a, i) => auxGnomes[i]);
     }
     if ($event.key === 'p') {
       this.shuffleGnomes();
@@ -260,6 +263,15 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     }
   }
 
+  private finishSequence(): void {
+    this.playingSequence = false;
+    this.gnomeComponents.toArray()[this.sequence[this.sequence.length - 1]].stopAudio();
+    this.interactableGnomes = true;
+    this.currentStatus = 'jugar';
+    console.log('Complete');
+    this.hintService.checkHintAvailable();
+    this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
+  }
 }
 
 function changeVhValue(value: string, change: number): string {

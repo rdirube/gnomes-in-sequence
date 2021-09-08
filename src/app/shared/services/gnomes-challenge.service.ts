@@ -125,10 +125,11 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   }
 
   private setInitialExercise(): void {
+    console.log(' Setting inital exercise');
     const gnomes = [];
     const gnomeCount = randomBetween(this.exerciseConfig.gnomeMinCount, this.exerciseConfig.gnomeMaxCount);
     this.exerciseConfig.forcedGnomes.forEach(z => {
-      gnomes.push(this.allGnomes.find(g => g.color === z));
+      gnomes.push(this.allGnomes.find(g => g.reference === z));
     });
     for (let i = 0; i < gnomeCount - this.exerciseConfig.forcedGnomes.length; i++) {
       gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
