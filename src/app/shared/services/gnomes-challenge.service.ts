@@ -13,7 +13,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   public info: any;
   private exerciseIndex: number;
   public resources = new Map<string, string>();
-  private exerciseConfig: GnomesNivelation;
+  public exerciseConfig: GnomesNivelation;
   public scene: GnomeScene;
   public exercise: GnomesExercise;
   private allGnomes: GnomeInfo[];

@@ -15,7 +15,8 @@ import {
 import {GnomeAnswerService} from '../../../shared/services/gnome-answer.service';
 import {ExpandedShowable, GameAskForScreenChangeBridge, ScreenTypeOx, WorkingMemoryPart, WorkingMemorySchemaData} from 'ox-types';
 import {getGnomeAudio, getGnomeImage} from '../../../shared/functions/gnomes-functions';
-import {anyElement, replaceAll} from 'ox-core';
+import {anyElement, randomBool, replaceAll, shuffle} from 'ox-core';
+import anime from 'animejs';
 
 @Component({
   selector: 'app-game-body',
@@ -90,6 +91,29 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
       } else {
         timer(1000).subscribe(hhh => {
           this.playSequence();
+        });
+      }
+    });
+  }
+
+  shuffleGnomes(): void {
+    anime({
+      targets: '.gnome',
+      duration: 750,
+      filter: 'brightness(0)',
+      easing: 'easeOutInQuad',
+      complete: () => {
+        this.currentScenePositions =
+          this.currentScenePositions.length === 2 ?
+            [this.currentScenePositions[1], this.currentScenePositions[0]] :
+            shuffle(this.currentScenePositions);
+        anime({
+          targets: '.gnome',
+          duration: 750,
+          easing: 'easeOutInQuad',
+          filter: 'brightness(1)',
+          complete: () => {
+          }
         });
       }
     });
@@ -212,6 +236,9 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
       this.sceneSvg = 'gnome-game/svg/Fondos/' + temp + '.svg';
       this.currentScenePositions = this.challengeService.info.scenes.find(z => z.name === temp).positions;
       this.gnomes = this.currentScenePositions.map((a, i) => this.challengeService.info.gnomes[i]);
+    }
+    if ($event.key === 'p') {
+      this.shuffleGnomes();
     }
 
 

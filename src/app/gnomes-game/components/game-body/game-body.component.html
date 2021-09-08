@@ -14,10 +14,9 @@
          fxLayoutAlign="center center">
       <app-gnome *ngFor="let gnome of gnomes; index as i"
                  [gnomeInfo]="gnome"
-                 class="myAbsolute"
+                 class="myAbsolute gnome"
                  (click)="onClickGnome(i)"
-                 [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}"
-                 style="width: 30vh; height: 30vh;"></app-gnome>
+                 [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}"></app-gnome>
     </div>
 <!--    <app-time-left insideRatio class="myAbsolute" style="width: 7vh; height: 7vh;-->
 <!--top: 2vh; left: 123vh;"></app-time-left>-->

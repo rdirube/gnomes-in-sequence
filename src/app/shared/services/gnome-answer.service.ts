@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AnswerService, GameActionsService, MicroLessonMetricsService} from 'micro-lesson-core';
 import {TimeToLoseService} from './time-to-lose.service';
 import {GnomesChallengeService} from './gnomes-challenge.service';
-import {CorrectablePart, PartCorrectness, UserAnswer} from 'ox-types';
+import {PartCorrectness, UserAnswer} from 'ox-types';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -28,7 +28,9 @@ export class GnomeAnswerService extends AnswerService {
 
   public addPartialAnswer(clickedGnomeId: number): void {
     // this.timeToLose.restart();
-    const correctAnswerGnomes = this.challenge.currentExercise.value.exerciseData.sequenceGnomeIds;
+    const correctAnswerGnomes = this.challenge.exerciseConfig.invertedGnomes ?
+        this.challenge.currentExercise.value.exerciseData.sequenceGnomeIds.filter( z => z !== undefined).reverse()
+        : this.challenge.currentExercise.value.exerciseData.sequenceGnomeIds;
     const correctness: PartCorrectness = correctAnswerGnomes[this.currentAnswer.parts.length] === clickedGnomeId ? 'correct' : 'wrong';
     this.currentAnswer.parts.push({correctness, parts: [{value: clickedGnomeId, format: 'number'}]});
     // todo ver como accedo al ejercicio actual
