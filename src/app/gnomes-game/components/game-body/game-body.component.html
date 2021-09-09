@@ -25,3 +25,11 @@
 <app-count-down *ngIf="showCountDown"
   (started)="startGame()"
   class="myAbsolute" fxFlex="grow" style="z-index: 123"></app-count-down>
+
+<!--<mlc-lottie-animation class="myAbsolute"-->
+<!--[animationPath]="''"-->
+<!--&gt;</mlc-lottie-animation>-->
+<mlc-easter-egg-animation
+  *ngIf="showAnimation"
+  [path]="'assets/wetransfer_gnomos-minas_2021-08-30_1713/Gnomos minas/animaciones/' + allAnimatinPaths[animationPathIndex]"
+  fxFlex="grow"></mlc-easter-egg-animation>
