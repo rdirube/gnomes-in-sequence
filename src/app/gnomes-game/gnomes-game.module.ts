@@ -6,11 +6,12 @@ import {MicroLessonComponentsModule} from 'micro-lesson-components';
 import {FlexModule} from '@angular/flex-layout';
 import { GnomeComponent } from './components/gnome/gnome.component';
 import {SharedModule} from '../shared/shared.module';
+import { SurpriseAnimationComponent } from './components/scene/surprise-animation/surprise-animation.component';
 
 
 
 @NgModule({
-  declarations: [GameBodyComponent, SceneComponent, GnomeComponent],
+  declarations: [GameBodyComponent, SceneComponent, GnomeComponent, SurpriseAnimationComponent],
   exports: [
     SceneComponent,
     GameBodyComponent

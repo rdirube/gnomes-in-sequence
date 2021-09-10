@@ -92,7 +92,14 @@
     },
     {
       "name": "mina-dragon-4",
-      "positions": [{"x":"52.5vh","y":"67vh"},{"x":"70.5vh","y":"12vh"},{"x":"6.5vh","y":"14.5vh"}]
+      "positions": [{"x":"52.5vh","y":"67vh"},{"x":"70.5vh","y":"12vh"},{"x":"6.5vh","y":"14.5vh"}],
+      "progressAnimation": "asd.json",
+      "surpriseAnimationInfo": {
+        "type": "lottie",
+        "lottieUrl": "assets/gnome-game/animations/dragon.json",
+        "sizeAndPosition": {"y": "38vh", "x": "88vh", "width": "30vh","height": "26vh"},
+        "animationSound": "gnome-game/sounds/lightblueshortFinal.mp3"
+      }
     },
     {
       "name": "mina-escalera-3",

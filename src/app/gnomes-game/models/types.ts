@@ -51,6 +51,13 @@ export interface GnomesNivelation {
 export interface GnomeScene {
   name: string;
   positions: { x: string, y: string }[];
+  progressAnimation: string;
+  surpriseAnimationInfo: {
+    type: string,
+    lottieUrl: string,
+    sizeAndPosition: { y: string, x: string, width: string, height: string },
+    animationSound: string
+  };
 }
 
 export type GnomeAnswer = number[];

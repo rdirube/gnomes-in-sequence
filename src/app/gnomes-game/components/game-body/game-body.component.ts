@@ -15,7 +15,7 @@ import {
 import {GnomeAnswerService} from '../../../shared/services/gnome-answer.service';
 import {ExpandedShowable, GameAskForScreenChangeBridge, ScreenTypeOx, WorkingMemoryPart, WorkingMemorySchemaData} from 'ox-types';
 import {getGnomeAudio, getGnomeImage} from '../../../shared/functions/gnomes-functions';
-import {anyElement, randomBool, replaceAll, shuffle} from 'ox-core';
+import {anyElement, replaceAll, shuffle} from 'ox-core';
 import anime from 'animejs';
 
 @Component({

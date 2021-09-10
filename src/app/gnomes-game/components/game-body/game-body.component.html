@@ -20,6 +20,11 @@
     </div>
 <!--    <app-time-left insideRatio class="myAbsolute" style="width: 7vh; height: 7vh;-->
 <!--top: 2vh; left: 123vh;"></app-time-left>-->
+    <app-surprise-animation insideRatio
+                            *ngIf
+                            [ngStyle]="{}"
+                            class="myAbsolute" style="height: 10vh; width: 10vh"></app-surprise-animation>
+
   </mlc-ratio-container>
 </div>
 <app-count-down *ngIf="showCountDown"
@@ -29,7 +34,7 @@
 <!--<mlc-lottie-animation class="myAbsolute"-->
 <!--[animationPath]="''"-->
 <!--&gt;</mlc-lottie-animation>-->
-<mlc-easter-egg-animation
-  *ngIf="showAnimation"
-  [path]="'assets/wetransfer_gnomos-minas_2021-08-30_1713/Gnomos minas/animaciones/' + allAnimatinPaths[animationPathIndex]"
-  fxFlex="grow"></mlc-easter-egg-animation>
+<!--<mlc-easter-egg-animation-->
+<!--  *ngIf="showAnimation"-->
+<!--  [path]="'assets/wetransfer_gnomos-minas_2021-08-30_1713/Gnomos minas/animaciones/' + allAnimatinPaths[animationPathIndex]"-->
+<!--  fxFlex="grow"></mlc-easter-egg-animation>-->
