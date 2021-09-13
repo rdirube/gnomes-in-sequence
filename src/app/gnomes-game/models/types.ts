@@ -52,12 +52,25 @@ export interface GnomeScene {
   name: string;
   positions: { x: string, y: string }[];
   progressAnimation: string;
-  surpriseAnimationInfo: {
-    type: string,
-    lottieUrl: string,
-    sizeAndPosition: { y: string, x: string, width: string, height: string },
-    animationSound: string
-  };
+  surpriseAnimationInfo: SurpriseAnimationInfo;
+}
+
+// "name": "mina-dragon-4",
+//   "positions": [{"x":"52.5vh","y":"67vh"},{"x":"70.5vh","y":"12vh"},{"x":"6.5vh","y":"14.5vh"}],
+//   "progressAnimation": "asd.json",
+//   "surpriseAnimationInfo": {
+//   "type": "lottie",
+//     "lottieUrl": "assets/gnome-game/animations/dragon.json",
+//     "sizeAndPosition": {"y": "38vh", "x": "88vh", "width": "30vh","height": "26vh"},
+//   "animationSound": "gnome-game/sounds/lightblueshortFinal.mp3"
+// }
+export interface SurpriseAnimationInfo {
+  type: 'lottie' | 'svgs';
+  lottieUrl: string;
+  lottieFrames: number[][];
+  svgs: string[];
+  sizeAndPosition: { y: string, x: string, width: string, height: string };
+  animationSound: string;
 }
 
 export type GnomeAnswer = number[];

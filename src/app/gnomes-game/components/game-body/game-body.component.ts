@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {GnomeInfo, GnomeSceneStatus, GnomesExercise} from '../../models/types';
+import {GnomeInfo, GnomeSceneStatus, GnomesExercise, SurpriseAnimationInfo} from '../../models/types';
 import {GnomesChallengeService} from '../../../shared/services/gnomes-challenge.service';
 import {SubscriberOxDirective} from 'micro-lesson-components';
 import {filter, take} from 'rxjs/operators';
@@ -36,6 +36,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   showCountDown: boolean;
   private interactableGnomes: boolean;
   public sceneSvg: string;
+  public surpriseInfo: SurpriseAnimationInfo;
 
   constructor(private challengeService: GnomesChallengeService,
               private metricsService: MicroLessonMetricsService<GnomesExercise>,
@@ -80,6 +81,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
       this.hintService.usesPerChallenge = 1;
       this.hintService.hintAvailable.next(false);
       this.sceneSvg = 'gnome-game/svg/Fondos/' + exercise.scene.name + '.svg';
+      this.surpriseInfo = exercise.scene.surpriseAnimationInfo;
       this.gnomes = exercise.gnomes.map(gnome => {
         return {color: gnome.color, sound: gnome.sound, reference: gnome.reference};
       });

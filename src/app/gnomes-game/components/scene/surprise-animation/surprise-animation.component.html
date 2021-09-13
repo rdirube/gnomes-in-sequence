@@ -1,3 +1,5 @@
 <mlc-easter-egg-animation
-  [path]="animationPath"
+  *ngIf="surpriseAnimationInfo.type === 'lottie'"
+  [path]="surpriseAnimationInfo.lottieUrl"
+  [loop]="true"
   fxFlex="grow"></mlc-easter-egg-animation>

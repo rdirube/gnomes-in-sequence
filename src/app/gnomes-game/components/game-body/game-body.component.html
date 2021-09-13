@@ -21,8 +21,12 @@
 <!--    <app-time-left insideRatio class="myAbsolute" style="width: 7vh; height: 7vh;-->
 <!--top: 2vh; left: 123vh;"></app-time-left>-->
     <app-surprise-animation insideRatio
-                            *ngIf
-                            [ngStyle]="{}"
+                            *ngIf="surpriseInfo"
+                            [surpriseAnimationInfo]="surpriseInfo"
+                            [ngStyle]="{'width': surpriseInfo.sizeAndPosition.width,
+                            'height': surpriseInfo.sizeAndPosition.height,
+                            'left': surpriseInfo.sizeAndPosition.x,
+                            'top': surpriseInfo.sizeAndPosition.y}"
                             class="myAbsolute" style="height: 10vh; width: 10vh"></app-surprise-animation>
 
   </mlc-ratio-container>

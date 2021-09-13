@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {SurpriseAnimationInfo} from '../../../models/types';
 
 @Component({
   selector: 'app-surprise-animation',
@@ -6,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./surprise-animation.component.scss']
 })
 export class SurpriseAnimationComponent implements OnInit {
+
+  @Input() surpriseAnimationInfo: SurpriseAnimationInfo;
   animationPath = 'assets/gnome-game/animations/dragon.json';
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

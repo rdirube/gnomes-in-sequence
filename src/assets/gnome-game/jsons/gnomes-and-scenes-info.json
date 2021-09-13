@@ -97,6 +97,7 @@
       "surpriseAnimationInfo": {
         "type": "lottie",
         "lottieUrl": "assets/gnome-game/animations/dragon.json",
+        "lottieFrames": [[0, 20]],
         "sizeAndPosition": {"y": "38vh", "x": "88vh", "width": "30vh","height": "26vh"},
         "animationSound": "gnome-game/sounds/lightblueshortFinal.mp3"
       }
