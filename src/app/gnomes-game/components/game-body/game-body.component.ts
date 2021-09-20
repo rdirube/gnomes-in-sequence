@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {GnomeInfo, GnomeSceneStatus, GnomesExercise, SurpriseAnimationInfo} from '../../models/types';
 import {GnomesChallengeService} from '../../../shared/services/gnomes-challenge.service';
 import {SubscriberOxDirective} from 'micro-lesson-components';
@@ -154,7 +154,6 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
       });
   }
 
-
   startGame(): void {
     this.showCountDown = false;
     this.playSequence();
@@ -293,7 +292,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     'serpiente.json',
   ];
 
-  private animationModeKeyDown($event: KeyboardEvent) {
+  private animationModeKeyDown($event: KeyboardEvent): void {
     if ($event.key === 'ArrowLeft') {
       this.currentScenePositions[this.currentScenePositions.length - 1].x =
         changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].x, -0.5);

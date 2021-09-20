@@ -88,7 +88,14 @@
     },
     {
       "name": "jardin-establo-4",
-      "positions": [{"x":"8.5vh","y":"11vh"},{"x":"8vh","y":"53vh"},{"x":"98vh","y":"11vh"},{"x":"98vh","y":"53vh"}]
+      "positions": [{"x":"8.5vh","y":"11vh"},{"x":"8vh","y":"53vh"},{"x":"98vh","y":"11vh"},{"x":"98vh","y":"53vh"}],
+      "surpriseAnimationInfo": {
+        "type": "svg-sequence",
+        "svgList": ["window-1.svg", "window-2.svg", "window-3.svg", "window-4.svg", "window-5.svg"],
+        "sizeAndPosition": {"y": "38vh", "x": "88vh", "width": "30vh","height": "26vh"},
+        "animationSound": "sounds/woosh.mp3"
+      }
+
     },
     {
       "name": "mina-dragon-4",
@@ -97,26 +104,55 @@
       "surpriseAnimationInfo": {
         "type": "lottie",
         "lottieUrl": "assets/gnome-game/animations/dragon.json",
-        "lottieFrames": [[0, 20]],
+        "lottieFrames": [[20, 100]],
         "sizeAndPosition": {"y": "38vh", "x": "88vh", "width": "30vh","height": "26vh"},
         "animationSound": "gnome-game/sounds/lightblueshortFinal.mp3"
       }
     },
     {
       "name": "mina-escalera-3",
-      "positions": [{"x":"20vh","y":"34.5vh"},{"x":"78.5vh","y":"34vh"},{"x":"78.5vh","y":"70vh"}]
+      "positions": [{"x":"20vh","y":"34.5vh"},{"x":"78.5vh","y":"34vh"},{"x":"78.5vh","y":"70vh"}],
+      "surpriseAnimationInfo": {
+        "type": "lottie",
+        "lottieUrl": "assets/gnome-game/animations/murcielago.json",
+        "lottieFrames": [[0, 50]],
+        "sizeAndPosition": {"y": "11vh", "x": "84vh", "width": "26vh","height": "13vh"},
+        "animationSound": "falta"
+      }
     },
     {
       "name": "mina-herramientas-2",
-      "positions": [{"x":"11vh","y":"49vh"},{"x":"92vh","y":"48.5vh"}]
+      "positions": [{"x":"11vh","y":"49vh"},{"x":"92vh","y":"48.5vh"}],
+      "surpriseAnimationInfo": {
+        "type": "lottie",
+        "lottieUrl": "assets/gnome-game/animations/lamapraMovimiento.json",
+        "lottieFrames": [[20, 75]],
+        "sizeAndPosition": {"y": "24vh", "x": "14vh", "width": "15vh","height": "15vh"},
+        "animationSound": "falta"
+      }
     },
     {
       "name": "mina-laboratorio-4",
-      "positions": [{"x":"16vh","y":"64vh"},{"x":"75vh","y":"63.5vh"},{"x":"30.5vh","y":"18.5vh"},{"x":"82.5vh","y":"18.5vh"}]
+      "positions": [{"x":"16vh","y":"64vh"},{"x":"82.5vh","y":"63.5vh"},{"x":"30.5vh","y":"18.5vh"},{"x":"82.5vh","y":"18.5vh"}],
+      "surpriseAnimationInfo": {
+        "type": "lottie",
+        "lottieUrl": "assets/gnome-game/animations/frascos.json",
+        "lottieFrames": [[0, 100]],
+        "sizeAndPosition": {"y": "79vh", "x": "74vh", "width": "12vh","height": "12vh"},
+        "animationSound": "falta"
+      }
+
     },
     {
       "name": "mina-momia-4",
-      "positions": [{"x":"0.5vh","y":"51vh"},{"x":"24.5vh","y":"17vh"},{"x":"77vh","y":"17vh"},{"x":"103.5vh","y":"51vh"}]
+      "positions": [{"x":"0.5vh","y":"51vh"},{"x":"24.5vh","y":"17vh"},{"x":"77vh","y":"17vh"},{"x":"103.5vh","y":"51vh"}],
+      "surpriseAnimationInfo": {
+        "type": "lottie",
+        "lottieUrl": "assets/gnome-game/animations/serpiente.json",
+        "lottieFrames": [[30, 100]],
+        "sizeAndPosition": {"y": "33vh", "x": "4vh", "width": "17vh","height": "17vh"},
+        "animationSound": "falta"
+      }
     }
   ]
 }

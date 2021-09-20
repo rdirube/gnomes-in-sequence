@@ -139,7 +139,9 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
       sequenceGnomeIds.push(randomBetween(0, gnomes.length - 1));
     }
     // const auxScene = anyElement(this.exerciseConfig.possibleScenes);
-    const auxScene = anyElement(['mina-dragon-4']);
+    const auxScene = anyElement(['jardin-establo-4']);
+    gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
+    gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
     this.exercise = {
       sequenceGnomeIds,
       scene: this.info.scenes.find(z => auxScene.includes(z.name)),
