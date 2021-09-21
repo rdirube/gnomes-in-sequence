@@ -52,6 +52,10 @@ export class AppComponent extends BaseMicroLessonApp {
       'executive-functions/svg/buttons/Hint.svg',
       'gnome-game/svg/saltear.svg',
       'gnome-game/svg/jugar.svg', 'gnome-game/svg/ver.svg'];
+    const animationSvgs = ['window-1.svg', 'window-2.svg', 'window-3.svg', 'window-4.svg', 'window-5.svg',
+      'baño-1.svg', 'baño-2.svg', 'baño-3.svg', 'baño-4.svg',
+      'picture-1.svg', 'picture-2.svg', 'picture-3.svg'];
+    animationSvgs.forEach( z => svg.push('gnome-game/svg/Fondos/sorpresas/' + z));
     ['jardin-amarillo', 'jardin-azul', 'jardin-celeste', 'jardin-naranja', 'jardin-rojo', 'jardin-verde', 'jardin-violeta',
       'mina-amarillo', 'mina-azul', 'mina-rojo', 'mina-verde', 'mina-violeta'].forEach(z => {
       ['_cantando.svg', '_festejo.svg', '_normal.svg'].forEach(x => {

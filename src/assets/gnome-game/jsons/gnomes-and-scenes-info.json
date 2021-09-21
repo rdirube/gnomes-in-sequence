@@ -68,19 +68,45 @@
     },
     {
       "name": "jardin-baño-5",
-      "positions": [{"x":"-0.5vh","y":"33vh"},{"x":"76vh","y":"10.5vh"},{"x":"33.5vh","y":"51.5vh"},{"x":"70.5vh","y":"51.5vh"},{"x":"102.5vh","y":"33vh"}]
+      "positions": [{"x":"-0.5vh","y":"33vh"},{"x":"76vh","y":"10.5vh"},{"x":"33.5vh","y":"51.5vh"},{"x":"70.5vh","y":"51.5vh"},{"x":"102.5vh","y":"34.5vh"}],
+      "surpriseAnimationInfo": {
+        "type": "svg-sequence",
+        "svgList": ["gnome-game/svg/Fondos/sorpresas/baño-1.svg", "gnome-game/svg/Fondos/sorpresas/baño-2.svg", "gnome-game/svg/Fondos/sorpresas/baño-3.svg",
+          "gnome-game/svg/Fondos/sorpresas/baño-4.svg"],
+        "sizeAndPosition": {"y": "62vh", "x": "101vh", "width": "31vh","height": "37vh"},
+        "animationSound": "sounds/woosh.mp3"
+      }
     },
     {
       "name": "jardin-biblioteca-6",
-      "positions": [{"x":"17.5vh","y":"4.5vh"},{"x":"17.5vh","y":"36vh"},{"x":"17.5vh","y":"68vh"},{"x":"85.5vh","y":"4.5vh"},{"x":"85.5vh","y":"36vh"},{"x":"85.5vh","y":"68vh"}]
+      "positions": [{"x":"17.5vh","y":"4.5vh"},{"x":"17.5vh","y":"36vh"},{"x":"17.5vh","y":"68vh"},{"x":"85.5vh","y":"4.5vh"},{"x":"85.5vh","y":"36vh"},{"x":"85.5vh","y":"68vh"}],
+      "surpriseAnimationInfo": {
+        "type": "lottie",
+        "lottieUrl": "assets/gnome-game/animations/snail.json",
+        "lottieFrames": [[0, 100]],
+        "sizeAndPosition": {"y": "11vh", "x": "109vh", "width": "25vh","height": "21vh"},
+        "animationSound": "gnome-game/sounds/lightblueshortFinal.mp3"
+      }
     },
     {
       "name": "jardin-chimenea-2",
-      "positions": [{"x":"4.5vh","y":"32.5vh"},{"x":"99vh","y":"32.5vh"}]
+      "positions": [{"x":"4.5vh","y":"32.5vh"},{"x":"99vh","y":"32.5vh"}],
+      "surpriseAnimationInfo": {
+        "type": "svg-sequence",
+        "svgList": ["gnome-game/svg/Fondos/sorpresas/picture-1.svg", "gnome-game/svg/Fondos/sorpresas/picture-2.svg", "gnome-game/svg/Fondos/sorpresas/picture-3.svg"],
+        "sizeAndPosition": {"y": "14vh", "x": "53.5vh", "width": "27vh","height": "32vh"},
+        "animationSound": "sounds/woosh.mp3"
+      }
     },
     {
       "name": "jardin-chimenea-4",
-      "positions": [{"x":"4.5vh","y":"13.5vh"},{"x":"99.5vh","y":"13.5vh"},{"x":"11vh","y":"57vh"},{"x":"92vh","y":"57vh"}]
+      "positions": [{"x":"4.5vh","y":"13.5vh"},{"x":"99.5vh","y":"13.5vh"},{"x":"11vh","y":"57vh"},{"x":"92vh","y":"57vh"}],
+      "surpriseAnimationInfo": {
+        "type": "svg-sequence",
+        "svgList": ["gnome-game/svg/Fondos/sorpresas/picture-1.svg", "gnome-game/svg/Fondos/sorpresas/picture-2.svg", "gnome-game/svg/Fondos/sorpresas/picture-3.svg"],
+        "sizeAndPosition": {"y": "14vh", "x": "53.5vh", "width": "27vh","height": "32vh"},
+        "animationSound": "sounds/woosh.mp3"
+      }
     },
     {
       "name": "jardin-escaleras-6",
@@ -91,8 +117,9 @@
       "positions": [{"x":"8.5vh","y":"11vh"},{"x":"8vh","y":"53vh"},{"x":"98vh","y":"11vh"},{"x":"98vh","y":"53vh"}],
       "surpriseAnimationInfo": {
         "type": "svg-sequence",
-        "svgList": ["window-1.svg", "window-2.svg", "window-3.svg", "window-4.svg", "window-5.svg"],
-        "sizeAndPosition": {"y": "38vh", "x": "88vh", "width": "30vh","height": "26vh"},
+        "svgList": ["gnome-game/svg/Fondos/sorpresas/window-1.svg", "gnome-game/svg/Fondos/sorpresas/window-2.svg", "gnome-game/svg/Fondos/sorpresas/window-3.svg",
+          "gnome-game/svg/Fondos/sorpresas/window-4.svg", "gnome-game/svg/Fondos/sorpresas/window-5.svg"],
+        "sizeAndPosition": {"y": "31vh", "x": "50.5vh", "width": "34vh","height": "39vh"},
         "animationSound": "sounds/woosh.mp3"
       }
 
@@ -151,7 +178,7 @@
         "lottieUrl": "assets/gnome-game/animations/serpiente.json",
         "lottieFrames": [[30, 100]],
         "sizeAndPosition": {"y": "33vh", "x": "4vh", "width": "17vh","height": "17vh"},
-        "animationSound": "falta"
+        "animationSound": "falta.mp3"
       }
     }
   ]

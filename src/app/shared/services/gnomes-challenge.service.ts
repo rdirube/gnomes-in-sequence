@@ -10,7 +10,10 @@ import {filter} from 'rxjs/operators';
 })
 export class GnomesChallengeService extends ChallengeService<GnomesExercise, any> {
   // public theme: ThemeInfo;
-  public info: any;
+  public info: {
+    gnomes: GnomeInfo[],
+    scenes: GnomeScene[]
+  };
   private exerciseIndex: number;
   public resources = new Map<string, string>();
   public exerciseConfig: GnomesNivelation;
@@ -139,7 +142,9 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
       sequenceGnomeIds.push(randomBetween(0, gnomes.length - 1));
     }
     // const auxScene = anyElement(this.exerciseConfig.possibleScenes);
-    const auxScene = anyElement(['jardin-establo-4']);
+    const auxScene = 'jardin-biblioteca-6';
+    gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
+    gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
     gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
     gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
     this.exercise = {

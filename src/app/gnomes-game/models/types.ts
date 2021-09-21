@@ -65,10 +65,10 @@ export interface GnomeScene {
 //   "animationSound": "gnome-game/sounds/lightblueshortFinal.mp3"
 // }
 export interface SurpriseAnimationInfo {
-  type: 'lottie' | 'svgs';
+  type: 'lottie' | 'svg-sequence';
   lottieUrl: string;
   lottieFrames: number[][];
-  svgs: string[];
+  svgList: string[];
   sizeAndPosition: { y: string, x: string, width: string, height: string };
   animationSound: string;
 }

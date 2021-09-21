@@ -213,10 +213,10 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   asdsada($event: KeyboardEvent): void {
-    if (this.animationMode) {
-      this.animationModeKeyDown($event);
-      return;
-    }
+    // if (this.animationMode) {
+    //   this.animationModeKeyDown($event);
+    //   return;
+    // }
     console.log($event);
     if (this.auxIndex >= this.auxList.length) {
       this.auxIndex = 0;

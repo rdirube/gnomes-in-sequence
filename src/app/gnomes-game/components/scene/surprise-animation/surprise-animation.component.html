@@ -4,3 +4,9 @@
   [framesByState]="surpriseAnimationInfo.lottieFrames"
   [loop]="false"
   fxFlex="grow"></mlc-easter-egg-animation>
+<mlc-loaded-svg
+  fxLayoutAlign="start start"
+  *ngIf="surpriseAnimationInfo.type === 'svg-sequence'"
+  [path]="surpriseAnimationInfo.svgList[currentSvgIndex]"
+  (click)="onClickSvgAnimation()"
+  fxFlex="grow"></mlc-loaded-svg>
