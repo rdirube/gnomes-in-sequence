@@ -25,6 +25,7 @@ export class GnomeComponent implements OnInit {
 
   setSvg(svg: 'normal' | 'festejo' | 'cantando'): void {
     this.currentSvg = getGnomeImage(this.gnomeInfo.reference, svg);
+    console.log('Setting svg', svg, this.currentSvg);
     // this.currentSvg = 'gnome-game/svg/gnomes/' + this.gnomeInfo.color + '/' + this.gnomeInfo.color + '_' + svg + '.svg';
   }
 

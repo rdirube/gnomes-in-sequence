@@ -74,7 +74,7 @@
         "svgList": ["gnome-game/svg/Fondos/sorpresas/baño-1.svg", "gnome-game/svg/Fondos/sorpresas/baño-2.svg", "gnome-game/svg/Fondos/sorpresas/baño-3.svg",
           "gnome-game/svg/Fondos/sorpresas/baño-4.svg"],
         "sizeAndPosition": {"y": "62vh", "x": "101vh", "width": "31vh","height": "37vh"},
-        "animationSound": "sounds/woosh.mp3"
+        "animationSound": "sounds/bubble01.mp3"
       }
     },
     {
@@ -83,9 +83,9 @@
       "surpriseAnimationInfo": {
         "type": "lottie",
         "lottieUrl": "assets/gnome-game/animations/snail.json",
-        "lottieFrames": [[0, 100]],
+        "lottieFrames": [[5, 70]],
         "sizeAndPosition": {"y": "11vh", "x": "109vh", "width": "25vh","height": "21vh"},
-        "animationSound": "gnome-game/sounds/lightblueshortFinal.mp3"
+        "animationSound": "gnome-game/sounds/surprises/uhmmm.mp3"
       }
     },
     {
@@ -94,7 +94,7 @@
       "surpriseAnimationInfo": {
         "type": "svg-sequence",
         "svgList": ["gnome-game/svg/Fondos/sorpresas/picture-1.svg", "gnome-game/svg/Fondos/sorpresas/picture-2.svg", "gnome-game/svg/Fondos/sorpresas/picture-3.svg"],
-        "sizeAndPosition": {"y": "14vh", "x": "53.5vh", "width": "27vh","height": "32vh"},
+        "sizeAndPosition": {"y": "25vh", "x": "53.5vh", "width": "27vh","height": "32vh"},
         "animationSound": "sounds/woosh.mp3"
       }
     },
@@ -104,13 +104,20 @@
       "surpriseAnimationInfo": {
         "type": "svg-sequence",
         "svgList": ["gnome-game/svg/Fondos/sorpresas/picture-1.svg", "gnome-game/svg/Fondos/sorpresas/picture-2.svg", "gnome-game/svg/Fondos/sorpresas/picture-3.svg"],
-        "sizeAndPosition": {"y": "14vh", "x": "53.5vh", "width": "27vh","height": "32vh"},
+        "sizeAndPosition": {"y": "25vh", "x": "53.5vh", "width": "27vh","height": "32vh"},
         "animationSound": "sounds/woosh.mp3"
       }
     },
     {
       "name": "jardin-escaleras-6",
-      "positions": [{"x":"13vh","y":"17.5vh"},{"x":"2vh","y":"54vh"},{"x":"52vh","y":"17vh"},{"x":"89.5vh","y":"17vh"},{"x":"52vh","y":"54vh"},{"x":"102.5vh","y":"54vh"}]
+      "positions": [{"x":"13vh","y":"17.5vh"},{"x":"2vh","y":"54vh"},{"x":"52vh","y":"17vh"},{"x":"89.5vh","y":"17vh"},{"x":"52vh","y":"54vh"},{"x":"102.5vh","y":"54vh"}],
+      "surpriseAnimationInfo": {
+        "type": "lottie",
+        "lottieUrl": "assets/gnome-game/animations/mouse.json",
+        "lottieFrames": [[10, 168]],
+        "sizeAndPosition": {"y": "87.5vh", "x": "0vh", "width": "25vh","height": "21vh"},
+        "animationSound": "gnome-game/sounds/surprises/suspense.mp3"
+      }
     },
     {
       "name": "jardin-establo-4",
@@ -125,7 +132,7 @@
 
     },
     {
-      "name": "mina-dragon-4",
+      "name": "mina-dragon-3",
       "positions": [{"x":"52.5vh","y":"67vh"},{"x":"70.5vh","y":"12vh"},{"x":"6.5vh","y":"14.5vh"}],
       "progressAnimation": "asd.json",
       "surpriseAnimationInfo": {
@@ -133,7 +140,7 @@
         "lottieUrl": "assets/gnome-game/animations/dragon.json",
         "lottieFrames": [[20, 100]],
         "sizeAndPosition": {"y": "38vh", "x": "88vh", "width": "30vh","height": "26vh"},
-        "animationSound": "gnome-game/sounds/lightblueshortFinal.mp3"
+        "animationSound": "gnome-game/sounds/surprises/dragon-roar.mp3"
       }
     },
     {
@@ -144,7 +151,7 @@
         "lottieUrl": "assets/gnome-game/animations/murcielago.json",
         "lottieFrames": [[0, 50]],
         "sizeAndPosition": {"y": "11vh", "x": "84vh", "width": "26vh","height": "13vh"},
-        "animationSound": "falta"
+        "animationSound": "gnome-game/sounds/surprises/scaryMusic.mp3"
       }
     },
     {
@@ -155,7 +162,7 @@
         "lottieUrl": "assets/gnome-game/animations/lamapraMovimiento.json",
         "lottieFrames": [[20, 75]],
         "sizeAndPosition": {"y": "24vh", "x": "14vh", "width": "15vh","height": "15vh"},
-        "animationSound": "falta"
+        "animationSound": "gnome-game/sounds/surprises/lampara.mp3"
       }
     },
     {
@@ -166,7 +173,7 @@
         "lottieUrl": "assets/gnome-game/animations/frascos.json",
         "lottieFrames": [[0, 100]],
         "sizeAndPosition": {"y": "79vh", "x": "74vh", "width": "12vh","height": "12vh"},
-        "animationSound": "falta"
+        "animationSound": "gnome-game/sounds/surprises/bubbles.mp3"
       }
 
     },
@@ -178,7 +185,7 @@
         "lottieUrl": "assets/gnome-game/animations/serpiente.json",
         "lottieFrames": [[30, 100]],
         "sizeAndPosition": {"y": "33vh", "x": "4vh", "width": "17vh","height": "17vh"},
-        "animationSound": "falta.mp3"
+        "animationSound": "gnome-game/sounds/surprises/snake.mp3"
       }
     }
   ]

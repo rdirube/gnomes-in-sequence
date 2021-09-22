@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SurpriseAnimationInfo} from '../../../models/types';
 import {SoundOxService} from 'micro-lesson-core';
+import {ScreenTypeOx} from 'ox-types';
 
 @Component({
   selector: 'app-surprise-animation',
@@ -29,13 +30,13 @@ export class SurpriseAnimationComponent implements OnInit {
     }
   }
 
-  private playAnimationSound():  void {
+  playAnimationSound(): void {
     if (!this.sequencePlaying) {
-      console.log('Update sounds in animatinos!');
-      console.log('Update sounds in animatinos!');
-      console.log('Update sounds in animatinos!');
-      console.log('Update sounds in animatinos!');
-      // this.soundService.playSoundEffect(this.surpriseAnimationInfo.animationSound, ScreenTypeOx.Game);
+      // console.log('Update sounds in animatinos!');
+      // console.log('Update sounds in animatinos!');
+      // console.log('Update sounds in animatinos!');
+      // console.log('Update sounds in animatinos!');
+      this.soundService.playSoundEffect(this.surpriseAnimationInfo.animationSound, ScreenTypeOx.Game);
     }
   }
 }

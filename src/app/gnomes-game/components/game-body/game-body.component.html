@@ -1,9 +1,9 @@
 <div fxFlex="grow" fxLayoutAlign="center center" style="position: relative">
   <div class="myAbsolute full-width" style="height: 13vh; z-index: 10" fxLayoutAlign="space-between">
     <mlc-to-in-game-menu-button style="width: 13vh;"
-                                svgPath="executive-functions/svg/buttons/Home.svg"></mlc-to-in-game-menu-button>
+                                svgPath="mini-lessons/executive-functions/svg/buttons/Home.svg"></mlc-to-in-game-menu-button>
   <mlc-hint-button style="width: 13vh;"
-                                svgPath="executive-functions/svg/buttons/Hint.svg"></mlc-hint-button>
+                                svgPath="mini-lessons/executive-functions/svg/buttons/Hint.svg"></mlc-hint-button>
   </div>
   <app-scene
     [status]="currentStatus"
@@ -21,6 +21,7 @@
 <!--    <app-time-left insideRatio class="myAbsolute" style="width: 7vh; height: 7vh;-->
 <!--top: 2vh; left: 123vh;"></app-time-left>-->
     <app-surprise-animation insideRatio
+                            [sequencePlaying]="playingSequence"
                             *ngIf="surpriseInfo"
                             [surpriseAnimationInfo]="surpriseInfo"
                             [ngStyle]="{'width': surpriseInfo.sizeAndPosition.width,

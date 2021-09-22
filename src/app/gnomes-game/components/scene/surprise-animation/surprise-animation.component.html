@@ -1,4 +1,5 @@
 <mlc-easter-egg-animation
+  (click)="playAnimationSound()"
   *ngIf="surpriseAnimationInfo.type === 'lottie'"
   [path]="surpriseAnimationInfo.lottieUrl"
   [framesByState]="surpriseAnimationInfo.lottieFrames"
