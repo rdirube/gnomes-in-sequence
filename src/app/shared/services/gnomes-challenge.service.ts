@@ -65,13 +65,21 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
     console.log('generateNextChallenge');
     console.log('generateNextChallenge');
     console.log('generateNextChallenge', this.exercise);
+    const last3Gnomes: number[] = lastNElementsOfArray(this.exercise.sequenceGnomeIds, 3);
+
+
+    const gnomeIds = this.exercise.gnomes.map((z, i) => i);
+    const filteredGnomesIds = gnomeIds.filter(z => z !== last3Gnomes[0]);
+
     for (let i = 0; i < this.exerciseConfig.stepCount; i++) {
+
       this.exercise.sequenceGnomeIds.push(randomBetween(0, this.exercise.gnomes.length - 1));
     }
     this.exercise.soundDuration = Math.max(0.35,
       this.exerciseConfig.soundDurationMultiplierPerExercise * this.exercise.soundDuration);
     this.exercise.timeBetweenSounds = Math.max(0.35,
       this.exerciseConfig.timeBetweenSounds * this.exercise.timeBetweenSounds);
+
     // const exercise1: GnomesExercise = {
     //   gnomes: [{color: 'red'}, {color: 'yellow'}],
     //   soundDuration: randomBetween(95, 100) / 100
@@ -157,4 +165,15 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
       timeBetweenSounds: this.exerciseConfig.timeBetweenSounds
     };
   }
+}
+
+export function threeLastGnomesCheckOut(gnomesArray:) {
+  return {
+    const const gnomeIds = this.exercise.gnomes.map((z, i) => i);
+  const filteredGnomesIds = gnomeIds.filter(z => z !== last3Gnomes[0]);
+  }
+}
+
+export function lastNElementsOfArray<T>(array: T[], elementCount: number): T[] {
+  return array.slice(Math.max(array.length - elementCount, 0));
 }

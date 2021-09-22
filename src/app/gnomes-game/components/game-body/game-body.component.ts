@@ -207,8 +207,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   }
 
   private auxIndex = 0;
-  // private auxList = ['alacena-5', 'biblioteca-6', 'baño-5', 'chimenea-4', 'chimenea-2', 'escaleras-6', 'establo-4'];
-  private auxList = ['mina-dragon-4', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
+  private auxList = ['jardin-alacena-5', 'jardin-biblioteca-6', 'jardin-baño-5', 'jardin-chimenea-4', 'jardin-chimenea-2', 'jardin-escaleras-6', 'jardin-establo-4'];
+  // private auxList = ['mina-dragon-3', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
   private animationMode = true;
 
   @HostListener('document:keydown', ['$event'])

@@ -33,7 +33,7 @@ export class StatusBannerComponent implements OnInit {
   changeStatus(newStatus: GnomeSceneStatus): void {
     if (newStatus !== this._currentStatus) {
       this._currentStatus = newStatus;
-      const duration = 350;
+      const duration = 200; // is multiplicated by 2
       const watching = this._currentStatus === 'ver';
       anime({
         targets: '.banner',
