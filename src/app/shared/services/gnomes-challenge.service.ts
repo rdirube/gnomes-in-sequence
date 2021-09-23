@@ -58,28 +58,27 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
       .sublevelConfigurations[sublevel - 1].properties as any;
   }
 
-  getValidGnomeIds(maxConsecutive: number): number[] {
-    const last3Gnomes = lastNElementsOfArray(this.exercise.sequenceGnomeIds, 3);
-    const gnomeIds = this.exercise.gnomes.map((z, i) => i);
+  getValidGnomeIds(maxConsecutive: number, sequenceIds: number[], exerciseGnomes: GnomeInfo[]): number[] {
+    const last3Gnomes = lastNElementsOfArray(sequenceIds, 3);
+    const gnomeIds = exerciseGnomes.map((z, i) => i);
     const last3GnomesAreEqual = last3Gnomes.every(z => z === last3Gnomes[0]) ? last3Gnomes[0] : null;
     return gnomeIds.filter(z => z !== last3GnomesAreEqual);
   }
 
   protected generateNextChallenge(subLevel: number): ExerciseOx<GnomesExercise> {
-    // console.log('generateNextChallenge', this.exercise);
-    // console.log('generateNextChallenge', this.exercise);
-    console.log('generateNextChallenge');
-    console.log('generateNextChallenge');
-    console.log('generateNextChallenge');
     console.log('generateNextChallenge', this.exercise);
     for (let i = 0; i < this.exerciseConfig.stepCount; i++) {
-      this.exercise.sequenceGnomeIds.push(anyElement(this.getValidGnomeIds(3)));
+      this.exercise.sequenceGnomeIds.push(
+        anyElement(this.getValidGnomeIds(3, this.exercise.sequenceGnomeIds, this.exercise.gnomes)));
     }
-    this.exercise.soundDuration = Math.max(0.35,
+    const minSoundDuration = 0.35;
+    const minTimeBetween = 0.1;
+    console.log('initial values: ', this.exercise.soundDuration, this.exercise.timeBetweenSounds);
+    this.exercise.soundDuration = Math.max(minSoundDuration,
       this.exerciseConfig.soundDurationMultiplierPerExercise * this.exercise.soundDuration);
-    this.exercise.timeBetweenSounds = Math.max(0.35,
-      this.exerciseConfig.timeBetweenSounds * this.exercise.timeBetweenSounds);
-
+    this.exercise.timeBetweenSounds = Math.max(minTimeBetween,
+      this.exerciseConfig.timeBetweenSoundsMultiplierPerExercise * this.exercise.timeBetweenSounds);
+    console.log('after miltiplues  values: ', this.exercise.soundDuration, this.exercise.timeBetweenSounds);
     // const exercise1: GnomesExercise = {
     //   gnomes: [{color: 'red'}, {color: 'yellow'}],
     //   soundDuration: randomBetween(95, 100) / 100
@@ -142,19 +141,19 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
     this.exerciseConfig.forcedGnomes.forEach(z => {
       gnomes.push(this.allGnomes.find(g => g.reference === z));
     });
+    const validGnomesToAdd = this.allGnomes.filter(z => this.exerciseConfig.validGnomes.includes(z.reference));
     for (let i = 0; i < gnomeCount - this.exerciseConfig.forcedGnomes.length; i++) {
-      gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
+      gnomes.push(anyElement(validGnomesToAdd.filter(z => !gnomes.includes(z))));
     }
     const sequenceGnomeIds = [];
-    for (let i = 0; i < this.exerciseConfig.startSoundCount - 1; i++) {
-      sequenceGnomeIds.push(randomBetween(0, gnomes.length - 1));
-    }
-    // const auxScene = anyElement(this.exerciseConfig.possibleScenes);
-    const auxScene = 'jardin-alacena-5';
-    gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
-    gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
-    gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
+    const auxScene = anyElement(this.exerciseConfig.possibleScenes);
+    // const auxScene = 'jardin-alacena-5';
     // gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
+    // gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
+    // gnomes.push(anyElement(this.allGnomes.filter(z => !gnomes.includes(z))));
+    for (let i = 0; i < this.exerciseConfig.startSoundCount - 1; i++) {
+      sequenceGnomeIds.push(anyElement(this.getValidGnomeIds(3, sequenceGnomeIds, gnomes)));
+    }
     this.exercise = {
       sequenceGnomeIds,
       scene: this.info.scenes.find(z => auxScene.includes(z.name)),

@@ -139,7 +139,9 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     // this.currentScene.gnomes.toArray().forEach(gnome => {
     this.interactableGnomes = false;
     // this.sequenceSubscription = timer(duration === 1 ? 500 : 1500, 1000 * duration)
-    this.sequenceSubscription = timer(1000, 1000 * (duration + this.challengeService.exercise.timeBetweenSounds))
+    console.log('Real time executing between sounds: ', 1000 * (duration + this.challengeService.exercise.timeBetweenSounds));
+    this.sequenceSubscription = timer(1000,
+      1000 * (duration + this.challengeService.exercise.timeBetweenSounds))
       .pipe(take(this.sequence.length + 1)).subscribe(value => {
         if (value < this.sequence.length) {
           this.gnomeComponents.toArray()[this.sequence[value]].playAudio();
@@ -210,64 +212,65 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   private auxList = ['jardin-alacena-5', 'jardin-biblioteca-6', 'jardin-baño-5', 'jardin-chimenea-4', 'jardin-chimenea-2', 'jardin-escaleras-6', 'jardin-establo-4'];
   // private auxList = ['mina-dragon-3', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
   private animationMode = true;
+  itsTutorial = true;
 
-  @HostListener('document:keydown', ['$event'])
-  asdsada($event: KeyboardEvent): void {
-    // if (this.animationMode) {
-    //   this.animationModeKeyDown($event);
-    //   return;
-    // }
-    console.log($event);
-    if (this.auxIndex >= this.auxList.length) {
-      this.auxIndex = 0;
-    }
-    if ($event.key === 'n') {
-      this.timeToLose.stop();
-      this.sceneSvg = 'gnome-game/svg/Fondos/' + this.auxList[this.auxIndex++] + '.svg';
-    }
-    if ($event.key === 'a') {
-      this.gnomes.push(anyElement(this.challengeService.info.gnomes));
-      this.currentScenePositions.push({x: '13vh', y: '20.5vh'});
-    }
-    if ($event.key === 'c') {
-      this.gnomes = [];
-      this.currentScenePositions = [];
-    }
-    if ($event.key === 'r') {
-      this.gnomes = this.gnomes.map(z => anyElement(this.challengeService.info.gnomes));
-    }
-    if ($event.key === 's') {
-      console.log(JSON.stringify(this.currentScenePositions));
-    }
-    if ($event.key === 't') {
-      const auxGnomes: GnomeInfo[] = shuffle(this.challengeService.info.gnomes);
-      const temp = this.auxList[this.auxIndex++];
-      this.sceneSvg = 'gnome-game/svg/Fondos/' + temp + '.svg';
-      this.currentScenePositions = this.challengeService.info.scenes.find(z => z.name === temp).positions;
-      this.gnomes = this.currentScenePositions.map((a, i) => auxGnomes[i]);
-    }
-    if ($event.key === 'p') {
-      this.shuffleGnomes();
-    }
-
-
-    if ($event.key === 'ArrowLeft') {
-      this.currentScenePositions[this.currentScenePositions.length - 1].x =
-        changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].x, -0.5);
-    }
-    if ($event.key === 'ArrowRight') {
-      this.currentScenePositions[this.currentScenePositions.length - 1].x =
-        changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].x, +0.5);
-    }
-    if ($event.key === 'ArrowDown') {
-      this.currentScenePositions[this.currentScenePositions.length - 1].y =
-        changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].y, +0.5);
-    }
-    if ($event.key === 'ArrowUp') {
-      this.currentScenePositions[this.currentScenePositions.length - 1].y =
-        changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].y, -0.5);
-    }
-  }
+  // @HostListener('document:keydown', ['$event'])
+  // asdsada($event: KeyboardEvent): void {
+  //   // if (this.animationMode) {
+  //   //   this.animationModeKeyDown($event);
+  //   //   return;
+  //   // }
+  //   console.log($event);
+  //   if (this.auxIndex >= this.auxList.length) {
+  //     this.auxIndex = 0;
+  //   }
+  //   if ($event.key === 'n') {
+  //     this.timeToLose.stop();
+  //     this.sceneSvg = 'gnome-game/svg/Fondos/' + this.auxList[this.auxIndex++] + '.svg';
+  //   }
+  //   if ($event.key === 'a') {
+  //     this.gnomes.push(anyElement(this.challengeService.info.gnomes));
+  //     this.currentScenePositions.push({x: '13vh', y: '20.5vh'});
+  //   }
+  //   if ($event.key === 'c') {
+  //     this.gnomes = [];
+  //     this.currentScenePositions = [];
+  //   }
+  //   if ($event.key === 'r') {
+  //     this.gnomes = this.gnomes.map(z => anyElement(this.challengeService.info.gnomes));
+  //   }
+  //   if ($event.key === 's') {
+  //     console.log(JSON.stringify(this.currentScenePositions));
+  //   }
+  //   if ($event.key === 't') {
+  //     const auxGnomes: GnomeInfo[] = shuffle(this.challengeService.info.gnomes);
+  //     const temp = this.auxList[this.auxIndex++];
+  //     this.sceneSvg = 'gnome-game/svg/Fondos/' + temp + '.svg';
+  //     this.currentScenePositions = this.challengeService.info.scenes.find(z => z.name === temp).positions;
+  //     this.gnomes = this.currentScenePositions.map((a, i) => auxGnomes[i]);
+  //   }
+  //   if ($event.key === 'p') {
+  //     this.shuffleGnomes();
+  //   }
+  //
+  //
+  //   if ($event.key === 'ArrowLeft') {
+  //     this.currentScenePositions[this.currentScenePositions.length - 1].x =
+  //       changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].x, -0.5);
+  //   }
+  //   if ($event.key === 'ArrowRight') {
+  //     this.currentScenePositions[this.currentScenePositions.length - 1].x =
+  //       changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].x, +0.5);
+  //   }
+  //   if ($event.key === 'ArrowDown') {
+  //     this.currentScenePositions[this.currentScenePositions.length - 1].y =
+  //       changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].y, +0.5);
+  //   }
+  //   if ($event.key === 'ArrowUp') {
+  //     this.currentScenePositions[this.currentScenePositions.length - 1].y =
+  //       changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].y, -0.5);
+  //   }
+  // }
 
   private finishSequence(): void {
     this.playingSequence = false;
@@ -276,64 +279,67 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     this.currentStatus = 'jugar';
     console.log('Complete');
     this.hintService.checkHintAvailable();
-    // this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
+    this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
   }
+  //
+  // public animationSize = [10, 10];
+  // private animationSizeIndex = 0;
+  // public animationPathIndex: number = 0;
+  // showAnimation = true;
+  // public allAnimatinPaths = [
+  //   'dragon.json',
+  //   'frascos.json',
+  //   'lamapraMovimiento.json',
+  //   'lampara.json',
+  //   'murcielago.json',
+  //   'serpiente.json',
+  // ];
 
-  public animationSize = [10, 10];
-  private animationSizeIndex = 0;
-  public animationPathIndex: number = 0;
-  showAnimation = true;
-  public allAnimatinPaths = [
-    'dragon.json',
-    'frascos.json',
-    'lamapraMovimiento.json',
-    'lampara.json',
-    'murcielago.json',
-    'serpiente.json',
-  ];
-
-  private animationModeKeyDown($event: KeyboardEvent): void {
-    if ($event.key === 'ArrowLeft') {
-      this.currentScenePositions[this.currentScenePositions.length - 1].x =
-        changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].x, -0.5);
-    }
-    if ($event.key === 'ArrowRight') {
-      this.currentScenePositions[this.currentScenePositions.length - 1].x =
-        changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].x, +0.5);
-    }
-    if ($event.key === 'ArrowDown') {
-      this.currentScenePositions[this.currentScenePositions.length - 1].y =
-        changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].y, +0.5);
-    }
-    if ($event.key === 'ArrowUp') {
-      this.currentScenePositions[this.currentScenePositions.length - 1].y =
-        changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].y, -0.5);
-    }
-
-    if ($event.key === 'w') {
-      this.animationSizeIndex = 0;
-    }
-    if ($event.key === 'h') {
-      this.animationSizeIndex = 1;
-    }
-    if ($event.key === '+') {
-      this.animationSizeIndex[this.animationSizeIndex] += 0.5;
-    }
-    if ($event.key === '-') {
-      this.animationSizeIndex[this.animationSizeIndex] -= 0.5;
-    }
-    if ($event.key === 'n') {
-      this.showAnimation = false;
-      timer(500).subscribe( z => this.showAnimation  = true);
-      this.animationPathIndex = this.allAnimatinPaths.length <= this.animationPathIndex
-       ? 0 : this.animationPathIndex + 1;
-    }
-    if ($event.key === 's') {
-      this.timeToLose.stop();
-      const inde = this.auxIndex = this.allAnimatinPaths.length <= this.auxIndex
-        ? 0 : this.auxIndex + 1;
-      this.sceneSvg = 'gnome-game/svg/Fondos/' + this.auxList[inde] + '.svg';
-    }
+  // private animationModeKeyDown($event: KeyboardEvent): void {
+  //   if ($event.key === 'ArrowLeft') {
+  //     this.currentScenePositions[this.currentScenePositions.length - 1].x =
+  //       changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].x, -0.5);
+  //   }
+  //   if ($event.key === 'ArrowRight') {
+  //     this.currentScenePositions[this.currentScenePositions.length - 1].x =
+  //       changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].x, +0.5);
+  //   }
+  //   if ($event.key === 'ArrowDown') {
+  //     this.currentScenePositions[this.currentScenePositions.length - 1].y =
+  //       changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].y, +0.5);
+  //   }
+  //   if ($event.key === 'ArrowUp') {
+  //     this.currentScenePositions[this.currentScenePositions.length - 1].y =
+  //       changeVhValue(this.currentScenePositions[this.currentScenePositions.length - 1].y, -0.5);
+  //   }
+  //
+  //   if ($event.key === 'w') {
+  //     this.animationSizeIndex = 0;
+  //   }
+  //   if ($event.key === 'h') {
+  //     this.animationSizeIndex = 1;
+  //   }
+  //   if ($event.key === '+') {
+  //     this.animationSizeIndex[this.animationSizeIndex] += 0.5;
+  //   }
+  //   if ($event.key === '-') {
+  //     this.animationSizeIndex[this.animationSizeIndex] -= 0.5;
+  //   }
+  //   if ($event.key === 'n') {
+  //     this.showAnimation = false;
+  //     timer(500).subscribe(z => this.showAnimation = true);
+  //     this.animationPathIndex = this.allAnimatinPaths.length <= this.animationPathIndex
+  //       ? 0 : this.animationPathIndex + 1;
+  //   }
+  //   if ($event.key === 's') {
+  //     this.timeToLose.stop();
+  //     const inde = this.auxIndex = this.allAnimatinPaths.length <= this.auxIndex
+  //       ? 0 : this.auxIndex + 1;
+  //     this.sceneSvg = 'gnome-game/svg/Fondos/' + this.auxList[inde] + '.svg';
+  //   }
+  // }
+  mustClick(i: number) {
+    return i === 0;
   }
 }
 

@@ -21,7 +21,7 @@ export interface GnomesNivelation {
   gnomeMaxCount: number;
 
   timeBetweenSounds: number;
-  percentageTimeBetweenSounds: number;
+  timeBetweenSoundsMultiplierPerExercise: number;
 
   secondsToStartAnswer: number;
 
@@ -32,6 +32,7 @@ export interface GnomesNivelation {
   // gnomePositionStrategy: 'random' | 'symetric' | 'asymetric';
   // gnomeSimilarColorDifficulty?: {case: 'different' | 'similar' | 'very-similar', count: number}[];
   // gnomeSimilarSoundDifficulty?: {case: 'different' | 'similar' | 'very-similar', count: number}[];
+  validGnomes?: string[];
   forcedGnomes?: string[];
   // sameGnomeInDifferentLocationCount: number;
   soundDuration: number;

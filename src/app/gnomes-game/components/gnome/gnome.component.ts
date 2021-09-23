@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {GnomeInfo} from '../../models/types';
 import {SoundOxService} from 'micro-lesson-core';
 import {ScreenTypeOx} from 'ox-types';
 import {getGnomeAudio, getGnomeImage} from '../../../shared/functions/gnomes-functions';
+import {LoadedSvgComponent} from 'micro-lesson-components';
 
 @Component({
   selector: 'app-gnome',
