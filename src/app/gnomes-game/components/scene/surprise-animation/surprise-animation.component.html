@@ -7,7 +7,8 @@
   fxFlex="grow"></mlc-easter-egg-animation>
 <mlc-loaded-svg
   fxLayoutAlign="start start"
-  *ngIf="surpriseAnimationInfo.type === 'svg-sequence'"
+  *ngIf="surpriseAnimationInfo.type === 'svg-sequence'
+|| surpriseAnimationInfo.type === 'svg-sequence-by-interval'"
   [path]="surpriseAnimationInfo.svgList[currentSvgIndex]"
   (click)="onClickSvgAnimation()"
   fxFlex="grow"></mlc-loaded-svg>

@@ -56,6 +56,7 @@ export class AppComponent extends BaseMicroLessonApp {
       'gnome-game/svg/jugar.svg', 'gnome-game/svg/ver.svg'];
     const animationSvgs = ['window-1.svg', 'window-2.svg', 'window-3.svg', 'window-4.svg', 'window-5.svg',
       'baño-1.svg', 'baño-2.svg', 'baño-3.svg', 'baño-4.svg',
+      'worm-1.svg', 'worm-2.svg', 'worm-3.svg',
       'picture-1.svg', 'picture-2.svg', 'picture-3.svg'];
     animationSvgs.forEach(z => svg.push('gnome-game/svg/Fondos/sorpresas/' + z));
 
@@ -83,6 +84,7 @@ export class AppComponent extends BaseMicroLessonApp {
         [ScreenTypeOx.Game], false))).concat(
       ['surprises/bat-wings.mp3',
         'surprises/scaryMusic.mp3',
+        'surprises/magic.mp3',
         'surprises/suspense.mp3',
         'surprises/snake.mp3',
         'surprises/lampara.mp3',

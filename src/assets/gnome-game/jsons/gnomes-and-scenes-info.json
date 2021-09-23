@@ -64,7 +64,15 @@
   "scenes": [
     {
       "name": "jardin-alacena-5",
-      "positions": [{"x":"25.5vh","y":"17.5vh"},{"x":"84vh","y":"17.5vh"},{"x":"25.5vh","y":"60.5vh"},{"x":"54.5vh","y":"60.5vh"},{"x":"84vh","y":"60.5vh"}]
+      "positions": [{"x":"25.5vh","y":"17.5vh"},{"x":"84vh","y":"17.5vh"},{"x":"25.5vh","y":"60.5vh"},{"x":"54.5vh","y":"60.5vh"},{"x":"84vh","y":"60.5vh"}],
+      "surpriseAnimationInfo": {
+        "type": "svg-sequence-by-interval",
+        "svgList": ["gnome-game/svg/Fondos/sorpresas/worm-1.svg", "gnome-game/svg/Fondos/sorpresas/worm-2.svg", "gnome-game/svg/Fondos/sorpresas/worm-3.svg",
+          "gnome-game/svg/Fondos/sorpresas/worm-2.svg", "gnome-game/svg/Fondos/sorpresas/worm-1.svg"],
+        "sizeAndPosition": {"y": "28vh", "x": "59vh", "width": "14vh","height": "13vh"},
+        "animationSound": " gnome-game/sounds/surprises/magic.mp3",
+        "intervalTime": 450
+      }
     },
     {
       "name": "jardin-baño-5",
