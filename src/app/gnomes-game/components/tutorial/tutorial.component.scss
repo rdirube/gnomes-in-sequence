@@ -1,0 +1,36 @@
+.gnome {
+    width: 30vh;
+    height: 30vh;
+  }
+
+
+
+  @keyframes select {
+    0% {
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    50% {
+        background-color: rgba($color: red, $alpha: 0.5);
+        border:red solid 1px;
+        border-radius: 50%;
+    }
+
+    100% {
+        background-color: transparent;
+        border-color: transparent;
+    }
+}
+
+  .selected-gnome {
+      @extend .gnome;
+      background-color: rgba($color: red, $alpha: 0.5);
+      border:red solid 1px;
+      border-radius: 50%;
+      animation: select 1.5s linear infinite;
+      animation-timing-function: ease-in-out;
+      transition-duration: 1.5s;
+  }
+
+  
