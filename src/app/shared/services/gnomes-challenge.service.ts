@@ -125,12 +125,13 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
     return {
       exercisesData: [],
       exerciseMetadata: {
-        exercisesQuantity: 1, // this.appInfo.microLessonInfo.creatorInfo.exerciseCount
+        exercisesMode: 'cumulative',
+        exercisesQuantity: 'infinite',
       },
       globalStatement: [],
       timeSettings: {
-        timeMode: 'no-time',
-      }
+        timeMode: 'between-interactions',
+      },
     };
   }
 
