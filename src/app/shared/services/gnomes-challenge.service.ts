@@ -122,6 +122,9 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
 
   public getMetricsInitialExpandableInfo(): ExpandableInfo {
     // const generalTitle = this.getGeneralTitle();
+    // this.totalTimeSubscription = timer(0, 1000).subscribe(() => this.metrics.totalSecondsInResource++);
+    // TODO see what to do with this
+    //  this.netTimeSubscription = timer(0, 1000).subscribe(() => this.metrics.netTime++);
     return {
       exercisesData: [],
       exerciseMetadata: {
