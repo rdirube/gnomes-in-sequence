@@ -1,7 +1,32 @@
+
+
+.myAbsolute {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+
+
 .gnome {
+    @extend .myAbsolute;
     width: 30vh;
     height: 30vh;
   }
+
+
+  .selected-gnome {
+    
+    @extend .gnome;
+    background-color: rgba($color: red, $alpha: 0.5);
+    border:red solid 1px;
+    border-radius: 50%;
+    animation: select 1.2s linear infinite;
+    animation-timing-function: ease-in-out;
+    transition-duration: 1.2s;
+}
 
 
 
@@ -23,14 +48,5 @@
     }
 }
 
-  .selected-gnome {
-      @extend .gnome;
-      background-color: rgba($color: red, $alpha: 0.5);
-      border:red solid 1px;
-      border-radius: 50%;
-      animation: select 1.5s linear infinite;
-      animation-timing-function: ease-in-out;
-      transition-duration: 1.5s;
-  }
-
+  
   

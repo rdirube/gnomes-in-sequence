@@ -8,10 +8,15 @@
     <app-scene [status]="currentStatus" [sceneSvg]="sceneSvg" class="myAbsolute" fxFlex="grow"></app-scene>
     <mlc-ratio-container ratio="4:3" style="position: relative">
         <div insideRatio style="width: 100%; height: 100%; z-index: 1" fxLayoutAlign="center center">
-            <app-gnome class="myAbsolute selected-gnome" *ngFor="let gnome of gnomesTutorial; index as i" [gnomeInfo]="gnome"
-            [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}"
-            >
+            <app-gnome 
+             *ngFor="let gnome of gnomesTutorial; index as i" 
+             [ngClass] = "gnome.selectAvaible === true ? 'selected-gnome': 'gnome'"
+             [gnomeInfoTutorial]="gnome"
+             [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}"
+             (click)="secuencialTutorial(i)">
             </app-gnome>
+            
+            
             <!-- [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}" -->
             <!-- <app-gnome *ngFor="let gnome of gnomes; index as i"
                    [gnomeInfo]="gnome"
@@ -19,6 +24,9 @@
                    (click)="onClickGnome(i)"
                    >
         </app-gnome> -->
+        </div>
+        <div>
+            <ox-text></ox-text>
         </div>
         <!-- <app-surprise-animation insideRatio
                               [sequencePlaying]="playingSequence"
@@ -35,5 +43,6 @@
         <!--      [path]="'assets/wetransfer_gnomos-minas_2021-08-30_1713/Gnomos minas/animaciones/' + allAnimatinPaths[animationPathIndex]"-->
         <!--      ></mlc-easter-egg-animation>-->
         <!-- [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}" -->
-    </mlc-ratio-container>
+    
+      </mlc-ratio-container>
 </div>

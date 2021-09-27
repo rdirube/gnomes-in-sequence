@@ -6,6 +6,13 @@ export interface GnomeInfo {
   sound: string;
 }
 
+export interface GnomeInfoTutorial {
+  reference: string;
+  color: string;
+  sound: string;
+  selectAvaible: boolean;
+}
+
 export interface GnomesExercise {
   sequenceGnomeIds: number[];
   scene: GnomeScene;
@@ -76,3 +83,8 @@ export interface SurpriseAnimationInfo {
 }
 
 export type GnomeAnswer = number[];
+
+
+export interface selectedGnomeTutorial {
+  
+}
