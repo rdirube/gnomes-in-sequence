@@ -49,7 +49,6 @@ export class AppComponent extends BaseMicroLessonApp {
       }
     });
     preloader.addResourcesToLoad(this.getGameResourcesToLoad());
-    preloader.loadAll().subscribe( z => this.loaded = true);
   }
 
 
