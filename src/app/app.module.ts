@@ -11,6 +11,7 @@ import { ChallengeService, ScoreStarsService} from 'micro-lesson-core';
 import {GnomesChallengeService} from './shared/services/gnomes-challenge.service';
 import {SharedModule} from './shared/shared.module';
 import {GnomeScoreStarsService} from './shared/services/gnome-score-stars.service';
+import { TutorialComponent } from './gnomes-game/components/tutorial/tutorial.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import {GnomeScoreStarsService} from './shared/services/gnome-score-stars.servic
     FlexLayoutModule,
     GnomesGameModule,
     TranslocoRootModule,
-    BrowserAnimationsModule,
+      BrowserAnimationsModule,
     SharedModule
   ],
   providers: [

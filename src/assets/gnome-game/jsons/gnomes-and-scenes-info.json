@@ -70,7 +70,7 @@
         "svgList": ["gnome-game/svg/Fondos/sorpresas/worm-1.svg", "gnome-game/svg/Fondos/sorpresas/worm-2.svg", "gnome-game/svg/Fondos/sorpresas/worm-3.svg",
           "gnome-game/svg/Fondos/sorpresas/worm-2.svg", "gnome-game/svg/Fondos/sorpresas/worm-1.svg"],
         "sizeAndPosition": {"y": "28vh", "x": "59vh", "width": "14vh","height": "13vh"},
-        "animationSound": " gnome-game/sounds/surprises/magic.mp3",
+        "animationSound": "gnome-game/sounds/surprises/magic.mp3",
         "intervalTime": 450
       }
     },

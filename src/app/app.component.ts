@@ -48,10 +48,13 @@ export class AppComponent extends BaseMicroLessonApp {
         microLessonCommunicationService.sendMessageMLToManager(ResourceFinalStateOxBridge, resourceStateService.currentState.value);
       }
     });
+    preloader.addResourcesToLoad(this.getGameResourcesToLoad());
+    preloader.loadAll().subscribe( z => this.loaded = true);
   }
 
 
   protected getGameResourcesToLoad(): ResourceOx[] {
+    console.log('asdsad');
     const svg = ['gnome-game/svg/saltear.svg',
       'gnome-game/svg/jugar.svg', 'gnome-game/svg/ver.svg'];
     const animationSvgs = ['window-1.svg', 'window-2.svg', 'window-3.svg', 'window-4.svg', 'window-5.svg',
