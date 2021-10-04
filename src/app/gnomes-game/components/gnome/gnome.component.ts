@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { GnomeInfo, GnomeInfoTutorial } from '../../models/types';
 import { SoundOxService } from 'micro-lesson-core';
 import { ScreenTypeOx } from 'ox-types';
@@ -19,6 +19,7 @@ export class GnomeComponent implements OnInit {
 
 
   public currentSvg: string;
+  public selectAvaiableTutorial: boolean = false;
 
 
   constructor(private soundService: SoundOxService) {
@@ -26,7 +27,7 @@ export class GnomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.setSvgTutorial('normal');
+    this.setSvg('normal');
   }
 
   setSvg(svg: 'normal' | 'festejo' | 'cantando'): void {
@@ -50,28 +51,6 @@ export class GnomeComponent implements OnInit {
     console.log('stopAudio');
   }
 
-
-
-  setSvgTutorial(svg: 'normal' | 'festejo' | 'cantando'): void {
-    this.currentSvg = getGnomeImage(this.gnomeInfoTutorial.reference, svg);
-    console.log('Setting svg', svg, this.currentSvg);
-    // this.currentSvg = 'gnome-game/svg/gnomes/' + this.gnomeInfo.color + '/' + this.gnomeInfo.color + '_' + svg + '.svg';
-  }
-
-
-
-  playAudioTutorial(extraCallBak = () => { }): void {
-    this.setSvgTutorial('cantando');
-    this.soundService.playSoundEffect(getGnomeAudio(this.gnomeInfoTutorial.sound), ScreenTypeOx.Game, false,
-      true, () => {
-        this.setSvgTutorial('normal');
-        extraCallBak();
-      });
-  }
-
-
-
-  // mini-lessons/executive-functions/gnomes-in-sequence/svg/gnomes/undefined_normal.svg
 
 
 }
