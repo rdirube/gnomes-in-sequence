@@ -42,8 +42,8 @@
   .selected-gnome {
     
     @extend .gnome;
-    background-color: rgba($color: #8ACC26
-    , $alpha: 0.5);
+    // background-color: rgba($color: #8ACC26
+    // , $alpha: 0.5);
     border:#8ACC26 solid 1px;
     border-radius: 50%;
     animation: select 1s linear infinite;
@@ -77,7 +77,7 @@
 
 .text-tutorial-container {
 width:133.33%;
-height:55px;
+height:10vh;
 top: 73% ;
 z-index: 40;
 background-color: rgba($color: #10041c, $alpha: 0.9);

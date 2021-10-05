@@ -90,6 +90,10 @@ export interface SurpriseAnimationInfo {
 export type GnomeAnswer = number[];
 
 
+export interface gnomesPosition {
+  x:string,
+  y:string
+}
 
 
 

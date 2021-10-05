@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChildren, QueryList, EventEmitter, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChildren, QueryList, EventEmitter, ViewChild, HostListener } from '@angular/core';
 import { GnomeSceneStatus, GnomesExercise } from '../../models/types';
 import {
   FeedbackOxService,
@@ -7,7 +7,7 @@ import {
   MicroLessonMetricsService
 } from 'micro-lesson-core';
 
-import { GnomeInfo, GnomeScene, StepsTutorial } from '../../models/types';
+import { GnomeInfo, GnomeScene, StepsTutorial, gnomesPosition } from '../../models/types';
 
 import { SurpriseAnimationInfo } from '../../models/types';
 
@@ -19,8 +19,9 @@ import { GnomeAnswerService } from 'src/app/shared/services/gnome-answer.service
 import { Subscription, timer } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { GnomeComponent } from '../gnome/gnome.component';
-import { anyElement, PreloaderOxService, shuffle } from 'ox-core';
+import { anyElement, PreloaderOxService, shuffle, lastNElementsOfArray, replaceAll } from 'ox-core';
 import { Typographies, TextComponent } from 'typography-ox';
+import { $ } from 'protractor';
 
 
 // import { threadId } from 'worker_threads';
@@ -47,10 +48,11 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   currentStatus: GnomeSceneStatus = 'ver';
   public gnomesTutorial: GnomeInfo[] = [];
   public allGnomes: GnomeInfo[] = [];
+  public allGnomesAvaiable: GnomeInfo[] = [];
   public sceneSvg: string;
   public surpriseInfo: SurpriseAnimationInfo;
   public sequence: GnomeInfo[] = [];
-  public currentScenePositions = [];
+  public currentScenePositions:gnomesPosition[] = [];
   public sequenceSubscription: Subscription;
   public info:
     {
@@ -59,13 +61,14 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     };
   public firstStep: boolean = true;
   public gnomeClass: any[];
+  public currentScene: GnomeScene;
   public gnomesTutorialText = new OxTextInfo;
   public tutorialComplete = new OxTextInfo;
   public tutorialTextContent: string;
   public conditionThirdSecuence: boolean = true;
   public sequenceCounter: number;
   public stepTutorial: number;
-  public currentGnomeToSelect:GnomeInfo;
+  public currentGnomeToSelect: GnomeInfo;
   public fourthWatchVar: boolean;
   public gnomesUsedSecuence: number[] = [];
   public stepArray: number[] = [1, 2, 3, 4];
@@ -90,18 +93,9 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     super()
     this.addSubscription(this.challengeService.currentExercise.pipe(filter(x => x === undefined)), z => {
       this.info = JSON.parse(this.preLoaderServide.getResourceData('gnome-game/jsons/gnomes-and-scenes-info.json'));
-      this.sceneSvg = 'gnome-game/svg/Fondos/jardin-chimenea-2.svg';
-      this.allGnomes = this.info.gnomes.map(gnome => {
-        return { color: gnome.color, sound: gnome.sound, reference: gnome.reference, selectAvaible: false };
-      });
-      this.gnomesTutorial = [this.allGnomes[0], this.allGnomes[2]];
-      this.currentScenePositions = this.info.scenes[3].positions;
-      this.gnomesUsedSecuence = [0, 2, 2];
-      this.surpriseInfo = this.info.scenes[3].surpriseAnimationInfo;
-      console.log(this.surpriseInfo);
-      // this.currentScene = anyElement(this.challengeService.info.scenes);
+      this.currentScene = this.info.scenes[7]
+      this.setScene();
     })
-
 
 
 
@@ -111,8 +105,8 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
       }
       else if (this.stepTutorial >= this.middleStepsArray[0] &&
         this.stepTutorial <= this.middleStepsArray[this.middleStepsArray.length - 1]) {
-        let middleSequencePivotNumber = this.stepTutorial === this.middleStepsArray[0] ? 1 : 2;
-        this.textChangeAnimation(600, middleSequencePivotNumber);
+        let middleSequencePivotTextNumber = this.stepTutorial === this.middleStepsArray[0] ? 1 : 2;
+        this.textChangeAnimation(600, middleSequencePivotTextNumber);
         timer(600).subscribe(z => {
           this.middleSecuences();
         })
@@ -140,7 +134,7 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
           this.sequenceMethod(z);
         })
       } else {
-        timer(1300).subscribe(ss => {
+        timer(1200).subscribe(ss => {
           this.selectTrigger.emit();
         })
       }
@@ -155,19 +149,74 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     this.tutorialComplete.fontSize = "2rem";
   }
 
+  // private deleteMeIndex = 0;
+  // @HostListener('document:keydown')
+  // asdsadas(){
+  //   this.info = JSON.parse(this.preLoaderServide.getResourceData('gnome-game/jsons/gnomes-and-scenes-info.json'));
+  //   this.currentScene = this.info.scenes[this.deleteMeIndex++];
+  //   this.setScene();
+  //   if (this.deleteMeIndex >=  this.info.scenes.length) {
+  //     this.deleteMeIndex = 0;
+  //   }
+  // }
 
-  ngOnInit(): void { 
+  private setScene() {
+    this.sceneSvg = `gnome-game/svg/Fondos/${this.currentScene.name}.svg`;    
+      this.currentScenePositions   = this.currentScene.positions.filter( z => 
+        parseInt(z.y, 10) < 45
+      )
+      console.log(this.currentScenePositions)
+      this.allGnomes = this.info.gnomes.map(gnome => {
+        return { color: gnome.color, sound: gnome.sound, reference: gnome.reference, selectAvaible: false };
+      });      
+      this.gnomesPerScene();
+      this.gnomesSingingPerScene();
+      this.surprisesInScene(this.info.scenes.indexOf(this.currentScene));
+      console.log(this.surpriseInfo);
+  }
+  
+  ngOnInit(): void {
   }
 
 
   ngAfterViewInit(): void {
-    this.initialTutorialMethod(); 
+    this.initialTutorialMethod();
   }
 
 
+
+  gnomesPerScene(): any {
+    const allGnomesShuffle = shuffle(this.allGnomes);
+    this.currentScenePositions.forEach((z,i) => {
+      this.gnomesTutorial.push(allGnomesShuffle[i])
+    })
+  }
+
+  surprisesInScene(indexSceneLevel:number):void {
+    this.surpriseInfo = this.info.scenes[indexSceneLevel].surpriseAnimationInfo;
+  }
+
+
+
+  getValidGnomeIds(maxConsecutive: number, sequenceIds: number[], exerciseGnomes: GnomeInfo[]): number[] {
+    const lastNGnomesIndex = lastNElementsOfArray(sequenceIds, maxConsecutive);
+    const gnomeIds = exerciseGnomes.map((z, i) => i);
+    const lastNGnomesAreEqual = lastNGnomesIndex.every(z => z === lastNGnomesIndex[0]) ? lastNGnomesIndex[0] : null;
+    return gnomeIds.filter(z => z !== lastNGnomesAreEqual);
+  }
+
+
+
+  gnomesSingingPerScene(): any {
+    for (let i = 0; i < 3; i++) {
+        this.gnomesUsedSecuence.push(anyElement(this.getValidGnomeIds(2,this.gnomesUsedSecuence,this.gnomesTutorial))); 
+    }
+    } 
+  
+
   sequenceMethod(sequenceLegth: number) {
-    const indexToSelect = this.gnomesTutorial.indexOf(this.allGnomes[this.gnomesUsedSecuence[this.sequenceCounter]])
-    this.sequence.push(this.allGnomes[this.gnomesUsedSecuence[this.sequenceCounter]]);
+    const indexToSelect = this.gnomesUsedSecuence[this.sequenceCounter];
+    this.sequence.push(this.gnomesTutorial[this.gnomesUsedSecuence[this.sequenceCounter]]);
     this.gnomeComponents.toArray()[indexToSelect].playAudio();
     this.sequenceCounter++;
     this.sequenceEmitter.emit(sequenceLegth);
@@ -182,10 +231,12 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
+
   gnomeToSelect() {
     this.currentStatus = 'jugar';
     this.currentGnomeToSelect = this.sequence[0]
   }
+
 
 
   middleSecuences() {
@@ -196,9 +247,10 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
+
   sequenceAnswer(i) {
     // const indexToSelect = this.gnomesTutorial.indexOf(this.sequence[0])
-    if (this.gnomesTutorial[i]===this.currentGnomeToSelect) {
+    if (this.gnomesTutorial[i] === this.currentGnomeToSelect) {
       this.gnomeComponents.toArray()[i].playAudio();
       this.sequence.shift();
       this.currentGnomeToSelect = this.sequence[0];
@@ -208,7 +260,7 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
 
 
   repeatTutorialMethod() {
-    this.initialTutorialMethod()
+    this.initialTutorialMethod();
   }
 
 
@@ -230,33 +282,26 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
 
 
 
-  // public tl = anime.timeline({
-  //   targets: '.tutorial-text',
-  //   easing: 'easeInOutExpo'
-  // });
-
-
-
   textChangeAnimation(duration: number, step: number) {
     const tl = anime.timeline({
       targets: '.tutorial-text',
       easing: 'easeInOutExpo'
-    });  
+    });
     tl.add({
       translateY: {
-        value: '40px',
+        value: '8vh',
         duration: duration
       }
     }).add({
       translateY: {
-        value: '-40px',
+        value: '-8vh',
         duration: 1,
         complete: this.textChanger(step, duration)
       }
     })
       .add({
         translateY: {
-          value: '0px',
+          value: '0vh',
           duration: duration
         }
       })
