@@ -18,12 +18,14 @@ export class StatusBannerComponent implements OnInit {
   }
 
   private _currentStatus: GnomeSceneStatus;
+  currentTextId: string;
 
   constructor(private transloco: TranslocoService) {
   }
 
   ngOnInit(): void {
     this.currentBannerSvg = 'gnome-game/svg/jugar.svg';
+    this.currentTextId = 'play';
     this.currentBannerText = 'Jugar';
     console.log('this.transloco', this.transloco);
     console.log('this.transloco', this.transloco.translate('watch'));
@@ -42,7 +44,8 @@ export class StatusBannerComponent implements OnInit {
         easing: 'linear',
         complete: () => {
           this.currentBannerSvg = watching ? 'gnome-game/svg/ver.svg' : 'gnome-game/svg/jugar.svg';
-          this.currentBannerText = watching ? 'Ver' : 'Jugar';
+          // this.currentBannerText = watching ? 'Ver' : 'Jugar';
+          this.currentTextId = watching ? 'watch' : 'play';
           anime({
             targets: '.banner',
             easing: 'linear',

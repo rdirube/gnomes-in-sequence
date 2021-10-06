@@ -32,7 +32,7 @@ export class GnomeComponent implements OnInit {
 
   setSvg(svg: 'normal' | 'festejo' | 'cantando'): void {
     this.currentSvg = getGnomeImage(this.gnomeInfo.reference, svg);
-    console.log('Setting svg', svg, this.currentSvg);
+    // console.log('Setting svg', svg, this.currentSvg);
     // this.currentSvg = 'gnome-game/svg/gnomes/' + this.gnomeInfo.color + '/' + this.gnomeInfo.color + '_' + svg + '.svg';
   }
 
@@ -43,12 +43,12 @@ export class GnomeComponent implements OnInit {
         this.setSvg('normal');
         extraCallBak();
       });
-    console.log(this.currentSvg);
+    // console.log('playAudio');
   }
 
 
   stopAudio(): void {
-    console.log('stopAudio');
+    // console.log('stopAudio');
   }
 
 

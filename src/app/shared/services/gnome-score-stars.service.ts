@@ -8,7 +8,7 @@ import {numberArrayRange, sum} from 'ox-core';
 })
 export class GnomeScoreStarsService extends ScoreStarsService<any> {
   calculateScore(metrics: MiniLessonMetrics, minScore?: number, maxScore?: number): void {
-    metrics.score = 0;
+    metrics.pointsScore = 0;
     console.log('Calculating score');
     const n = 5;
     const m = 9;
@@ -16,10 +16,11 @@ export class GnomeScoreStarsService extends ScoreStarsService<any> {
       const gnomeValue = i <= n ? 6000 / sum(numberArrayRange(1, n))
         : 4000 / sum(numberArrayRange(m - n, m));
       z.userInput.answers.forEach(ans => {
-        metrics.score += ans.parts.filter(part => part.correctness === 'correct').length * gnomeValue;
+        metrics.pointsScore += ans.parts.filter(part => part.correctness === 'correct').length * gnomeValue;
       });
     });
-    metrics.score = Math.max(500, metrics.score);
+    metrics.pointsScore = Math.max(500, metrics.pointsScore);
+    metrics.score = metrics.pointsScore;
     // En los primeros n (5) ejercicios cada gnomo vale la sumatoria 6000/(1 a n) = valorGnomo (400).
     //   En los siguientes m a infinito ejercicios (9-5 = 4) cada gnomo vale 4000/=
 
