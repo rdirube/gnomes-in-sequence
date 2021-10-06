@@ -1,7 +1,56 @@
+
+
+.myAbsolute {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+
+.time-bar {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #03A9F4;
+    animation: timer 8s linear;
+    z-index: 50; 
+}
+
+@keyframes timer {
+    0% {
+       width:0%;
+    }
+}
+
+
 .gnome {
+    @extend .myAbsolute;
     width: 30vh;
     height: 30vh;
   }
+
+
+  .game-container-watch {
+      filter:grayscale(0.8);
+  }
+
+  .selected-gnome {
+    
+    @extend .gnome;
+    // background-color: rgba($color: #8ACC26
+    // , $alpha: 0.5);
+    border:#8ACC26 solid 1px;
+    border-radius: 50%;
+    animation: select 1s linear infinite;
+    animation-timing-function: ease-in-out;
+    transition-duration: 1s;
+    cursor:pointer;
+}
 
 
 
@@ -12,8 +61,10 @@
     }
 
     50% {
-        background-color: rgba($color: red, $alpha: 0.5);
-        border:red solid 1px;
+        background-color: rgba($color: #8ACC26
+        , $alpha: 0.5);
+        border:#8ACC26  
+        solid 1px;
         border-radius: 50%;
     }
 
@@ -21,16 +72,55 @@
         background-color: transparent;
         border-color: transparent;
     }
+
 }
 
-  .selected-gnome {
-      @extend .gnome;
-      background-color: rgba($color: red, $alpha: 0.5);
-      border:red solid 1px;
-      border-radius: 50%;
-      animation: select 1.5s linear infinite;
-      animation-timing-function: ease-in-out;
-      transition-duration: 1.5s;
+.text-tutorial-container {
+width:133.33%;
+height:10vh;
+top: 73% ;
+z-index: 40;
+background-color: rgba($color: #10041c, $alpha: 0.9);
+overflow: hidden;
+}  
+
+
+.tutorial-text{
+    bottom:15px;
+    z-index: 50;
   }
+  
+
+.saltar-tutorial-button{
+    background-color: rgb(20,20,220);
+    color:white;
+    font-size: 1.2rem;
+    width:200px;
+    height:70px;
+    top:85%;
+    left:90%;
+    z-index: 50;
+    cursor:pointer;
+}
+
+.tutorial-complete-container{
+    background-color:rgba($color: #000, $alpha: 0.8);
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    
+}
+
+.complete-buttom {
+    background-color: rgb(20,20,220);
+    color:white;
+    font-size: 1.2rem;
+    width:200px;
+    height:70px;
+    margin:10px; 
+    z-index: 150; 
+    cursor:pointer; 
+}
+
 
   

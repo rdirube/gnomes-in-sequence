@@ -1,17 +1,25 @@
-<div fxFlex="grow" fxLayoutAlign="center center" style="position: relative">
+
+<div fxFlex="grow" fxLayoutAlign="center center" style="position: relative" [ngClass]="fourthStepActivate ? 'game-container-watch': 'game-container' ">
+   
     <div class="myAbsolute full-width" style="height: 13vh; z-index: 10" fxLayoutAlign="space-between">
-        <mlc-to-in-game-menu-button style="width: 13vh;"
-            svgPath="mini-lessons/executive-functions/svg/buttons/Home.svg"></mlc-to-in-game-menu-button>
-        <mlc-hint-button style="width: 13vh;" svgPath="mini-lessons/executive-functions/svg/buttons/Hint.svg">
-        </mlc-hint-button>
+        
     </div>
     <app-scene [status]="currentStatus" [sceneSvg]="sceneSvg" class="myAbsolute" fxFlex="grow"></app-scene>
+
     <mlc-ratio-container ratio="4:3" style="position: relative">
+        
+     
         <div insideRatio style="width: 100%; height: 100%; z-index: 1" fxLayoutAlign="center center">
-            <app-gnome class="myAbsolute selected-gnome" *ngFor="let gnome of gnomesTutorial; index as i" [gnomeInfo]="gnome"
-            [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}"
-            >
+            <div class="time-bar" style="position: absolute" *ngIf="fourthStepActivate"></div>
+            <app-gnome 
+             *ngFor="let gnome of gnomesTutorial; index as i" 
+             [ngClass] = "gnomesTutorial[i] === currentGnomeToSelect ? 'selected-gnome': 'gnome'"
+             [gnomeInfo]="gnome"
+             [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}"
+             (click)="sequenceAnswer(i)"
+             > 
             </app-gnome>
+            <!-- [ngClass] = "gnomesTutorial[i] === currentGnomeToSelect ? 'selected-gnome': 'gnome'" -->
             <!-- [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}" -->
             <!-- <app-gnome *ngFor="let gnome of gnomes; index as i"
                    [gnomeInfo]="gnome"
@@ -19,7 +27,33 @@
                    (click)="onClickGnome(i)"
                    >
         </app-gnome> -->
+        <div class="tutorial-complete-container" fxLayoutAlign="center center" fxLayout="column"  *ngIf="isTutorialComplete" style="position: absolute" >
+            <ox-text [oxTextInfo]="tutorialComplete"></ox-text>
+            <div class="complete-buttom play"fxLayoutAlign="center center">
+                <p>Jugar Ahora</p>
+              </div>
+              <div class="complete-buttom repeat" fxLayoutAlign="center center" (click)="repeatTutorialMethod()">
+                <p>Repetir Tutorial</p>
+              </div>
         </div>
+        <div class="text-tutorial-container" style="position: absolute" fxLayoutAlign="center center">
+            <ox-text #tutorialText [oxTextInfo]="gnomesTutorialText" class="tutorial-text" style="position: absolute"></ox-text>
+        </div>
+        <div class="saltar-tutorial-button" style="position: absolute" fxLayoutAlign="center center">
+            <p>Saltar Tutorial</p>
+          </div>
+          <app-surprise-animation insideRatio
+          [sequencePlaying]="playingSequence"
+          *ngIf="surpriseInfo"
+          [surpriseAnimationInfo]="surpriseInfo"
+          [ngStyle]="{'width': surpriseInfo.sizeAndPosition.width,
+          'height': surpriseInfo.sizeAndPosition.height,
+          'left': surpriseInfo.sizeAndPosition.x,
+          'top': surpriseInfo.sizeAndPosition.y}"
+          class="myAbsolute" ></app-surprise-animation>
+        </div>
+       
+        
         <!-- <app-surprise-animation insideRatio
                               [sequencePlaying]="playingSequence"
                               *ngIf="surpriseInfo"
@@ -35,5 +69,12 @@
         <!--      [path]="'assets/wetransfer_gnomos-minas_2021-08-30_1713/Gnomos minas/animaciones/' + allAnimatinPaths[animationPathIndex]"-->
         <!--      ></mlc-easter-egg-animation>-->
         <!-- [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}" -->
-    </mlc-ratio-container>
+    
+      </mlc-ratio-container>
+    
 </div>
+
+<!-- <mlc-to-in-game-menu-button style="width: 13vh;"
+svgPath="mini-lessons/executive-functions/svg/buttons/Home.svg"></mlc-to-in-game-menu-button>
+<mlc-hint-button style="width: 13vh;" svgPath="mini-lessons/executive-functions/svg/buttons/Hint.svg">
+</mlc-hint-button> -->

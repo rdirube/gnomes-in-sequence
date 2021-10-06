@@ -37,7 +37,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   public playingSequence: boolean;
   public sequence: number[];
   public sequenceSubscription: Subscription;
-  currentStatus: GnomeSceneStatus = 'ver';
+  public currentStatus:string;
+
 
   public currentScenePositions = [];
   showCountDown: boolean;
@@ -45,6 +46,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   public sceneSvg: string;
   public surpriseInfo: SurpriseAnimationInfo;
 
+  
   constructor(private challengeService: GnomesChallengeService,
               private metricsService: MicroLessonMetricsService<GnomesExercise>,
               private hintService: HintService,
@@ -163,6 +165,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
         }
       });
   }
+
 
   startGame(): void {
     this.showCountDown = false;

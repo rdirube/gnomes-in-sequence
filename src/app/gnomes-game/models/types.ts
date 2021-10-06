@@ -1,10 +1,22 @@
+import { GnomeComponent } from "../components/gnome/gnome.component";
+import { timer } from 'rxjs';
 export type GnomeSceneStatus = 'ver' | 'jugar';
+
 
 export interface GnomeInfo {
   reference: string;
   color: string;
   sound: string;
 }
+
+
+export interface GnomeInfoTutorial {
+  reference: string;
+  color: string;
+  sound: string;
+  selectAvaible: boolean;
+}
+
 
 export interface GnomesExercise {
   sequenceGnomeIds: number[];
@@ -76,3 +88,22 @@ export interface SurpriseAnimationInfo {
 }
 
 export type GnomeAnswer = number[];
+
+
+export interface GnomesPosition {
+  x:string,
+  y:string
+}
+
+
+
+export interface StepsTutorial {
+  title:string;
+}
+  
+
+
+
+
+
+

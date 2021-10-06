@@ -1,0 +1,51 @@
+.myAbsolute {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+  
+  
+  .time-bar {
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background-color: #03A9F4;
+      animation: timer 8s linear;
+      z-index: 50; 
+  }
+  
+  @keyframes timer {
+      0% {
+         width:0%;
+      }
+  }
+  
+  
+  .gnome {
+      @extend .myAbsolute;
+      width: 30vh;
+      height: 30vh;
+    }
+  
+  
+    .game-container-watch {
+        filter:grayscale(0.8);
+    }
+  
+    .selected-gnome {
+      
+      @extend .gnome;
+      background-color: rgba($color: #8ACC26
+      , $alpha: 0.5);
+      border:#8ACC26 solid 1px;
+      border-radius: 50%;
+      animation: select 1s linear infinite;
+      animation-timing-function: ease-in-out;
+      transition-duration: 1s;
+      cursor:pointer;
+  }

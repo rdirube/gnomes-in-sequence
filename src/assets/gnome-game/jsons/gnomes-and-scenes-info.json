@@ -18,7 +18,7 @@
     {
       "reference": "jardin-naranja",
       "color": "naranja",
-      "sound": "lightblueshortFinal.mp3"
+      "sound": "orangeshortFinal.mp3"
     },
     {
       "reference": "jardin-rojo",
@@ -38,27 +38,27 @@
     {
       "reference": "mina-amarillo",
       "color": "amarillo",
-      "sound": "yellowshortFinal.mp3"
+      "sound": "yellowshortFinalMines.mp3"
     },
     {
       "reference": "mina-azul",
       "color": "azul",
-      "sound": "blueshortFinal.mp3"
+      "sound": "blueshortFinalMines.mp3"
     },
     {
       "reference": "mina-rojo",
       "color": "rojo",
-      "sound": "redshortFinal.mp3"
+      "sound": "redshortFinalMines.mp3"
     },
     {
       "reference": "mina-verde",
       "color": "verde",
-      "sound": "greenshortFinal.mp3"
+      "sound": "greenshortFinalMines.mp3"
     },
     {
       "reference": "mina-violeta",
       "color": "violeta",
-      "sound": "violetshortFinal.mp3"
+      "sound": "violetshortFinalMines.mp3"
     }
   ],
   "scenes": [
