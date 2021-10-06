@@ -23,7 +23,7 @@ import { TutorialComponent } from './gnomes-game/components/tutorial/tutorial.co
     FlexLayoutModule,
     GnomesGameModule,
     TranslocoRootModule,
-      BrowserAnimationsModule,
+    BrowserAnimationsModule,
     SharedModule
   ],
   providers: [
