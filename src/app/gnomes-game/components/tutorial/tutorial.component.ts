@@ -4,17 +4,18 @@ import {
   FeedbackOxService,
   GameActionsService, HintService,
   MicroLessonCommunicationService,
-  MicroLessonMetricsService
+  MicroLessonMetricsService,
+  SoundOxService
 } from 'micro-lesson-core';
 
-import { GnomeInfo, GnomeScene, StepsTutorial, gnomesPosition } from '../../models/types';
+import { GnomeInfo, GnomeScene, StepsTutorial, GnomesPosition } from '../../models/types';
 
 import { SurpriseAnimationInfo } from '../../models/types';
 
 import { GnomesChallengeService } from 'src/app/shared/services/gnomes-challenge.service';
 import anime from 'animejs'
 import { EasterEggAnimationComponent, SubscriberOxDirective } from 'micro-lesson-components';
-import { AnswerMetric, OxTextInfo, RestartGameOxBridge } from 'ox-types';
+import { AnswerMetric, OxTextInfo, RestartGameOxBridge, ScreenTypeOx } from 'ox-types';
 import { GnomeAnswerService } from 'src/app/shared/services/gnome-answer.service';
 import { Subscription, timer } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -39,8 +40,6 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   @ViewChildren(GnomeComponent) gnomeComponents: QueryList<GnomeComponent>;
   @ViewChild('tutorialText') tutorialText: TextComponent;
 
-  thirdSecuence: EventEmitter<any> = new EventEmitter();
-  secondSecuence: EventEmitter<any> = new EventEmitter();
   selectTrigger: EventEmitter<any> = new EventEmitter();
   sequenceEmitter: EventEmitter<number> = new EventEmitter();
 
@@ -51,7 +50,7 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   public sceneSvg: string;
   public surpriseInfo: SurpriseAnimationInfo;
   public sequence: GnomeInfo[] = [];
-  public currentScenePositions: gnomesPosition[] = [];
+  public currentScenePositions: GnomesPosition[] = [];
   public info:
     {
       gnomes: GnomeInfo[],
@@ -60,12 +59,11 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   public currentScene: GnomeScene;
   public gnomesTutorialText = new OxTextInfo;
   public tutorialComplete = new OxTextInfo;
-  public tutorialTextContent: string;
   public sequenceCounter: number;
   public stepTutorial: number;
   public currentGnomeToSelect: GnomeInfo;
-  public fourthWatchVar: boolean;
-  public gnomesUsedSecuence: number[] = [];
+  public fourthStepActivate: boolean;
+  public gnomesUsedSecuence: number[]=[];
   public stepArray: number[] = [1, 2, 3, 4];
   public isTutorialComplete: boolean;
   public middleStepsArray: number[] = this.stepArray.filter((z, i) => i < this.stepArray.length - 1 && i > 0);
@@ -81,18 +79,19 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     title: "¡En caso de no clickear ningun gnomo antes del tiempo limite, pierdes! (barra superior)",
   }
   ]
-  public textEffectActivation: boolean = false;
 
 
 
-  constructor(private challengeService: GnomesChallengeService, private answerService: GnomeAnswerService, private hintService: HintService, private preLoaderServide: PreloaderOxService) {
+  constructor(private challengeService: GnomesChallengeService,
+    private answerService: GnomeAnswerService, private hintService: HintService,
+    private soundService: SoundOxService,
+    private preLoaderServide: PreloaderOxService) {
     super()
     this.addSubscription(this.challengeService.currentExercise.pipe(filter(x => x === undefined)), z => {
       this.info = JSON.parse(this.preLoaderServide.getResourceData('gnome-game/jsons/gnomes-and-scenes-info.json'));
-      this.currentScene = this.info.scenes[7]
+      this.currentScene = anyElement(this.info.scenes)
       this.setScene();
     })
-
 
 
     this.addSubscription(this.selectTrigger, x => {
@@ -125,7 +124,6 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
 
     this.addSubscription(this.sequenceEmitter, z => {
       if (this.sequence.length < z) {
-        this.currentStatus = 'ver';
         timer(1200).subscribe(cc => {
           this.sequenceMethod(z);
         })
@@ -161,8 +159,11 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
+
+
   ngOnInit(): void {
   }
+
 
 
   ngAfterViewInit(): void {
@@ -180,9 +181,11 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
 
 
 
+
   surprisesInScene(indexSceneLevel: number): void {
     this.surpriseInfo = this.info.scenes[indexSceneLevel].surpriseAnimationInfo;
   }
+
 
 
 
@@ -194,14 +197,22 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
-  gnomesSingingPerScene(): any {
+
+
+  gnomesSingingPerScene(): void {
+    // const gnomeIds = this.gnomesTutorial.map((z, i) => i);
+
     for (let i = 0; i < 3; i++) {
+      // this.gnomesUsedSecuence.push(anyElement(gnomeIds));
       this.gnomesUsedSecuence.push(anyElement(this.getValidGnomeIds(2, this.gnomesUsedSecuence, this.gnomesTutorial)));
     }
   }
 
 
+
+
   sequenceMethod(sequenceLegth: number) {
+    this.currentStatus = 'ver';
     const indexToSelect = this.gnomesUsedSecuence[this.sequenceCounter];
     this.sequence.push(this.gnomesTutorial[this.gnomesUsedSecuence[this.sequenceCounter]]);
     this.gnomeComponents.toArray()[indexToSelect].playAudio();
@@ -211,8 +222,9 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
 
 
 
+
   limitTimeStep() {
-    this.fourthWatchVar = true;
+    this.fourthStepActivate = true;
     this.stepTutorial++;
     this.selectTrigger.emit();
   }
@@ -228,7 +240,6 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
 
   middleSecuences() {
     this.sequenceEmitter.emit(this.stepTutorial);
-    this.textEffectActivation != this.textEffectActivation;
     this.sequenceCounter = 0;
     this.stepTutorial++;
   }
@@ -242,6 +253,8 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
       this.sequence.shift();
       this.currentGnomeToSelect = this.sequence[0];
       this.selectTrigger.emit();
+    } else {
+      this.soundService.playCantClickSound(ScreenTypeOx.Game);
     }
   }
 
@@ -256,7 +269,7 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     this.gnomesTutorialText.originalText = this.stepsTitles[0].title;
     this.tutorialText.setOxTextInfo = this.gnomesTutorialText;
     this.isTutorialComplete = false;
-    this.fourthWatchVar = false;
+    this.fourthStepActivate = false;
     this.currentStatus = 'ver';
     this.stepTutorial = 1;
     this.sequenceCounter = 0;
@@ -293,7 +306,6 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
         }
       })
   }
-
 
 
 
