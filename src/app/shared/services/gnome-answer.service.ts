@@ -66,5 +66,4 @@ export class GnomeAnswerService extends AnswerService {
   protected isValidAnswer(answer: UserAnswer): boolean {
     return false;
   }
-
 }

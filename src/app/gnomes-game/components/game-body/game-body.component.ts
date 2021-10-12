@@ -13,7 +13,14 @@ import {
   MicroLessonMetricsService
 } from 'micro-lesson-core';
 import {GnomeAnswerService} from '../../../shared/services/gnome-answer.service';
-import {ExpandedShowable, GameAskForScreenChangeBridge, ScreenTypeOx, WorkingMemoryPart, WorkingMemorySchemaData} from 'ox-types';
+import {
+  ExerciseData,
+  ExpandedShowable,
+  GameAskForScreenChangeBridge,
+  ScreenTypeOx,
+  WorkingMemoryPart,
+  WorkingMemorySchemaData
+} from 'ox-types';
 import {getGnomeAudio, getGnomeImage} from '../../../shared/functions/gnomes-functions';
 import {anyElement, replaceAll, shuffle} from 'ox-core';
 import anime from 'animejs';
@@ -72,7 +79,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
           this.feedback.endFeedback.emit();
           timer(1000).subscribe(aa => {
             this.gameActions.microLessonCompleted.emit();
-            this.microLessonCommunication.sendMessageMLToManager(GameAskForScreenChangeBridge, ScreenTypeOx.GameComplete);
+            timer(500).subscribe(zzz =>
+              this.microLessonCommunication.sendMessageMLToManager(GameAskForScreenChangeBridge, ScreenTypeOx.GameComplete));
           });
         });
       }
@@ -177,19 +185,23 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
       console.log(' Click gnome ', this.gnomes[index]);
       this.gnomeComponents.toArray()[index].playAudio();
       this.answerService.addPartialAnswer(index);
+      this.gameActions.actionToAnswer.emit();
     }
   }
 
 
 
   private addMetric(): void {
-    this.metricsService.addMetric({
+    const myMetric = {
       schemaType: 'working-memory',
       schemaData: {
         statement: {parts: []},
         additionalInfo: [],
         presentationOrder: 'ordered',
-        processingCriteria: {orderOrientation: 'ascendant', type: 'presentation-order'},
+        processingCriteria: {
+          type: this.challengeService.exerciseConfig.invertedGnomes
+            ? 'inverse-presentation-order' : 'presentation-order'
+        },
         stimulus: this.challengeService.exercise.sequenceGnomeIds.map(this.gnomeIdToStimulus.bind(this))
       } as WorkingMemorySchemaData,
       userInput: {
@@ -198,12 +210,22 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
         surrendered: false
       },
       finalStatus: 'to-answer',
-      maxHints: 'none',
+      maxHints: this.challengeService.exerciseConfig.maxHintsPerExercise,
       secondsInExercise: 0,
       initialTime: new Date(),
       finishTime: undefined,
       firstInteractionTime: undefined
+    };
+    this.addSubscription(this.gameActions.actionToAnswer.pipe(take(1)), z => {
+      myMetric.firstInteractionTime = new Date();
     });
+    this.addSubscription(this.gameActions.checkedAnswer.pipe(take(1)),
+      z => {
+        myMetric.finishTime = new Date();
+        console.log('Finish time');
+      });
+    this.metricsService.addMetric(myMetric as ExerciseData);
+    this.metricsService.currentMetrics.exercises++;
   }
 
   private gnomeIdToStimulus(id: number): WorkingMemoryPart {
