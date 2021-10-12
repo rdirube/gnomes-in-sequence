@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChildren, QueryList, EventEmitter, ViewChild, HostListener } from '@angular/core';
-import { GnomeSceneStatus, GnomesExercise } from '../../models/types';
+import {AfterViewInit, Component, Input, OnInit, ViewChildren, QueryList, EventEmitter, ViewChild, HostListener} from '@angular/core';
+import {GnomeSceneStatus, GnomesExercise} from '../../models/types';
 import {
   FeedbackOxService,
   GameActionsService, HintService,
@@ -8,25 +8,24 @@ import {
   SoundOxService
 } from 'micro-lesson-core';
 
-import { GnomeInfo, GnomeScene, StepsTutorial, GnomesPosition } from '../../models/types';
+import {GnomeInfo, GnomeScene, StepsTutorial, GnomesPosition} from '../../models/types';
 
-import { SurpriseAnimationInfo } from '../../models/types';
+import {SurpriseAnimationInfo} from '../../models/types';
 
-import { GnomesChallengeService } from 'src/app/shared/services/gnomes-challenge.service';
-import anime from 'animejs'
-import { EasterEggAnimationComponent, SubscriberOxDirective } from 'micro-lesson-components';
-import { AnswerMetric, OxTextInfo, RestartGameOxBridge, ScreenTypeOx } from 'ox-types';
-import { GnomeAnswerService } from 'src/app/shared/services/gnome-answer.service';
-import { Subscription, timer } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { GnomeComponent } from '../gnome/gnome.component';
-import { anyElement, PreloaderOxService, shuffle, lastNElementsOfArray, replaceAll } from 'ox-core';
-import { Typographies, TextComponent } from 'typography-ox';
-import { $ } from 'protractor';
+import {GnomesChallengeService} from 'src/app/shared/services/gnomes-challenge.service';
+import anime from 'animejs';
+import {EasterEggAnimationComponent, SubscriberOxDirective} from 'micro-lesson-components';
+import {AnswerMetric, OxTextInfo, RestartGameOxBridge, ScreenTypeOx} from 'ox-types';
+import {GnomeAnswerService} from 'src/app/shared/services/gnome-answer.service';
+import {Subscription, timer} from 'rxjs';
+import {filter} from 'rxjs/operators';
+import {GnomeComponent} from '../gnome/gnome.component';
+import {anyElement, PreloaderOxService, shuffle, lastNElementsOfArray, replaceAll} from 'ox-core';
+import {Typographies, TextComponent} from 'typography-ox';
+import {$} from 'protractor';
 
 
 // import { threadId } from 'worker_threads';
-
 
 
 @Component({
@@ -57,13 +56,13 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
       scenes: GnomeScene[]
     };
   public currentScene: GnomeScene;
-  public gnomesTutorialText = new OxTextInfo;
-  public tutorialComplete = new OxTextInfo;
+  public gnomesTutorialText = new OxTextInfo();
+  public tutorialComplete = new OxTextInfo();
   public sequenceCounter: number;
   public stepTutorial: number;
   public currentGnomeToSelect: GnomeInfo;
   public fourthStepActivate: boolean;
-  public gnomesUsedSecuence: number[]=[];
+  public gnomesUsedSecuence: number[] = [];
   public stepArray: number[] = [1, 2, 3, 4];
   public isTutorialComplete: boolean;
   public saltarTutorialText:string ="Saltar Tutorial";
@@ -72,59 +71,56 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   public buttonRoute:string = "gnome-game/svg/tutorial botón.svg"
   public middleStepsArray: number[] = this.stepArray.filter((z, i) => i < this.stepArray.length - 1 && i > 0);
   public stepsTitles: StepsTutorial[] = [{
-    title: "¡Bienvenido! Presta atención a los gnomos"
+    title: '¡Bienvenido! Presta atención a los gnomos'
   }, {
-    title: "Haz click sobre el gnomo iluminado",
+    title: 'Haz click sobre el gnomo iluminado',
   }, {
-    title: "Repite la siguiente secuencia",
+    title: 'Repite la siguiente secuencia',
   }, {
-    title: "¡Intenta hacer la secuencia lo mas larga posible!",
+    title: '¡Intenta hacer la secuencia lo mas larga posible!',
   }, {
-    title: "¡En caso de no clickear ningun gnomo antes del tiempo limite, pierdes! (barra superior)",
+    title: '¡En caso de no clickear ningun gnomo antes del tiempo limite, pierdes! (barra superior)',
   }
-  ]
-
+  ];
 
 
   constructor(private challengeService: GnomesChallengeService,
-    private answerService: GnomeAnswerService, private hintService: HintService,
-    private soundService: SoundOxService,
-    private preLoaderServide: PreloaderOxService) {
-    super()
+              private answerService: GnomeAnswerService, private hintService: HintService,
+              private soundService: SoundOxService,
+              private preLoaderServide: PreloaderOxService) {
+    super();
     this.addSubscription(this.challengeService.currentExercise.pipe(filter(x => x === undefined)), z => {
       this.info = JSON.parse(this.preLoaderServide.getResourceData('gnome-game/jsons/gnomes-and-scenes-info.json'));
       this.currentScene = this.sceneDraft();
       this.setScene();
-    })
+    });
 
 
     this.addSubscription(this.selectTrigger, x => {
       if (this.sequence.length > 0) {
         this.gnomeToSelect();
-      }
-      else if (this.stepTutorial >= this.middleStepsArray[0] &&
+      } else if (this.stepTutorial >= this.middleStepsArray[0] &&
         this.stepTutorial <= this.middleStepsArray[this.middleStepsArray.length - 1]) {
-        let middleSequencePivotTextNumber = this.stepTutorial === this.middleStepsArray[0] ? 2 : 3;
+        const middleSequencePivotTextNumber = this.stepTutorial === this.middleStepsArray[0] ? 2 : 3;
         this.textChangeAnimation(600, middleSequencePivotTextNumber);
         timer(600).subscribe(z => {
           this.middleSecuences();
-        })
+        });
 
-      }
-      else if (this.stepTutorial === this.stepArray[this.stepArray.length - 1]) {
+      } else if (this.stepTutorial === this.stepArray[this.stepArray.length - 1]) {
         this.textChangeAnimation(500, 4);
         timer(600).subscribe(z => {
           this.limitTimeStep();
-        })
+        });
       } else {
         timer(8600).subscribe(z => {
           this.fourthStepActivate = false;
           this.gnomesTutorialText.originalText = "";
           this.tutorialText.setOxTextInfo = this.gnomesTutorialText;
-          this.isTutorialComplete = true
+          this.isTutorialComplete = true;
         });
       }
-    })
+    });
 
 
     this.addSubscription(this.sequenceEmitter, z => {
@@ -132,11 +128,11 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
         this.currentStatus = 'ver';
         timer(1200).subscribe(cc => {
           this.sequenceMethod(z);
-        })
+        });
       } else {
         timer(1200).subscribe(ss => {
           this.selectTrigger.emit();
-        })
+        });
       }
     })
     this.gnomesTutorialText.color = "white";
@@ -150,14 +146,13 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
-
-  private setScene() {
+  private setScene(): void {
     this.sceneSvg = `gnome-game/svg/Fondos/${this.currentScene.name}.svg`;
     this.currentScenePositions = this.currentScene.positions.filter(z =>
       parseInt(z.y, 10) < 45
-    )
+    );
     this.allGnomes = this.info.gnomes.map(gnome => {
-      return { color: gnome.color, sound: gnome.sound, reference: gnome.reference, selectAvaible: false };
+      return {color: gnome.color, sound: gnome.sound, reference: gnome.reference, selectAvaible: false};
     });
     this.gnomesPerScene();
     this.gnomesSingingPerScene();
@@ -179,28 +174,22 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
-
   ngAfterViewInit(): void {
     this.startTutorialMethod();
   }
 
 
-
   gnomesPerScene(): any {
     const allGnomesShuffle = shuffle(this.allGnomes);
     this.currentScenePositions.forEach((z, i) => {
-      this.gnomesTutorial.push(allGnomesShuffle[i])
-    })
+      this.gnomesTutorial.push(allGnomesShuffle[i]);
+    });
   }
-
-
 
 
   surprisesInScene(indexSceneLevel: number): void {
     this.surpriseInfo = this.info.scenes[indexSceneLevel].surpriseAnimationInfo;
   }
-
-
 
 
   getValidGnomeIds(maxConsecutive: number, sequenceIds: number[], exerciseGnomes: GnomeInfo[]): number[] {
@@ -209,8 +198,6 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     const lastNGnomesAreEqual = lastNGnomesIndex.every(z => z === lastNGnomesIndex[0]) ? lastNGnomesIndex[0] : null;
     return gnomeIds.filter(z => z !== lastNGnomesAreEqual);
   }
-
-
 
 
   gnomesSingingPerScene(): void {
@@ -234,32 +221,27 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
-
-
-  limitTimeStep() {
+  limitTimeStep(): void {
     this.fourthStepActivate = true;
     this.stepTutorial++;
     this.selectTrigger.emit();
   }
 
 
-
-  gnomeToSelect() {
+  gnomeToSelect(): void {
     this.currentStatus = 'jugar';
-    this.currentGnomeToSelect = this.sequence[0]
+    this.currentGnomeToSelect = this.sequence[0];
   }
 
 
-
-  middleSecuences() {
+  middleSecuences(): void {
     this.sequenceEmitter.emit(this.stepTutorial);
     this.sequenceCounter = 0;
     this.stepTutorial++;
   }
 
 
-
-  sequenceAnswer(i) {
+  sequenceAnswer(i): void {
     // const indexToSelect = this.gnomesTutorial.indexOf(this.sequence[0])
     if (this.gnomesTutorial[i] === this.currentGnomeToSelect) {
       this.gnomeComponents.toArray()[i].playAudio();
@@ -288,12 +270,11 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
       this.sequenceMethod(0);
       this.stepTutorial++;
       this.textChangeAnimation(600, 1);
-    })
+    });
   }
 
 
-
-  textChangeAnimation(duration: number, step: number) {
+  textChangeAnimation(duration: number, step: number): void {
     const tl = anime.timeline({
       targets: '.tutorial-text',
       easing: 'easeInOutExpo'
@@ -301,7 +282,7 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     tl.add({
       translateY: {
         value: '8vh',
-        duration: duration
+        duration
       }
     }).add({
       translateY: {
@@ -313,22 +294,19 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
       .add({
         translateY: {
           value: '0vh',
-          duration: duration
+          duration
         }
-      })
+      });
   }
 
 
-
-  textChanger(step: number, duration: number) {
+  textChanger(step: number, duration: number): void {
     timer(duration).subscribe(z => {
       this.gnomesTutorialText.originalText = this.stepsTitles[step].title;
       this.tutorialText.setOxTextInfo = this.gnomesTutorialText;
-    })
+    });
 
   }
-
-
 
 
 }
