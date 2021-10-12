@@ -37,7 +37,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   public playingSequence: boolean;
   public sequence: number[];
   public sequenceSubscription: Subscription;
-  public currentStatus:string;
+  public currentStatus:GnomeSceneStatus;
 
 
   public currentScenePositions = [];
@@ -112,6 +112,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     });
   }
 
+  
+
   shuffleGnomes(completeFunc: () => void = () => {
   }): void {
     anime({
@@ -137,8 +139,12 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     });
   }
 
+
+
   ngOnInit(): void {
   }
+
+
 
   public playSequence(): void {
     this.currentStatus = 'ver';
@@ -172,6 +178,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     this.playSequence();
   }
 
+
+
   onClickGnome(index: number): void {
     if (this.interactableGnomes) {
       console.log(' Click gnome ', this.gnomes[index]);
@@ -180,6 +188,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
       this.gameActions.actionToAnswer.emit();
     }
   }
+
+
 
   private addMetric(): void {
     const myMetric = {
@@ -233,21 +243,11 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
     };
   }
 
-  private finishSequence(): void {
-    this.playingSequence = false;
-    this.gnomeComponents.toArray()[this.sequence[this.sequence.length - 1]].stopAudio();
-    this.interactableGnomes = true;
-    this.currentStatus = 'jugar';
-    console.log('Complete');
-    this.hintService.checkHintAvailable();
-    this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
-  }
-
-  // private auxIndex = 0;
-  // private auxList = ['jardin-alacena-5', 'jardin-biblioteca-6', 'jardin-baño-5', 'jardin-chimenea-4', 'jardin-chimenea-2', 'jardin-escaleras-6', 'jardin-establo-4'];
-  // // private auxList = ['mina-dragon-3', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
-  // private animationMode = true;
-  // itsTutorial = true;
+  private auxIndex = 0;
+  private auxList = ['jardin-alacena-5', 'jardin-biblioteca-6', 'jardin-baño-5', 'jardin-chimenea-4', 'jardin-chimenea-2', 'jardin-escaleras-6', 'jardin-establo-4'];
+  // private auxList = ['mina-dragon-3', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
+  private animationMode = true;
+  itsTutorial = true;
 
   // @HostListener('document:keydown', ['$event'])
   // asdsada($event: KeyboardEvent): void {
@@ -307,7 +307,15 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   //   }
   // }
 
-
+  private finishSequence(): void {
+    this.playingSequence = false;
+    this.gnomeComponents.toArray()[this.sequence[this.sequence.length - 1]].stopAudio();
+    this.interactableGnomes = true;
+    this.currentStatus = 'jugar';
+    console.log('Complete');
+    this.hintService.checkHintAvailable();
+    this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
+  }
   //
   // public animationSize = [10, 10];
   // private animationSizeIndex = 0;
@@ -365,9 +373,9 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
   //     this.sceneSvg = 'gnome-game/svg/Fondos/' + this.auxList[inde] + '.svg';
   //   }
   // }
-  // mustClick(i: number) {
-  //   return i === 0;
-  // }
+  mustClick(i: number) {
+    return i === 0;
+  }
 }
 
 function changeVhValue(value: string, change: number): string {

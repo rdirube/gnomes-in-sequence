@@ -1,10 +1,39 @@
 
 <div fxFlex="grow" fxLayoutAlign="center center" style="position: relative" [ngClass]="fourthStepActivate ? 'game-container-watch': 'game-container' ">
-   
+  <div class="tutorial-complete-container" fxLayoutAlign="center center " fxLayout="column"  *ngIf="isTutorialComplete" style="position: absolute" >
+    <ox-text [oxTextInfo]="tutorialComplete" class="tutorial-comṕlete-text"></ox-text>
+    <mlc-loaded-svg class="complete-buttom play" fxLayoutAlign="center center"
+    [path]="buttonRoute"></mlc-loaded-svg>
+    <ng-container>
+      <ox-text
+        class="play-now-text"
+        font="dinnMedium"
+        [originalText]="playNowButtomText"
+        fontSize="3.5vh"  
+      ></ox-text>
+    </ng-container>
+    <mlc-loaded-svg class="complete-buttom repeat" fxLayoutAlign="center center"
+    [path]="buttonRoute"></mlc-loaded-svg>
+    <ng-container>
+      <ox-text (click)="startTutorialMethod()"
+        class="repeat-tutorial-text"
+        font="dinnMedium"
+        [originalText]="repeatTutorialButtomText"
+        fontSize="3.5vh"  
+      ></ox-text>
+    </ng-container>
+    <!-- <div class="complete-buttom play"fxLayoutAlign="center center">
+        <p>Jugar Ahora</p>
+      </div>
+      <div class="complete-buttom repeat" fxLayoutAlign="center center" (click)="repeatTutorialMethod()">
+        <p>Repetir Tutorial</p>
+      </div> -->
+
+</div>
     <div class="myAbsolute full-width" style="height: 13vh; z-index: 10" fxLayoutAlign="space-between">
         
     </div>
-    <app-scene [status]="currentStatus" [sceneSvg]="sceneSvg" class="myAbsolute" fxFlex="grow"></app-scene>
+    <app-scene [status]="currentStatus" [sceneSvg]="sceneSvg" class="myAbsolute" fxFlex="grow" [ngClass]="fourthStepActivate ? 'game-container-watch': 'game-container' "></app-scene>
 
     <mlc-ratio-container ratio="4:3" style="position: relative">
         
@@ -27,21 +56,23 @@
                    (click)="onClickGnome(i)"
                    >
         </app-gnome> -->
-        <div class="tutorial-complete-container" fxLayoutAlign="center center" fxLayout="column"  *ngIf="isTutorialComplete" style="position: absolute" >
-            <ox-text [oxTextInfo]="tutorialComplete"></ox-text>
-            <div class="complete-buttom play"fxLayoutAlign="center center">
-                <p>Jugar Ahora</p>
-              </div>
-              <div class="complete-buttom repeat" fxLayoutAlign="center center" (click)="repeatTutorialMethod()">
-                <p>Repetir Tutorial</p>
-              </div>
-        </div>
+    
         <div class="text-tutorial-container" style="position: absolute" fxLayoutAlign="center center">
             <ox-text #tutorialText [oxTextInfo]="gnomesTutorialText" class="tutorial-text" style="position: absolute"></ox-text>
         </div>
-        <div class="saltar-tutorial-button" style="position: absolute" fxLayoutAlign="center center">
-            <p>Saltar Tutorial</p>
-          </div>
+        
+          <mlc-loaded-svg class="saltar-tutorial-button" style="position: absolute" fxLayoutAlign="center center"
+          [path]="buttonRoute"></mlc-loaded-svg>
+          <ng-container>
+            <ox-text
+              class="saltar-tutorial-text"
+              font="dinnMedium"
+              [originalText]="saltarTutorialText"
+              fontSize="3.5vh"  
+            ></ox-text>
+          </ng-container>
+
+
           <app-surprise-animation insideRatio
           [sequencePlaying]="playingSequence"
           *ngIf="surpriseInfo"

@@ -55,7 +55,7 @@ export class AppComponent extends BaseMicroLessonApp {
   protected getGameResourcesToLoad(): ResourceOx[] {
     console.log('asdsad');
     const svg = ['gnome-game/svg/saltear.svg',
-      'gnome-game/svg/jugar.svg', 'gnome-game/svg/ver.svg'];
+      'gnome-game/svg/jugar.svg', 'gnome-game/svg/ver.svg', 'gnome-game/svg/ver.svg', "gnome-game/svg/tutorial botón.svg"];
     const animationSvgs = ['window-1.svg', 'window-2.svg', 'window-3.svg', 'window-4.svg', 'window-5.svg',
       'baño-1.svg', 'baño-2.svg', 'baño-3.svg', 'baño-4.svg',
       'worm-1.svg', 'worm-2.svg', 'worm-3.svg',
@@ -78,7 +78,7 @@ export class AppComponent extends BaseMicroLessonApp {
       });
 
     const gnomeAudios = ['blueshortFinal.mp3', 'greenshortFinal.mp3', 'lightblueshortFinal.mp3',
-      'redshortFinal.mp3', 'violetshortFinal.mp3', 'yellowshortFinal.mp3']
+      'redshortFinal.mp3', 'violetshortFinal.mp3', 'yellowshortFinal.mp3', 'yellowshortFinalMines.mp3', 'blueshortFinalMines.mp3', 'greenshortFinalMines.mp3', 'redshortFinalMines.mp3', 'violetshortFinalMines.mp3', 'violetshortFinalMines.mp3']
       .map(  z => 'mini-lessons/executive-functions/gnomes-in-sequence/sounds/gnomes/' + z);
     return svg.map(x => new ResourceOx(x, ResourceType.Svg,
       [ScreenTypeOx.Game], true)).concat(

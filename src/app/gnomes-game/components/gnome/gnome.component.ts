@@ -14,12 +14,10 @@ import { LoadedSvgComponent } from 'micro-lesson-components';
 export class GnomeComponent implements OnInit {
 
   @Input() gnomeInfo: GnomeInfo;
-  @Input() gnomeInfoTutorial: GnomeInfoTutorial;
   interactable: boolean;
 
 
   public currentSvg: string;
-  public selectAvaiableTutorial: boolean = false;
 
 
   constructor(private soundService: SoundOxService) {
@@ -40,6 +38,7 @@ export class GnomeComponent implements OnInit {
     this.setSvg('cantando');
     this.soundService.playSoundEffect(getGnomeAudio(this.gnomeInfo.sound), ScreenTypeOx.Game, false,
       true, () => {
+        console.log("toNormal");
         this.setSvg('normal');
         extraCallBak();
       });
