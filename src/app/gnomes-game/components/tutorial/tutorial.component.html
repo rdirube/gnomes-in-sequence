@@ -3,6 +3,7 @@
   <div class="tutorial-complete-container" fxLayoutAlign="center center " fxLayout="column"  *ngIf="isTutorialComplete" style="position: absolute" >
     <ox-text [oxTextInfo]="tutorialComplete" class="tutorial-comṕlete-text"></ox-text>
     <mlc-loaded-svg class="complete-buttom play" fxLayoutAlign="center center"
+                    (click)="onTutorialEnd(true)"
     [path]="buttonRoute"></mlc-loaded-svg>
     <ng-container>
       <ox-text
@@ -62,7 +63,9 @@
         </div>
         
           <mlc-loaded-svg class="saltar-tutorial-button" style="position: absolute" fxLayoutAlign="center center"
-          [path]="buttonRoute"></mlc-loaded-svg>
+          [path]="buttonRoute"
+          (click)="onSkipTutorial()"
+          ></mlc-loaded-svg>
           <ng-container>
             <ox-text
               class="saltar-tutorial-text"
@@ -104,8 +107,3 @@
       </mlc-ratio-container>
     
 </div>
-
-<!-- <mlc-to-in-game-menu-button style="width: 13vh;"
-svgPath="mini-lessons/executive-functions/svg/buttons/Home.svg"></mlc-to-in-game-menu-button>
-<mlc-hint-button style="width: 13vh;" svgPath="mini-lessons/executive-functions/svg/buttons/Hint.svg">
-</mlc-hint-button> -->
