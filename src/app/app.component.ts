@@ -1,6 +1,6 @@
 import {Component, ElementRef} from '@angular/core';
 import {CommunicationOxService, I18nService, PreloaderOxService, ResourceOx, ResourceType} from 'ox-core';
-import {ResourceFinalStateOxBridge, ScreenTypeOx} from 'ox-types';
+import {ResourceFinalStateOxBridge, ScreenTypeOx, HasTutorialOxBridge} from 'ox-types';
 import {environment} from '../environments/environment';
 import {GnomesChallengeService} from './shared/services/gnomes-challenge.service';
 import {
@@ -28,7 +28,7 @@ import {PostMessageBridgeFactory} from 'ngox-post-message';
 export class AppComponent extends BaseMicroLessonApp {
   title = 'gnomes-in-sequence';
 
-  public showingTutorial = true;
+  public showingTutorial = false;
 
   constructor(preloader: PreloaderOxService, translocoService: TranslocoService, wumboxService: InWumboxService,
               communicationOxService: CommunicationOxService, microLessonCommunicationService: MicroLessonCommunicationService<any>,
@@ -42,6 +42,7 @@ export class AppComponent extends BaseMicroLessonApp {
     super(preloader, translocoService, wumboxService, communicationOxService, microLessonCommunicationService,
       progressService, elementRef, gameActions, endGame,
       i18nService, levelService, http, challenge, appInfo, microLessonMetrics, sound, bridgeFactory);
+    microLessonCommunicationService.sendMessageMLToManager(HasTutorialOxBridge, true);
     communicationOxService.receiveI18NInfo.subscribe(z => {
       console.log('i18n', z);
     });
