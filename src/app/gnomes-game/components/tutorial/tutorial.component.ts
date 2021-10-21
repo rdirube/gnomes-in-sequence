@@ -79,7 +79,6 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   public saltarTutorialText = 'Saltar Tutorial';
   public playNowButtomText = 'Jugar Ahora';
   public repeatTutorialButtomText = 'Repetir Tutorial';
-  public buttonRoute = 'gnome-game/svg/tutorial botón.svg';
   public middleStepsArray: number[] = this.stepArray.filter((z, i) => i < this.stepArray.length - 1 && i > 0);
   public stepsTitles: StepsTutorial[] = [{
     title: '¡Bienvenido! Presta atención a los gnomos'
@@ -88,11 +87,13 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }, {
     title: 'Repite la siguiente secuencia',
   }, {
-    title: '¡Intenta hacer la secuencia lo mas larga posible!',
+    title: 'Intenta hacer la secuencia lo mas larga posible!',
   }, {
     title: '¡Clickea algún gnomo, el tiempo corre! (barra superior)',
   }
   ];
+  public buttonClass:string[]= ["complete-buttom", "saltar-tutorial-button"]
+
   @Output() tutorialEnd = new EventEmitter<{ completed: boolean }>();
 
 
@@ -153,7 +154,7 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     this.gnomesTutorialText.fontSize = '4.5vh';
     this.gnomesTutorialText.ignoreLowerCase = true;
     this.tutorialComplete.color = 'white';
-    this.tutorialComplete.originalText = 'Tutorial completo ¡A jugar!';
+    this.tutorialComplete.originalText = 'Tutorial completado ¡A jugar!';
     this.tutorialComplete.font = 'dinnRegular';
     this.tutorialComplete.fontSize = '6vh';
   }
@@ -263,6 +264,10 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     } else {
       this.soundService.playCantClickSound(ScreenTypeOx.Game);
     }
+  }
+
+  onTutorialEndTrue(): void{
+    this.onTutorialEnd(true);
   }
 
 

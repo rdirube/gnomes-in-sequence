@@ -1,111 +1,70 @@
-
-<div fxFlex="grow" fxLayoutAlign="center center" style="position: relative" [ngClass]="fourthStepActivate ? 'game-container-watch': 'game-container' ">
-  <div class="tutorial-complete-container" fxLayoutAlign="center center " fxLayout="column"  *ngIf="isTutorialComplete" style="position: absolute" >
+<div fxFlex="grow" fxLayoutAlign="center center" style="position: relative"
+  [ngClass]="fourthStepActivate ? 'game-container-watch': 'game-container' ">
+  <div class="tutorial-complete-container" fxLayoutAlign="center center " fxLayout="column" *ngIf="isTutorialComplete"
+    style="position: absolute">
     <ox-text [oxTextInfo]="tutorialComplete" class="tutorial-comṕlete-text"></ox-text>
-    <mlc-loaded-svg class="complete-buttom play" fxLayoutAlign="center center"
-                    (click)="onTutorialEnd(true)"
-    [path]="buttonRoute"></mlc-loaded-svg>
+    <app-tutorial-button  fxLayoutAlign="center center" [tutorialText]="playNowButtomText" 
+    mlcClickeableOx [realClick]="onTutorialEndTrue.bind(this)"
+    [class]="buttonClass[0]"></app-tutorial-button>
+    <!-- <mlc-loaded-svg 
+      [path]="buttonRoute"></mlc-loaded-svg>
     <ng-container>
-      <ox-text
-        class="play-now-text"
-        font="dinnMedium"
-        [originalText]="playNowButtomText"
-        fontSize="3.5vh"  
-      ></ox-text>
-    </ng-container>
-    <mlc-loaded-svg class="complete-buttom repeat" fxLayoutAlign="center center"
-    [path]="buttonRoute"></mlc-loaded-svg>
-    <ng-container>
-      <ox-text (click)="startTutorialMethod()"
-        class="repeat-tutorial-text"
-        font="dinnMedium"
-        [originalText]="repeatTutorialButtomText"
-        fontSize="3.5vh"  
-      ></ox-text>
-    </ng-container>
-    <!-- <div class="complete-buttom play"fxLayoutAlign="center center">
-        <p>Jugar Ahora</p>
-      </div>
-      <div class="complete-buttom repeat" fxLayoutAlign="center center" (click)="repeatTutorialMethod()">
-        <p>Repetir Tutorial</p>
-      </div> -->
+      <ox-text class="play-now-text" font="dinnMedium" [originalText]="playNowButtomText" fontSize="3.5vh"></ox-text>
+    </ng-container> -->
+    <app-tutorial-button  fxLayoutAlign="center center" [class]="buttonClass[0]"
+    mlcClickeableOx [realClick]="startTutorialMethod.bind(this)"
+    [tutorialText]="repeatTutorialButtomText"></app-tutorial-button>
+    <!-- <mlc-loaded-svg class="complete-buttom repeat" fxLayoutAlign="center center" [path]="buttonRoute"></mlc-loaded-svg> -->
+    <!-- <ng-container>
+      <ox-text (click)="startTutorialMethod()" class="repeat-tutorial-text" font="dinnMedium"
+        [originalText]="repeatTutorialButtomText" fontSize="3.5vh"></ox-text>
+    </ng-container> -->
+  </div>
+  <div class="myAbsolute full-width" style="height: 13vh; z-index: 10" fxLayoutAlign="space-between">
 
-</div>
-    <div class="myAbsolute full-width" style="height: 13vh; z-index: 10" fxLayoutAlign="space-between">
-        
-    </div>
-    <app-scene [status]="currentStatus" [sceneSvg]="sceneSvg" class="myAbsolute" fxFlex="grow" [ngClass]="fourthStepActivate ? 'game-container-watch': 'game-container' "></app-scene>
+  </div>
+  <app-scene [status]="currentStatus" [sceneSvg]="sceneSvg" class="myAbsolute" fxFlex="grow"
+    [ngClass]="fourthStepActivate ? 'game-container-watch': 'game-container' "></app-scene>
 
-    <mlc-ratio-container ratio="4:3" style="position: relative">
-        
-     
-        <div insideRatio style="width: 100%; height: 100%; z-index: 1" fxLayoutAlign="center center">
-            <div class="time-bar" style="position: absolute" *ngIf="fourthStepActivate"></div>
-            <app-gnome 
-             *ngFor="let gnome of gnomesTutorial; index as i" 
-             [ngClass] = "gnomesTutorial[i] === currentGnomeToSelect ? 'selected-gnome': 'gnome'"
-             [gnomeInfo]="gnome"
-             [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}"
-             (click)="sequenceAnswer(i)"
-             > 
-            </app-gnome>
-            <!-- [ngClass] = "gnomesTutorial[i] === currentGnomeToSelect ? 'selected-gnome': 'gnome'" -->
-            <!-- [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}" -->
-            <!-- <app-gnome *ngFor="let gnome of gnomes; index as i"
+  <mlc-ratio-container ratio="4:3" style="position: relative">
+
+
+    <div insideRatio style="width: 100%; height: 100%; z-index: 1" fxLayoutAlign="center center">
+      <div class="time-bar" style="position: absolute" *ngIf="fourthStepActivate"></div>
+      <app-gnome *ngFor="let gnome of gnomesTutorial; index as i"
+        [ngClass]="gnomesTutorial[i] === currentGnomeToSelect ? 'selected-gnome': 'gnome'" [gnomeInfo]="gnome"
+        [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}" (click)="sequenceAnswer(i)">
+      </app-gnome>
+      <!-- [ngClass] = "gnomesTutorial[i] === currentGnomeToSelect ? 'selected-gnome': 'gnome'" -->
+      <!-- [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}" -->
+      <!-- <app-gnome *ngFor="let gnome of gnomes; index as i"
                    [gnomeInfo]="gnome"
                    class="myAbsolute gnome"
                    (click)="onClickGnome(i)"
                    >
         </app-gnome> -->
-    
-        <div class="text-tutorial-container" style="position: absolute" fxLayoutAlign="center center">
-            <ox-text #tutorialText [oxTextInfo]="gnomesTutorialText" class="tutorial-text" style="position: absolute"></ox-text>
-        </div>
-       
-         
-    
 
-          <app-surprise-animation insideRatio
-          [sequencePlaying]="playingSequence"
-          *ngIf="surpriseInfo"
-          [surpriseAnimationInfo]="surpriseInfo"
-          [ngStyle]="{'width': surpriseInfo.sizeAndPosition.width,
+      <div class="text-tutorial-container" style="position: absolute" fxLayoutAlign="center center" >
+        <ox-text #tutorialText [oxTextInfo]="gnomesTutorialText" class="tutorial-text" style="position: absolute">
+        </ox-text>
+      </div>
+
+
+
+
+      <app-surprise-animation insideRatio [sequencePlaying]="playingSequence" *ngIf="surpriseInfo"
+        [surpriseAnimationInfo]="surpriseInfo" [ngStyle]="{'width': surpriseInfo.sizeAndPosition.width,
           'height': surpriseInfo.sizeAndPosition.height,
           'left': surpriseInfo.sizeAndPosition.x,
-          'top': surpriseInfo.sizeAndPosition.y}"
-          class="myAbsolute" ></app-surprise-animation>
-        </div>
-       
-        
-        <!-- <app-surprise-animation insideRatio
-                              [sequencePlaying]="playingSequence"
-                              *ngIf="surpriseInfo"
-                              [surpriseAnimationInfo]="surpriseInfo"
-                              [ngStyle]="{'width': surpriseInfo.sizeAndPosition.width,
-                              'height': surpriseInfo.sizeAndPosition.height,
-                              'left': surpriseInfo.sizeAndPosition.x,
-                              'top': surpriseInfo.sizeAndPosition.y}"
-                              class="myAbsolute" ></app-surprise-animation> -->
-        <!--    <mlc-easter-egg-animation insideRatio-->
-        <!--      *ngIf="showAnimation" class="myAbsolute"-->
-        <!--                              style="height: 10vh; width: 10vh"-->
-        <!--      [path]="'assets/wetransfer_gnomos-minas_2021-08-30_1713/Gnomos minas/animaciones/' + allAnimatinPaths[animationPathIndex]"-->
-        <!--      ></mlc-easter-egg-animation>-->
-        <!-- [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}" -->
-    
-      </mlc-ratio-container>
-    
-     
+          'top': surpriseInfo.sizeAndPosition.y}" class="myAbsolute"></app-surprise-animation>
+    </div>
+
+
+  </mlc-ratio-container>
+
+
 </div>
-<mlc-loaded-svg class="saltar-tutorial-button" style="position: fixed" fxLayoutAlign="center center"
-[path]="buttonRoute"
-(click)="onSkipTutorial()"
-></mlc-loaded-svg>
-<ng-container>
-  <ox-text
-    class="saltar-tutorial-text"
-    font="dinnMedium"
-    [originalText]="saltarTutorialText"
-    fontSize="3.5vh"  
-  ></ox-text>
-</ng-container>
+<div class="myAbsolute full-width" fxLayout="row" fxLayoutAlign="end end"></div>
+<app-tutorial-button 
+  mlcClickeableOx [realClick]="onSkipTutorial.bind(this)"
+  style="position: absolute" fxLayoutAlign="center center" [tutorialText]="saltarTutorialText" [class]="buttonClass[1]"></app-tutorial-button>
