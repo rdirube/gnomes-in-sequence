@@ -76,7 +76,7 @@
     },
     {
       "name": "jardin-baño-5",
-      "positions": [{"x":"-0.5vh","y":"33vh"},{"x":"76vh","y":"10.5vh"},{"x":"33.5vh","y":"51.5vh"},{"x":"70.5vh","y":"51.5vh"},{"x":"102.5vh","y":"34.5vh"}],
+      "positions": [{"x":"-0.5vh","y":"33vh"},{"x":"72.5vh","y":"10.5vh"},{"x":"33.5vh","y":"51.5vh"},{"x":"70.5vh","y":"51.5vh"},{"x":"102.5vh","y":"34.5vh"}],
       "surpriseAnimationInfo": {
         "type": "svg-sequence",
         "svgList": ["gnome-game/svg/Fondos/sorpresas/baño-1.svg", "gnome-game/svg/Fondos/sorpresas/baño-2.svg", "gnome-game/svg/Fondos/sorpresas/baño-3.svg",

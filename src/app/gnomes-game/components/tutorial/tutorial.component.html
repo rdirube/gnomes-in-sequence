@@ -61,20 +61,9 @@
         <div class="text-tutorial-container" style="position: absolute" fxLayoutAlign="center center">
             <ox-text #tutorialText [oxTextInfo]="gnomesTutorialText" class="tutorial-text" style="position: absolute"></ox-text>
         </div>
-        
-          <mlc-loaded-svg class="saltar-tutorial-button" style="position: absolute" fxLayoutAlign="center center"
-          [path]="buttonRoute"
-          (click)="onSkipTutorial()"
-          ></mlc-loaded-svg>
-          <ng-container>
-            <ox-text
-              class="saltar-tutorial-text"
-              font="dinnMedium"
-              [originalText]="saltarTutorialText"
-              fontSize="3.5vh"  
-            ></ox-text>
-          </ng-container>
-
+       
+         
+    
 
           <app-surprise-animation insideRatio
           [sequencePlaying]="playingSequence"
@@ -106,4 +95,17 @@
     
       </mlc-ratio-container>
     
+     
 </div>
+<mlc-loaded-svg class="saltar-tutorial-button" style="position: fixed" fxLayoutAlign="center center"
+[path]="buttonRoute"
+(click)="onSkipTutorial()"
+></mlc-loaded-svg>
+<ng-container>
+  <ox-text
+    class="saltar-tutorial-text"
+    font="dinnMedium"
+    [originalText]="saltarTutorialText"
+    fontSize="3.5vh"  
+  ></ox-text>
+</ng-container>

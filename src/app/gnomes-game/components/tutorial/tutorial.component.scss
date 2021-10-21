@@ -85,7 +85,7 @@ overflow: hidden;
 
 
 .tutorial-text{
-    bottom:15px;
+    bottom:2.1vh;
     z-index: 50;
   }
   
@@ -94,8 +94,8 @@ overflow: hidden;
     font-size: 1.2rem;
     width:45vh;
     height:25vh;
-    top:78%;
-    left:80%;
+    top: 78vh;
+    right:2.5vh;
     z-index: 50;
     cursor:pointer;
 }
@@ -103,11 +103,11 @@ overflow: hidden;
 
 .saltar-tutorial-text {
     color:black;
-    position:absolute;
+    position:fixed;
     z-index:100;
     width:40vh;
-    top: 89.5%;
-    left:82%;
+    top:89.5vh;
+    right:5.4vh;
 }
 
 
@@ -137,6 +137,7 @@ overflow: hidden;
     height:25vh;     
     top:29.2vh;
     z-index: 1150;
+    transform: translateY(-0.8vh);
     color:black; 
     cursor:pointer; 
     position:absolute;
@@ -149,6 +150,7 @@ overflow: hidden;
     width:45vh;
     height:25vh;
     top:54.2vh;
+    transform: translateY(-0.8vh);
     z-index: 1150;
     color:black; 
     cursor:pointer; 

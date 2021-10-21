@@ -90,7 +90,7 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }, {
     title: '¡Intenta hacer la secuencia lo mas larga posible!',
   }, {
-    title: '¡En caso de no clickear ningun gnomo antes del tiempo limite, pierdes! (barra superior)',
+    title: '¡Clickea algún gnomo, el tiempo corre! (barra superior)',
   }
   ];
   @Output() tutorialEnd = new EventEmitter<{ completed: boolean }>();
@@ -150,11 +150,12 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     this.gnomesTutorialText.color = 'white';
     this.gnomesTutorialText.originalText = '';
     this.gnomesTutorialText.font = 'dinnRegular';
-    this.gnomesTutorialText.fontSize = '1.5rem';
+    this.gnomesTutorialText.fontSize = '4.5vh';
+    this.gnomesTutorialText.ignoreLowerCase = true;
     this.tutorialComplete.color = 'white';
     this.tutorialComplete.originalText = 'Tutorial completo ¡A jugar!';
     this.tutorialComplete.font = 'dinnRegular';
-    this.tutorialComplete.fontSize = '3rem';
+    this.tutorialComplete.fontSize = '6vh';
   }
 
 
