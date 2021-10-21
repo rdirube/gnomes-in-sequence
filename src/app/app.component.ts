@@ -85,7 +85,7 @@ export class AppComponent extends BaseMicroLessonApp {
       });
 
     const gnomeAudios = ['blueshortFinal.mp3', 'greenshortFinal.mp3', 'lightblueshortFinal.mp3',
-      'redshortFinal.mp3', 'violetshortFinal.mp3', 'yellowshortFinal.mp3', 'yellowshortFinalMines.mp3', 'blueshortFinalMines.mp3', 'greenshortFinalMines.mp3', 'redshortFinalMines.mp3', 'violetshortFinalMines.mp3', 'violetshortFinalMines.mp3','orangeshortFinal.mp3']
+      'redshortFinal.mp3', 'violetshortFinal.mp3', 'yellowshortFinal.mp3', 'yellowshortFinalMines.mp3', 'blueshortFinalMines.mp3', 'greenshortFinalMines.mp3', 'redshortFinalMines.mp3', 'violetshortFinalMines.mp3', 'violetshortFinalMines.mp3', 'orangeshortFinal.mp3']
       .map(z => 'mini-lessons/executive-functions/gnomes-in-sequence/sounds/gnomes/' + z);
     return svg.map(x => new ResourceOx(x, ResourceType.Svg,
       [ScreenTypeOx.Game], true)).concat(

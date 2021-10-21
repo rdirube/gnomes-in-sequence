@@ -1,7 +1,7 @@
-import {Component, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {GnomeInfo, GnomeSceneStatus, GnomesExercise, SurpriseAnimationInfo} from '../../models/types';
 import {GnomesChallengeService} from '../../../shared/services/gnomes-challenge.service';
-import {SubscriberOxDirective} from 'micro-lesson-components';
+import {SubscriberOxDirective, ToInGameMenuButtonComponent} from 'micro-lesson-components';
 import {filter, take} from 'rxjs/operators';
 import {Subscription, timer} from 'rxjs';
 import {TimeToLoseService} from '../../../shared/services/time-to-lose.service';
@@ -30,8 +30,12 @@ import anime from 'animejs';
   templateUrl: './game-body.component.html',
   styleUrls: ['./game-body.component.scss']
 })
-export class GameBodyComponent extends SubscriberOxDirective implements OnInit {
+export class GameBodyComponent extends SubscriberOxDirective implements OnInit, AfterViewInit {
+  ngAfterViewInit(): void {
+    this.menuButton.interactable = false;
+  }
 
+  @ViewChild(ToInGameMenuButtonComponent) menuButton: ToInGameMenuButtonComponent;
   @ViewChildren(GnomeComponent) gnomeComponents: QueryList<GnomeComponent>;
   public gnomes: GnomeInfo[] = [];
   public playingSequence: boolean;
