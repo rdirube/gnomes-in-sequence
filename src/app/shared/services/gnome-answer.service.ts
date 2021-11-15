@@ -3,7 +3,7 @@ import {AnswerService, GameActionsService, MicroLessonMetricsService} from 'micr
 import {TimeToLoseService} from './time-to-lose.service';
 import {GnomesChallengeService} from './gnomes-challenge.service';
 import {PartCorrectness, UserAnswer} from 'ox-types';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,7 @@ export class GnomeAnswerService extends AnswerService {
     });
     this.gameActionsService.finishedTimeOfExercise.subscribe(() => {
       console.log('finishedTimeOfExercise');
+      // this.currentAnswer.parts.push({correctness: 'wrong', parts: []});
       this.onTryAnswer();
     });
   }
@@ -41,19 +42,11 @@ export class GnomeAnswerService extends AnswerService {
       console.log('trying wrong answer');
       this.onTryAnswer();
     }
-    /*
-        if (answerGnomes.length === this.currentAnswer.sequence.length) {
-          this.gameActions.tryAnswer.emit(this.currentAnswer);
-          // todo hago 'answerGnomes.length - 1 ' en caso de inversos, eso lo tengo que scar en caso de comun
-        } else if (answerGnomes[answerGnomes.length - this.currentAnswer.sequence.length] !== gnomeIndex) {
-          this.gameActions.tryAnswer.emit(this.currentAnswer);
-        }
-    */
   }
 
   protected checkAnswer(answer: UserAnswer): Observable<PartCorrectness> {
-    console.log('hehe');
-    return super.checkAnswer(answer);
+    return of(answer.parts.length === this.challenge.exercise.sequenceGnomeIds.length
+    && answer.parts.every(z => z.correctness === 'correct') ? 'correct' : 'wrong');
   }
 
 //   protected checkAnswer(answer: UserAnswer): Observable<boolean> {

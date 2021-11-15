@@ -31,9 +31,7 @@ import anime from 'animejs';
   styleUrls: ['./game-body.component.scss']
 })
 export class GameBodyComponent extends SubscriberOxDirective implements OnInit, AfterViewInit {
-  ngAfterViewInit(): void {
-    this.menuButton.interactable = false;
-  }
+
 
   @ViewChild(ToInGameMenuButtonComponent) menuButton: ToInGameMenuButtonComponent;
   @ViewChildren(GnomeComponent) gnomeComponents: QueryList<GnomeComponent>;
@@ -41,7 +39,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   public playingSequence: boolean;
   public sequence: number[];
   public sequenceSubscription: Subscription;
-  public currentStatus:GnomeSceneStatus;
+  public currentStatus: GnomeSceneStatus;
 
 
   public currentScenePositions = [];
@@ -50,7 +48,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   public sceneSvg: string;
   public surpriseInfo: SurpriseAnimationInfo;
 
-  
+
   constructor(private challengeService: GnomesChallengeService,
               private metricsService: MicroLessonMetricsService<GnomesExercise>,
               private hintService: HintService,
@@ -66,6 +64,9 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
     // });
     // this.addSubscription(this.gameActions.restartGame, z => {
     // });
+    this.addSubscription(this.gameActions.finishedTimeOfExercise, z => {
+      this.interactableGnomes = false;
+    });
     this.addSubscription(this.gameActions.showHint, z => {
       this.answerService.cleanAnswer();
       this.playSequence();
@@ -116,7 +117,10 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
     });
   }
 
-  
+
+  ngAfterViewInit(): void {
+    this.menuButton.interactable = false;
+  }
 
   shuffleGnomes(completeFunc: () => void = () => {
   }): void {
@@ -144,10 +148,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
-
   ngOnInit(): void {
   }
-
 
 
   public playSequence(): void {
@@ -159,7 +161,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
     // this.currentScene.gnomes.toArray().forEach(gnome => {
     this.interactableGnomes = false;
     // this.sequenceSubscription = timer(duration === 1 ? 500 : 1500, 1000 * duration)
-    console.log('Real time executing between sounds: ', 1000 * (duration + this.challengeService.exercise.timeBetweenSounds));
+    console.log('Play sequence.');
+    // console.log('Real time executing between sounds: ', 1000 * (duration + this.challengeService.exercise.timeBetweenSounds));
     this.sequenceSubscription = timer(1000,
       1000 * (duration + this.challengeService.exercise.timeBetweenSounds))
       .pipe(take(this.sequence.length + 1)).subscribe(value => {
@@ -183,16 +186,15 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
-
   onClickGnome(index: number): void {
     if (this.interactableGnomes) {
-      console.log(' Click gnome ', this.gnomes[index]);
+      // console.log(' Click gnome ', this.gnomes[index]);
       this.gnomeComponents.toArray()[index].playAudio();
       this.answerService.addPartialAnswer(index);
       this.gameActions.actionToAnswer.emit();
+      this.timeToLose.restart(this.challengeService.exercise.maxSecondsBetweenAnswers);
     }
   }
-
 
 
   private addMetric(): void {
@@ -226,7 +228,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
     this.addSubscription(this.gameActions.checkedAnswer.pipe(take(1)),
       z => {
         myMetric.finishTime = new Date();
-        console.log('Finish time');
+        console.log('Finish metric time, it means checkAnswer');
       });
     this.metricsService.addMetric(myMetric as ExerciseData);
     this.metricsService.currentMetrics.exercises++;
@@ -247,11 +249,21 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
     };
   }
 
-  private auxIndex = 0;
-  private auxList = ['jardin-alacena-5', 'jardin-biblioteca-6', 'jardin-baño-5', 'jardin-chimenea-4', 'jardin-chimenea-2', 'jardin-escaleras-6', 'jardin-establo-4'];
-  // private auxList = ['mina-dragon-3', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
-  private animationMode = true;
-  itsTutorial = true;
+  private finishSequence(): void {
+    this.playingSequence = false;
+    this.gnomeComponents.toArray()[this.sequence[this.sequence.length - 1]].stopAudio();
+    this.interactableGnomes = true;
+    this.currentStatus = 'jugar';
+    this.hintService.checkHintAvailable();
+    this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
+  }
+
+  // private auxIndex = 0;
+  // private auxList = ['jardin-alacena-5', 'jardin-biblioteca-6', 'jardin-baño-5',
+  // 'jardin-chimenea-4', 'jardin-chimenea-2', 'jardin-escaleras-6', 'jardin-establo-4'];
+  // // private auxList = ['mina-dragon-3', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
+  // private animationMode = true;
+  // itsTutorial = true;
 
   // @HostListener('document:keydown', ['$event'])
   // asdsada($event: KeyboardEvent): void {
@@ -311,15 +323,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   //   }
   // }
 
-  private finishSequence(): void {
-    this.playingSequence = false;
-    this.gnomeComponents.toArray()[this.sequence[this.sequence.length - 1]].stopAudio();
-    this.interactableGnomes = true;
-    this.currentStatus = 'jugar';
-    console.log('Complete');
-    this.hintService.checkHintAvailable();
-    this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
-  }
+
   //
   // public animationSize = [10, 10];
   // private animationSizeIndex = 0;
@@ -377,9 +381,9 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   //     this.sceneSvg = 'gnome-game/svg/Fondos/' + this.auxList[inde] + '.svg';
   //   }
   // }
-  mustClick(i: number) {
-    return i === 0;
-  }
+  // mustClick(i: number) {
+  //   return i === 0;
+  // }
 }
 
 function changeVhValue(value: string, change: number): string {

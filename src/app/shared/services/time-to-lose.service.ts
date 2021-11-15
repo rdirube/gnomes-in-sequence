@@ -40,6 +40,7 @@ export class TimeToLoseService {
       }
       this.timeToAnswer += 0.1 / totalSeconds;
       if (this.timeToAnswer >= 1) {
+        console.log('Sending start, and for some reason finishedTimeOfExercise');
         this.timerToLoseSubscription.unsubscribe();
         this.gameActions.finishedTimeOfExercise.emit();
       }

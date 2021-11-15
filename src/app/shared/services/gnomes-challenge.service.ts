@@ -33,7 +33,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
       this.setInitialExercise();
     });
     gameActionsService.showNextChallenge.subscribe(z => {
-      console.log('showNextChallenge');
+      // console.log('showNextChallenge');
     });
     this.currentExercise.pipe(filter(z => z === undefined)).subscribe(z => {
 
@@ -45,9 +45,9 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   }
 
   protected equalsExerciseData(a: GnomesExercise, b: GnomesExercise): boolean {
-    console.log(equalArrays(a.gnomes, b.gnomes, (one, two) => one.color === two.color)
-      && equalArrays(a.sequenceGnomeIds, b.sequenceGnomeIds)
-      && a.soundDuration === b.soundDuration);
+    // console.log(equalArrays(a.gnomes, b.gnomes, (one, two) => one.color === two.color)
+    //   && equalArrays(a.sequenceGnomeIds, b.sequenceGnomeIds)
+    //   && a.soundDuration === b.soundDuration);
     return equalArrays(a.gnomes, b.gnomes, (one, two) => one.color === two.color)
       && equalArrays(a.sequenceGnomeIds, b.sequenceGnomeIds)
       && a.soundDuration === b.soundDuration;
@@ -66,19 +66,19 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   }
 
   protected generateNextChallenge(subLevel: number): ExerciseOx<GnomesExercise> {
-    console.log('generateNextChallenge', this.exercise);
+    // console.log('generateNextChallenge', this.exercise);
     for (let i = 0; i < this.exerciseConfig.stepCount; i++) {
       this.exercise.sequenceGnomeIds.push(
         anyElement(this.getValidGnomeIds(3, this.exercise.sequenceGnomeIds, this.exercise.gnomes)));
     }
     const minSoundDuration = 0.35;
     const minTimeBetween = 0.1;
-    console.log('initial values: ', this.exercise.soundDuration, this.exercise.timeBetweenSounds);
+    // console.log('initial values: ', this.exercise.soundDuration, this.exercise.timeBetweenSounds);
     this.exercise.soundDuration = Math.max(minSoundDuration,
       this.exerciseConfig.soundDurationMultiplierPerExercise * this.exercise.soundDuration);
     this.exercise.timeBetweenSounds = Math.max(minTimeBetween,
       this.exerciseConfig.timeBetweenSoundsMultiplierPerExercise * this.exercise.timeBetweenSounds);
-    console.log('after miltiplues  values: ', this.exercise.soundDuration, this.exercise.timeBetweenSounds);
+    // console.log('after miltiplues  values: ', this.exercise.soundDuration, this.exercise.timeBetweenSounds);
     // const exercise1: GnomesExercise = {
     //   gnomes: [{color: 'red'}, {color: 'yellow'}],
     //   soundDuration: randomBetween(95, 100) / 100
@@ -139,7 +139,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
   }
 
   private setInitialExercise(): void {
-    console.log(' Setting inital exercise');
+    // console.log(' Setting inital exercise');
     const gnomes = [];
     const gnomeCount = randomBetween(this.exerciseConfig.gnomeMinCount, this.exerciseConfig.gnomeMaxCount);
     this.exerciseConfig.forcedGnomes.forEach(z => {
