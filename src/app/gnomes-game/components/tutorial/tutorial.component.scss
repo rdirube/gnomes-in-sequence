@@ -27,6 +27,11 @@
     }
 }
 
+.game-container {
+    width:100vw;
+    height:100vh;
+}
+
 
 .gnome {
     @extend .myAbsolute;

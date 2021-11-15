@@ -54,10 +54,11 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   sequenceEmitter: EventEmitter<number> = new EventEmitter();
 
 
-  currentStatus: GnomeSceneStatus = 'ver';
+  currentStatus!: GnomeSceneStatus;
   public gnomesTutorial: GnomeInfo[] = [];
   public allGnomes: GnomeInfo[] = [];
   public sceneSvg: string;
+  public fourthStepActivate: boolean = false;
   public surpriseInfo: SurpriseAnimationInfo;
   public sequence: GnomeInfo[] = [];
   public currentScenePositions: GnomesPosition[] = [];
@@ -72,7 +73,6 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   public sequenceCounter: number;
   public stepTutorial: number;
   public currentGnomeToSelect: GnomeInfo;
-  public fourthStepActivate: boolean;
   public gnomesUsedSecuence: number[] = [];
   public stepArray: number[] = [1, 2, 3, 4];
   public isTutorialComplete: boolean;
@@ -81,15 +81,13 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   public repeatTutorialButtomText = 'Repetir Tutorial';
   public middleStepsArray: number[] = this.stepArray.filter((z, i) => i < this.stepArray.length - 1 && i > 0);
   public stepsTitles: StepsTutorial[] = [{
-    title: '¡Bienvenido! Presta atención a los gnomos'
+    title: '¡Buenas! ¡Te damos la bienvenida!'
   }, {
-    title: 'Haz click sobre el gnomo iluminado',
+    title: 'Haz CLICK sobre el gnomo que cantó',
   }, {
-    title: 'Repite la siguiente secuencia',
+    title: 'Repite la secuencia',
   }, {
     title: 'Intenta hacer la secuencia lo mas larga posible!',
-  }, {
-    title: '¡Clickea algún gnomo, el tiempo corre! (barra superior)',
   }
   ];
   public buttonClass:string[]= ["complete-buttom", "saltar-tutorial-button"]
@@ -119,15 +117,8 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
         timer(600).subscribe(z => {
           this.middleSecuences();
         });
-
-      } else if (this.stepTutorial === this.stepArray[this.stepArray.length - 1]) {
-        this.textChangeAnimation(500, 4);
-        timer(600).subscribe(z => {
-          this.limitTimeStep();
-        });
-      } else {
-        timer(8600).subscribe(z => {
-          this.fourthStepActivate = false;
+      }  else {
+        timer(1200).subscribe(z => {
           this.gnomesTutorialText.originalText = '';
           this.tutorialText.setOxTextInfo = this.gnomesTutorialText;
           this.isTutorialComplete = true;
@@ -233,12 +224,7 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
   }
 
 
-  limitTimeStep(): void {
-    this.fourthStepActivate = true;
-    this.stepTutorial++;
-    this.selectTrigger.emit();
-  }
-
+  
 
   gnomeToSelect(): void {
     this.currentStatus = 'jugar';
@@ -260,7 +246,6 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
       this.sequence.shift();
       this.currentGnomeToSelect = this.sequence[0];
       this.selectTrigger.emit();
-      console.log('me clickearon', this.gnomesTutorial);
     } else {
       this.soundService.playCantClickSound(ScreenTypeOx.Game);
     }
@@ -278,7 +263,7 @@ export class TutorialComponent extends SubscriberOxDirective implements OnInit, 
     this.currentStatus = 'ver';
     this.stepTutorial = 1;
     this.sequenceCounter = 0;
-    timer(2000).subscribe(sadas => {
+    timer(2700).subscribe(sadas => {
       this.sequenceMethod(0);
       this.stepTutorial++;
       this.textChangeAnimation(600, 1);
