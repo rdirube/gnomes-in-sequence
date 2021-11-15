@@ -27,9 +27,9 @@ export class StatusBannerComponent implements OnInit {
     this.currentBannerSvg = 'gnome-game/svg/jugar.svg';
     this.currentTextId = 'play';
     this.currentBannerText = 'Jugar';
-    console.log('this.transloco', this.transloco);
-    console.log('this.transloco', this.transloco.translate('watch'));
-    console.log(this.transloco.getTranslation().get('watch'));
+    // console.log('this.transloco', this.transloco);
+    // console.log('this.transloco', this.transloco.translate('watch'));
+    // console.log(this.transloco.getTranslation().get('watch'));
   }
 
   changeStatus(newStatus: GnomeSceneStatus): void {
@@ -44,8 +44,8 @@ export class StatusBannerComponent implements OnInit {
         easing: 'linear',
         complete: () => {
           this.currentBannerSvg = watching ? 'gnome-game/svg/ver.svg' : 'gnome-game/svg/jugar.svg';
-          // this.currentBannerText = watching ? 'Ver' : 'Jugar';
-          this.currentTextId = watching ? 'watch' : 'play';
+          this.currentBannerText = watching ? 'Ver' : 'Jugar';
+          // this.currentTextId = watching ? 'watch' : 'play';
           anime({
             targets: '.banner',
             easing: 'linear',
