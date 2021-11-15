@@ -19,6 +19,11 @@
                  [gnomeInfo]="gnome" class="myAbsolute gnome" (click)="onClickGnome(i)"
                  [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}">
       </app-gnome>
+<!--      <h1 *ngFor="let gnome of gnomes; index as i"-->
+<!--                 class="myAbsolute gnome"-->
+<!--                 [ngStyle]="{'top': currentScenePositions[i].y, 'left': currentScenePositions[i].x}">-->
+<!--        {{i}}-->
+<!--      </h1>-->
     </div>
     <app-surprise-animation insideRatio
                             [sequencePlaying]="playingSequence"

@@ -1,5 +1,6 @@
-import { GnomeComponent } from "../components/gnome/gnome.component";
-import { timer } from 'rxjs';
+import {GnomeComponent} from '../components/gnome/gnome.component';
+import {timer} from 'rxjs';
+
 export type GnomeSceneStatus = 'ver' | 'jugar';
 
 
@@ -63,9 +64,11 @@ export interface GnomesNivelation {
 
 export interface GnomeScene {
   name: string;
-  positions: { x: string, y: string }[];
+  positions: GnomesPosition[];
   progressAnimation: string;
   surpriseAnimationInfo: SurpriseAnimationInfo;
+  symmetricPositionIndexes: { quantity: number, positionIndexes: number[] }[];
+  // symmetricPositionIndexes: { [key: string]: number[] };
 }
 
 // "name": "mina-dragon-4",
@@ -91,19 +94,11 @@ export type GnomeAnswer = number[];
 
 
 export interface GnomesPosition {
-  x:string,
-  y:string
+  x: string;
+  y: string;
 }
-
-
 
 export interface StepsTutorial {
-  title:string;
+  title: string;
 }
-  
-
-
-
-
-
 

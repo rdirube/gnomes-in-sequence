@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {GnomeInfo, GnomeSceneStatus, GnomesExercise, SurpriseAnimationInfo} from '../../models/types';
+import {GnomeInfo, GnomeScene, GnomeSceneStatus, GnomesExercise, GnomesPosition, SurpriseAnimationInfo} from '../../models/types';
 import {GnomesChallengeService} from '../../../shared/services/gnomes-challenge.service';
 import {SubscriberOxDirective, ToInGameMenuButtonComponent} from 'micro-lesson-components';
 import {filter, take} from 'rxjs/operators';
@@ -106,13 +106,14 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
       });
       this.sequence = exercise.sequenceGnomeIds;
       if (this.metricsService.currentMetrics.expandableInfo.exercisesData.length === 1) {
-        this.currentScenePositions = exercise.scene.positions;
+        this.currentScenePositions = this.getScenePositionsOrdererByElementCount(exercise.scene, exercise.gnomes.length);
         this.showCountDown = true;
       } else {
         if (this.challengeService.exerciseConfig.shuffleAfterUserAnswer) {
           this.shuffleGnomes(() => this.playSequence());
         } else {
-          this.currentScenePositions = exercise.scene.positions;
+          this.currentScenePositions = this.getScenePositionsOrdererByElementCount(exercise.scene, exercise.gnomes.length);
+          // this.currentScenePositions = exercise.scene.positions;
           timer(1000).subscribe(hhh => {
             this.playSequence();
           });
@@ -187,6 +188,12 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
 
   startGame(): void {
     this.showCountDown = false;
+    // console.log('For this the game is not playing');
+    // console.log('For this the game is not playing');
+    // console.log('For this the game is not playing');
+    // console.log('For this the game is not playing');
+    // console.log('For this the game is not playing');
+    // console.log('For this the game is not playing');
     this.playSequence();
   }
 
@@ -272,8 +279,8 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
 
   // private auxIndex = 0;
   // private auxList = ['jardin-alacena-5', 'jardin-biblioteca-6', 'jardin-baño-5',
-  // 'jardin-chimenea-4', 'jardin-chimenea-2', 'jardin-escaleras-6', 'jardin-establo-4'];
-  // // private auxList = ['mina-dragon-3', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
+  //   'jardin-chimenea-4', 'jardin-chimenea-2', 'jardin-escaleras-6', 'jardin-establo-4'];
+  // private auxList = ['mina-dragon-3', 'mina-escalera-3', 'mina-herramientas-2', 'mina-laboratorio-4', 'mina-momia-4'];
   // private animationMode = true;
   // itsTutorial = true;
 
@@ -283,9 +290,16 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   //   //   this.animationModeKeyDown($event);
   //   //   return;
   //   // }
-  //   console.log($event);
+  //   // console.log($event);
   //   if (this.auxIndex >= this.auxList.length) {
   //     this.auxIndex = 0;
+  //   }
+  //   if ([2, 3, 4, 5, 6].includes(+$event.key)) {
+  //     console.log(+$event.key);
+  //     const auxGnomes: GnomeInfo[] = shuffle(this.challengeService.info.gnomes).slice(+$event.key);
+  //     this.currentScenePositions = this
+  //       .getScenePositionsOrdererByElementCount(this.challengeService.info.scenes.find(z => z.name === this.auxList[Math.max(this.auxIndex - 1, 0)]), +$event.key);
+  //     this.gnomes = this.currentScenePositions.map((a, i) => auxGnomes[i]);
   //   }
   //   if ($event.key === 'n') {
   //     this.timeToLose.stop();
@@ -309,6 +323,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   //     const auxGnomes: GnomeInfo[] = shuffle(this.challengeService.info.gnomes);
   //     const temp = this.auxList[this.auxIndex++];
   //     this.sceneSvg = 'gnome-game/svg/Fondos/' + temp + '.svg';
+  //     this.surpriseInfo = this.challengeService.info.scenes.find(z => z.name === temp).surpriseAnimationInfo;
   //     this.currentScenePositions = this.challengeService.info.scenes.find(z => z.name === temp).positions;
   //     this.gnomes = this.currentScenePositions.map((a, i) => auxGnomes[i]);
   //   }
@@ -402,8 +417,13 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
       this.sequenceSubscription = undefined;
     }
   }
+
+  private getScenePositionsOrdererByElementCount(scene: GnomeScene, length: number): GnomesPosition[] {
+    const specialPositions = scene.symmetricPositionIndexes?.find(z => z.quantity === length)?.positionIndexes;
+    return specialPositions ? specialPositions.map(z => scene.positions[z]) : scene.positions;
+  }
 }
 
-// fun ction changeVhValue(value: string, change: number): string {
-//   return (+replaceAll(value, 'vh', '') + change) + 'vh';
-// }
+function changeVhValue(value: string, change: number): string {
+  return (+replaceAll(value, 'vh', '') + change) + 'vh';
+}
