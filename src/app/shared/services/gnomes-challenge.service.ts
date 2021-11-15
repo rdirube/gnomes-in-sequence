@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {anyElement, equalArrays, ExerciseOx, lastNElementsOfArray, PreloaderOxService, randomBetween} from 'ox-core';
-import {ExpandableInfo, Showable} from 'ox-types';
+import {ExerciseOx, PreloaderOxService} from 'ox-core';
+import {ExpandableInfo, Showable, randomBetween, anyElement, equalArrays, lastNElementsOfArray} from 'ox-types';
 import {GnomeInfo, GnomeScene, GnomesExercise, GnomesNivelation} from '../../gnomes-game/models/types';
 import {AppInfoOxService, ChallengeService, FeedbackOxService, GameActionsService, LevelService, SubLevelService} from 'micro-lesson-core';
 import {filter} from 'rxjs/operators';
@@ -97,6 +97,7 @@ export class GnomesChallengeService extends ChallengeService<GnomesExercise, any
 
 
   beforeStartGame(): void {
+    console.log('Before start game.');
     this.info = JSON.parse(this.preloaderService.getResourceData('gnome-game/jsons/gnomes-and-scenes-info.json'));
     this.allGnomes = this.info.gnomes;
     const gameCase = this.appInfo.microLessonInfo.extraInfo.exerciseCase;

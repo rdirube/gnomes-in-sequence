@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, HostListener, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {GnomeInfo, GnomeSceneStatus, GnomesExercise, SurpriseAnimationInfo} from '../../models/types';
 import {GnomesChallengeService} from '../../../shared/services/gnomes-challenge.service';
 import {SubscriberOxDirective, ToInGameMenuButtonComponent} from 'micro-lesson-components';
@@ -22,7 +22,7 @@ import {
   WorkingMemorySchemaData
 } from 'ox-types';
 import {getGnomeAudio, getGnomeImage} from '../../../shared/functions/gnomes-functions';
-import {anyElement, replaceAll, shuffle} from 'ox-core';
+import {anyElement, replaceAll, shuffle} from 'ox-types';
 import anime from 'animejs';
 import {TimeLeftComponent} from '../../../shared/components/time-left/time-left.component';
 
@@ -31,7 +31,7 @@ import {TimeLeftComponent} from '../../../shared/components/time-left/time-left.
   templateUrl: './game-body.component.html',
   styleUrls: ['./game-body.component.scss']
 })
-export class GameBodyComponent extends SubscriberOxDirective implements OnInit, AfterViewInit {
+export class GameBodyComponent extends SubscriberOxDirective implements OnInit, AfterViewInit, OnDestroy {
 
 
   @ViewChild(ToInGameMenuButtonComponent) menuButton: ToInGameMenuButtonComponent;
@@ -60,12 +60,14 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
               private microLessonCommunication: MicroLessonCommunicationService<any>,
               private answerService: GnomeAnswerService) {
     super();
+    console.log('Jeje');
     this.hintService.checkValueOnShowNextChallenge = false;
     // this.addSubscription(this.gameActions.microLessonCompleted, z => {
     //   this.showCountDown = undefined;
     // });
-    // this.addSubscription(this.gameActions.restartGame, z => {
-    // });
+    this.addSubscription(this.gameActions.restartGame, z => {
+      this.destroySequenceSubscription();
+    });
     this.addSubscription(this.gameActions.finishedTimeOfExercise, z => {
       this.interactableGnomes = false;
     });
@@ -196,7 +198,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
       this.answerService.addPartialAnswer(index);
       this.gameActions.actionToAnswer.emit();
       this.timeToLose.restart(this.challengeService.exercise.maxSecondsBetweenAnswers);
-      this.timer.timerOut(() => this.timer.playAnimation(this.challengeService.exercise.maxSecondsBetweenAnswers)) ;
+      this.timer.timerOut(() => this.timer.playAnimation(this.challengeService.exercise.maxSecondsBetweenAnswers));
     }
   }
 
@@ -261,6 +263,11 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
     this.hintService.checkHintAvailable();
     this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
     this.timer.playAnimation(this.challengeService.exercise.maxSecondsBetweenAnswers);
+  }
+
+  ngOnDestroy(): void {
+    this.destroySequenceSubscription();
+    super.ngOnDestroy();
   }
 
   // private auxIndex = 0;
@@ -389,8 +396,14 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   // mustClick(i: number) {
   //   return i === 0;
   // }
+  private destroySequenceSubscription(): void {
+    if (this.sequenceSubscription) {
+      this.sequenceSubscription.unsubscribe();
+      this.sequenceSubscription = undefined;
+    }
+  }
 }
 
-function changeVhValue(value: string, change: number): string {
-  return (+replaceAll(value, 'vh', '') + change) + 'vh';
-}
+// fun ction changeVhValue(value: string, change: number): string {
+//   return (+replaceAll(value, 'vh', '') + change) + 'vh';
+// }

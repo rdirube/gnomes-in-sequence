@@ -1,4 +1,4 @@
-import {Component, ElementRef} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {CommunicationOxService, I18nService, PreloaderOxService, ResourceOx, ResourceType} from 'ox-core';
 import {ResourceFinalStateOxBridge, ScreenTypeOx, HasTutorialOxBridge} from 'ox-types';
 import {environment} from '../environments/environment';
@@ -19,6 +19,8 @@ import {
 import {TranslocoService} from '@ngneat/transloco';
 import {HttpClient} from '@angular/common/http';
 import {PostMessageBridgeFactory} from 'ngox-post-message';
+import {TimeToLoseService} from './shared/services/time-to-lose.service';
+import {TutorialComponent} from './gnomes-game/components/tutorial/tutorial.component';
 
 @Component({
   selector: 'app-root',
@@ -27,21 +29,22 @@ import {PostMessageBridgeFactory} from 'ngox-post-message';
 })
 export class AppComponent extends BaseMicroLessonApp {
   title = 'gnomes-in-sequence';
-
+  @ViewChild(TutorialComponent) tutorialComponent: TutorialComponent;
   public showingTutorial = false;
 
   constructor(preloader: PreloaderOxService, translocoService: TranslocoService, wumboxService: InWumboxService,
               communicationOxService: CommunicationOxService, microLessonCommunicationService: MicroLessonCommunicationService<any>,
               progressService: ProgressService, elementRef: ElementRef, gameActions: GameActionsService<any>,
               endGame: EndGameService, i18nService: I18nService, levelService: LevelService, http: HttpClient,
-              challenge: GnomesChallengeService, appInfo: AppInfoOxService,
+              private gnomesChallengeService: GnomesChallengeService, appInfo: AppInfoOxService,
               microLessonMetrics: MicroLessonMetricsService<any>, // Todo
               resourceStateService: ResourceStateService,
               sound: SoundOxService, bridgeFactory: PostMessageBridgeFactory,
-              transloco: TranslocoService) {
+              transloco: TranslocoService,
+              private timeToLose: TimeToLoseService) {
     super(preloader, translocoService, wumboxService, communicationOxService, microLessonCommunicationService,
       progressService, elementRef, gameActions, endGame,
-      i18nService, levelService, http, challenge, appInfo, microLessonMetrics, sound, bridgeFactory);
+      i18nService, levelService, http, gnomesChallengeService, appInfo, microLessonMetrics, sound, bridgeFactory);
     microLessonCommunicationService.sendMessageMLToManager(HasTutorialOxBridge, true);
     communicationOxService.receiveI18NInfo.subscribe(z => {
       console.log('i18n', z);
@@ -53,7 +56,11 @@ export class AppComponent extends BaseMicroLessonApp {
     });
     gameActions.showTutorial.subscribe(z => {
       console.log('showing tutorial');
+      this.timeToLose.stop();
       this.showingTutorial = true;
+      if (this.tutorialComponent) {
+        this.tutorialComponent.startTutorialMethod();
+      }
     });
     preloader.addResourcesToLoad(this.getGameResourcesToLoad());
   }
@@ -124,10 +131,6 @@ export class AppComponent extends BaseMicroLessonApp {
 //
 //   }
 
-  // onTutorialEnd(complted: { completed: boolean }): void {
-  //   console.log('tutorial end, compelted ? ', complted);
-  //   this.showingTutorial = false;
-  // }
 }
 
 function getResourceArrayFromUrlList(urlList: string[], resourceType: ResourceType, isLocal: boolean): ResourceOx[] {

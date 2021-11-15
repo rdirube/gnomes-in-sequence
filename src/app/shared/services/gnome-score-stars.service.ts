@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ScoreStarsService} from 'micro-lesson-core';
-import {MiniLessonMetrics} from 'ox-types';
-import {numberArrayRange, sum} from 'ox-core';
+import {MiniLessonMetrics, numberArrayRange, sum} from 'ox-types';
 
 @Injectable({
   providedIn: 'root'
