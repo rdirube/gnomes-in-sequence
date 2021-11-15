@@ -9,6 +9,9 @@
     [status]="currentStatus"
     [sceneSvg]="sceneSvg"
     class="myAbsolute" fxFlex="grow"></app-scene>
+  <div class="full-width myAbsolute" style="height: 10vh; pointer-events: none" fxLayoutAlign="end end">
+    <app-time-left  style="width: 8vh; height: 8vh; transform: translateX(-15vh)"></app-time-left>
+  </div>
   <mlc-ratio-container ratio="4:3" style="position: relative">
     <div insideRatio style="width: 100%; height: 100%; z-index: 1"
          fxLayoutAlign="center center">

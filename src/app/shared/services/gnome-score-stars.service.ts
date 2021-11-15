@@ -19,8 +19,8 @@ export class GnomeScoreStarsService extends ScoreStarsService<any> {
         metrics.pointsScore += ans.parts.filter(part => part.correctness === 'correct').length * gnomeValue;
       });
     });
-    metrics.pointsScore = Math.max(500, metrics.pointsScore);
-    metrics.score = metrics.pointsScore;
+    metrics.pointsScore = Math.round(Math.max(500, metrics.pointsScore));
+    metrics.score = Math.round(metrics.pointsScore);
     // En los primeros n (5) ejercicios cada gnomo vale la sumatoria 6000/(1 a n) = valorGnomo (400).
     //   En los siguientes m a infinito ejercicios (9-5 = 4) cada gnomo vale 4000/=
 

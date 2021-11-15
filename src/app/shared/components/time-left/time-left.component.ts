@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import anime from 'animejs';
 import {TimeToLoseService} from '../../services/time-to-lose.service';
 import {SubscriberOxDirective} from 'micro-lesson-components';
@@ -9,39 +9,62 @@ import {interval, Subscription} from 'rxjs';
   templateUrl: './time-left.component.html',
   styleUrls: ['./time-left.component.scss']
 })
-export class TimeLeftComponent extends SubscriberOxDirective implements OnInit {
+export class TimeLeftComponent extends SubscriberOxDirective implements OnInit, AfterViewInit {
+
 
   @ViewChild('movingBackground') movingBackground: ElementRef;
 
   secondsIntervalSubs: Subscription;
   public currentTime: number;
+  private animation: any;
 
 
-  constructor(private timeToLoseService: TimeToLoseService) {
+  constructor(private timeToLoseService: TimeToLoseService, private elementRef: ElementRef) {
     super();
-    this.addSubscription(this.timeToLoseService.timerStart, x => {
-      this.playAnimation(x);
-    });
+    // this.addSubscription(this.timeToLoseService.timerStart, x => {
+    //   this.timerOut(() => this.playAnimation(x));
+    // });
   }
 
   ngOnInit(): void {
   }
 
-  private playAnimation(seconds: number): void {
-    anime.remove(this.movingBackground);
+
+  public timerOut(complete = () => {
+  }): void {
+    anime.remove('.timer');
+    this.animation = undefined;
+    this.removeSecondsIntervalSubs();
+    anime({
+      targets: '.timer',
+      translateY: '-20vh',
+      duration: 0,
+      complete
+    });
+  }
+
+  public playAnimation(seconds: number): void {
+    const showWhen = 5;
+    anime.remove('.timer');
+    this.animation = undefined;
     this.removeSecondsIntervalSubs();
     this.currentTime = seconds;
     this.secondsIntervalSubs = interval(1000).subscribe(x => {
       this.currentTime = Math.max(0, this.currentTime - 1);
+      if (this.currentTime < showWhen && !this.animation) {
+        this.animation = anime({
+          targets: '.timer',
+          backgroundColor: {value: ['#dcd247', '#d54639'], easing: 'linear', duration: Math.min(showWhen, this.currentTime) * 1000},
+          translateY: {
+            value: ['-20vh', '50%'],
+            duration: 2000,
+          },
+          duration: Math.min(showWhen, this.currentTime) * 1000
+        });
+      }
     });
     // this.movingBackground.nativeElement.style.backgroundColor = 'red';
-    anime({
-      targets: this.movingBackground.nativeElement,
-      backgroundColor: ['#00ff00', '#ff0000'],
-      translateY: [0, '100%'],
-      easing: 'linear',
-      duration: seconds * 1000
-    });
+
     // anime({
     //   targets: '.timer',
     //   easing: 'linear',
@@ -55,4 +78,9 @@ export class TimeLeftComponent extends SubscriberOxDirective implements OnInit {
       this.secondsIntervalSubs = undefined;
     }
   }
+
+  ngAfterViewInit(): void {
+    this.timerOut();
+  }
+
 }

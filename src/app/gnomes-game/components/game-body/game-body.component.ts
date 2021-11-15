@@ -24,6 +24,7 @@ import {
 import {getGnomeAudio, getGnomeImage} from '../../../shared/functions/gnomes-functions';
 import {anyElement, replaceAll, shuffle} from 'ox-core';
 import anime from 'animejs';
+import {TimeLeftComponent} from '../../../shared/components/time-left/time-left.component';
 
 @Component({
   selector: 'app-game-body',
@@ -47,6 +48,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
   private interactableGnomes: boolean;
   public sceneSvg: string;
   public surpriseInfo: SurpriseAnimationInfo;
+  @ViewChild(TimeLeftComponent) timer: TimeLeftComponent;
 
 
   constructor(private challengeService: GnomesChallengeService,
@@ -119,7 +121,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
 
 
   ngAfterViewInit(): void {
-    this.menuButton.interactable = false;
+    // this.menuButton.interactable = false;
   }
 
   shuffleGnomes(completeFunc: () => void = () => {
@@ -154,6 +156,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
 
   public playSequence(): void {
     this.currentStatus = 'ver';
+    this.timer.timerOut();
     this.hintService.hintAvailable.next(false);
     const duration = this.challengeService.exercise.soundDuration;
     this.timeToLose.stop();
@@ -193,6 +196,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
       this.answerService.addPartialAnswer(index);
       this.gameActions.actionToAnswer.emit();
       this.timeToLose.restart(this.challengeService.exercise.maxSecondsBetweenAnswers);
+      this.timer.timerOut(() => this.timer.playAnimation(this.challengeService.exercise.maxSecondsBetweenAnswers)) ;
     }
   }
 
@@ -256,6 +260,7 @@ export class GameBodyComponent extends SubscriberOxDirective implements OnInit, 
     this.currentStatus = 'jugar';
     this.hintService.checkHintAvailable();
     this.timeToLose.start(this.challengeService.exercise.maxSecondsBetweenAnswers);
+    this.timer.playAnimation(this.challengeService.exercise.maxSecondsBetweenAnswers);
   }
 
   // private auxIndex = 0;
